@@ -1,0 +1,15 @@
+transformers
+accelerate
+datasets
+evaluate
+peft
+pillow
+scikit-learn
+pandas
+numpy
+matplotlib
+tqdm
+sentencepiece
+safetensors
+opencv-python
+pyyaml
