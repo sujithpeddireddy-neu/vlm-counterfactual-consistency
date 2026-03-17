@@ -217,14 +217,42 @@ def build_spatial_perturbation(example: Dict) -> Dict:
 
 
 def select_counterfactuals(example: Dict) -> List[Dict]:
+    q = normalize_question(example["question"])
     qtype = str(example.get("question_type", "")).lower()
-    outputs = [build_negation(example), build_entailment(example), build_spatial_perturbation(example)]
 
+    outputs = []
+
+    # Yes/no questions: negation is valid; spatial perturbation only if spatial phrase exists
+    if is_yes_no_question(q):
+        outputs.append(build_negation(example))
+        outputs.append(build_entailment(example))
+
+        if replace_spatial_phrase(q) is not None or qtype == "spatial":
+            outputs.append(build_spatial_perturbation(example))
+
+        return outputs
+
+    # Attribute questions: attribute swap + entailment
+    if qtype == "attribute":
+        outputs.append(build_attribute_swap(example))
+        outputs.append(build_entailment(example))
+        return outputs
+
+    # Object questions: object swap + entailment
     if qtype == "object":
         outputs.append(build_object_swap(example))
-    else:
-        outputs.append(build_attribute_swap(example))
+        outputs.append(build_entailment(example))
+        return outputs
 
+    # Spatial non-yes/no questions: only include spatial perturbation if it actually changes something
+    if qtype == "spatial":
+        outputs.append(build_entailment(example))
+        if replace_spatial_phrase(q) is not None:
+            outputs.append(build_spatial_perturbation(example))
+        return outputs
+
+    # Fallback: keep only broadly valid transformations
+    outputs.append(build_entailment(example))
     return outputs
 
 
