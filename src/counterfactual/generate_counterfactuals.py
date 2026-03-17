@@ -1,138 +1,79 @@
 import json
+import re
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 
-INTERVENTION_TYPES = [
-    "negation",
-    "attribute_swap",
-    "entailment",
-    "spatial_perturbation",
-]
+COLOR_SWAP = {
+    "red": "blue",
+    "blue": "red",
+    "black": "white",
+    "white": "black",
+    "green": "yellow",
+    "yellow": "green",
+    "brown": "gray",
+    "gray": "brown",
+    "pink": "purple",
+    "purple": "pink",
+    "orange": "black",
+}
+
+SIZE_SWAP = {
+    "small": "large",
+    "large": "small",
+    "big": "small",
+    "tall": "short",
+    "short": "tall",
+}
+
+MATERIAL_SWAP = {
+    "wood": "metal",
+    "metal": "wood",
+    "plastic": "glass",
+    "glass": "plastic",
+}
+
+OBJECT_SWAP = {
+    "umbrella": "bag",
+    "bag": "umbrella",
+    "ball": "frisbee",
+    "frisbee": "ball",
+    "phone": "book",
+    "book": "phone",
+    "cup": "bottle",
+    "bottle": "cup",
+}
+
+SPATIAL_SWAP = {
+    "on": "under",
+    "under": "on",
+    "left of": "right of",
+    "right of": "left of",
+    "in front of": "behind",
+    "behind": "in front of",
+    "above": "below",
+    "below": "above",
+}
+
+YES_NO_STARTERS = (
+    "is ",
+    "are ",
+    "does ",
+    "do ",
+    "did ",
+    "can ",
+    "could ",
+    "will ",
+    "would ",
+    "has ",
+    "have ",
+    "had ",
+)
 
 
 def load_questions(json_path: str) -> List[Dict]:
-    path = Path(json_path)
-    with path.open("r", encoding="utf-8") as f:
+    with Path(json_path).open("r", encoding="utf-8") as f:
         return json.load(f)
-
-
-def generate_negation(example: Dict) -> Dict:
-    q = example["question"]
-    a = example["answer"]
-
-    if a.lower() in {"yes", "no"}:
-        flipped = "no" if a.lower() == "yes" else "yes"
-        cf_question = q
-        expected = flipped
-    else:
-        cf_question = f"Is it not true that {q[:-1].lower()}?" if q.endswith("?") else f"Is it not true that {q.lower()}?"
-        expected = "unknown"
-
-    return {
-        "intervention_type": "negation",
-        "counterfactual_question": cf_question,
-        "expected_answer": expected,
-        "logical_relation": "negation",
-    }
-
-
-def generate_attribute_swap(example: Dict) -> Dict:
-    q = example["question"]
-    a = example["answer"]
-
-    swap_map = {
-        "red": "blue",
-        "blue": "red",
-        "black": "white",
-        "white": "black",
-        "small": "large",
-        "large": "small",
-    }
-
-    swapped = swap_map.get(a.lower(), f"not_{a.lower()}")
-    return {
-        "intervention_type": "attribute_swap",
-        "counterfactual_question": q,
-        "expected_answer": swapped,
-        "logical_relation": "attribute_change",
-    }
-
-
-def generate_entailment(example: Dict) -> Dict:
-    qtype = example.get("question_type", "").lower()
-    a = example["answer"]
-
-    if qtype == "attribute":
-        cf_question = f"Is there an object with attribute {a}?"
-        expected = "yes"
-    elif qtype == "object":
-        cf_question = f"Is the person holding something?"
-        expected = "yes"
-    elif qtype == "spatial":
-        cf_question = "Is the object visible in the image?"
-        expected = "yes"
-    else:
-        cf_question = "Does the image contain the relevant object(s)?"
-        expected = "yes"
-
-    return {
-        "intervention_type": "entailment",
-        "counterfactual_question": cf_question,
-        "expected_answer": expected,
-        "logical_relation": "entails",
-    }
-
-
-def generate_spatial_perturbation(example: Dict) -> Dict:
-    q = example["question"]
-
-    replacements = {
-        " on ": " under ",
-        " under ": " on ",
-        " left of ": " right of ",
-        " right of ": " left of ",
-        " in front of ": " behind ",
-        " behind ": " in front of ",
-    }
-
-    new_q = q
-    changed = False
-    for old, new in replacements.items():
-        if old in f" {q.lower()} ":
-            new_q = q.lower().replace(old.strip(), new.strip())
-            new_q = new_q[0].upper() + new_q[1:]
-            changed = True
-            break
-
-    if not changed:
-        new_q = f"[spatial perturbation needed] {q}"
-
-    return {
-        "intervention_type": "spatial_perturbation",
-        "counterfactual_question": new_q,
-        "expected_answer": "unknown",
-        "logical_relation": "spatial_change",
-    }
-
-
-def generate_counterfactual_family(example: Dict) -> Dict:
-    family = {
-        "question_id": example["question_id"],
-        "image_id": example["image_id"],
-        "original": {
-            "question": example["question"],
-            "answer": example["answer"],
-            "question_type": example.get("question_type", "unknown"),
-        },
-        "counterfactuals": [
-            generate_negation(example),
-            generate_attribute_swap(example),
-            generate_entailment(example),
-            generate_spatial_perturbation(example),
-        ],
-    }
-    return family
 
 
 def save_counterfactuals(families: List[Dict], output_path: str) -> None:
@@ -142,7 +83,165 @@ def save_counterfactuals(families: List[Dict], output_path: str) -> None:
         json.dump(families, f, indent=2, ensure_ascii=False)
 
 
-def main():
+def normalize_question(text: str) -> str:
+    return re.sub(r"\s+", " ", text.strip())
+
+
+def is_yes_no_question(question: str) -> bool:
+    q = question.strip().lower()
+    return q.startswith(YES_NO_STARTERS)
+
+
+def strip_qmark(question: str) -> str:
+    return question[:-1] if question.endswith("?") else question
+
+
+def swap_from_map(answer: str, mapping: Dict[str, str]) -> Optional[str]:
+    return mapping.get(answer.lower())
+
+
+def build_negation(example: Dict) -> Dict:
+    q = normalize_question(example["question"])
+    a = str(example["answer"]).strip().lower()
+
+    if is_yes_no_question(q) and a in {"yes", "no"}:
+        return {
+            "intervention_type": "negation",
+            "counterfactual_question": q,
+            "expected_answer": "no" if a == "yes" else "yes",
+            "logical_relation": "contradiction",
+            "generation_note": "yes/no answer flip",
+        }
+
+    lowered = strip_qmark(q).lower()
+    return {
+        "intervention_type": "negation",
+        "counterfactual_question": f"Is it false that {lowered}?",
+        "expected_answer": "yes",
+        "logical_relation": "negation",
+        "generation_note": "fallback negation template",
+    }
+
+
+def build_attribute_swap(example: Dict) -> Dict:
+    q = normalize_question(example["question"])
+    a = str(example["answer"]).strip()
+
+    swapped = (
+        swap_from_map(a, COLOR_SWAP)
+        or swap_from_map(a, SIZE_SWAP)
+        or swap_from_map(a, MATERIAL_SWAP)
+        or f"not_{a.lower()}"
+    )
+
+    return {
+        "intervention_type": "attribute_swap",
+        "counterfactual_question": q,
+        "expected_answer": swapped,
+        "logical_relation": "attribute_change",
+        "generation_note": "attribute answer swapped",
+    }
+
+
+def build_object_swap(example: Dict) -> Dict:
+    q = normalize_question(example["question"])
+    a = str(example["answer"]).strip()
+
+    swapped = swap_from_map(a, OBJECT_SWAP) or f"different_{a.lower()}"
+    return {
+        "intervention_type": "object_swap",
+        "counterfactual_question": q,
+        "expected_answer": swapped,
+        "logical_relation": "object_change",
+        "generation_note": "object answer swapped",
+    }
+
+
+def build_entailment(example: Dict) -> Dict:
+    qtype = str(example.get("question_type", "")).lower()
+    a = str(example["answer"]).strip().lower()
+
+    if qtype == "attribute":
+        cf_question = f"Is there something that has the attribute '{a}'?"
+    elif qtype == "object":
+        cf_question = "Is the referenced object present in the image?"
+    elif qtype == "spatial":
+        cf_question = "Are the referenced objects visible in the image?"
+    else:
+        cf_question = "Is the entity or relation mentioned in the question present in the image?"
+
+    return {
+        "intervention_type": "entailment",
+        "counterfactual_question": cf_question,
+        "expected_answer": "yes",
+        "logical_relation": "entails",
+        "generation_note": "weakened statement entailed by original QA pair",
+    }
+
+
+def replace_spatial_phrase(question: str) -> Optional[str]:
+    q = question
+    lowered = q.lower()
+
+    for old, new in sorted(SPATIAL_SWAP.items(), key=lambda x: len(x[0]), reverse=True):
+        pattern = rf"\b{re.escape(old)}\b"
+        if re.search(pattern, lowered):
+            replaced = re.sub(pattern, new, lowered, count=1)
+            replaced = replaced[0].upper() + replaced[1:]
+            if not replaced.endswith("?"):
+                replaced += "?"
+            return replaced
+    return None
+
+
+def build_spatial_perturbation(example: Dict) -> Dict:
+    q = normalize_question(example["question"])
+    replaced = replace_spatial_phrase(q)
+
+    if replaced is not None:
+        return {
+            "intervention_type": "spatial_perturbation",
+            "counterfactual_question": replaced,
+            "expected_answer": "unknown",
+            "logical_relation": "spatial_change",
+            "generation_note": "spatial phrase swapped",
+        }
+
+    return {
+        "intervention_type": "spatial_perturbation",
+        "counterfactual_question": q,
+        "expected_answer": "unknown",
+        "logical_relation": "spatial_change",
+        "generation_note": "no spatial phrase found; left unchanged",
+    }
+
+
+def select_counterfactuals(example: Dict) -> List[Dict]:
+    qtype = str(example.get("question_type", "")).lower()
+    outputs = [build_negation(example), build_entailment(example), build_spatial_perturbation(example)]
+
+    if qtype == "object":
+        outputs.append(build_object_swap(example))
+    else:
+        outputs.append(build_attribute_swap(example))
+
+    return outputs
+
+
+def generate_counterfactual_family(example: Dict) -> Dict:
+    return {
+        "question_id": example["question_id"],
+        "image_id": example["image_id"],
+        "original": {
+            "question": normalize_question(example["question"]),
+            "answer": example["answer"],
+            "question_type": example.get("question_type", "unknown"),
+        },
+        "counterfactuals": select_counterfactuals(example),
+    }
+
+
+def main() -> None:
     input_path = "data/raw/gqa_sample/questions.json"
     output_path = "data/counterfactual/gqa_sample_counterfactuals.json"
 
