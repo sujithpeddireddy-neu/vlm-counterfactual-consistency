@@ -5,11 +5,16 @@ venv/
 env/
 .ipynb_checkpoints/
 .DS_Store
+Deep_Learning_Project_Proposal.pdf
+CLAUDE.md
 
+paper/
+Data/
 data/raw/
 data/processed/
 data/counterfactual/
-results/
+results/checkpoints/
+cmd.txt
 *.pt
 *.bin
 *.ckpt

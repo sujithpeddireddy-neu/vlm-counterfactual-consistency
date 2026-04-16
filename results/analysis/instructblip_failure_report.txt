@@ -1,0 +1,435 @@
+
+================================================================================
+  FAILURE CASE ANALYSIS  |  model: INSTRUCTBLIP
+================================================================================
+  Total families:      1000
+  Dataset score:       0.6263
+  Showing worst 20 families
+================================================================================
+
+┌──────────────────────────────────────────────────────────────────────────────
+│ #1   [attribute]  Score: 0.00  (0/2 passed)  id=16433904
+│ Original Q:  Does the sky have the same color as the blouse?
+│ Answer: no  | Model said: no
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Doesn't the sky have the same color as the blouse?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    expected opposite yes/no answer; original=no, counterfactual=no
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: The attributes of the objects in the image are not visible.
+│    Reason:    entailed question should be yes; got the attributes of the objects ...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #2   [attribute]  Score: 0.00  (0/2 passed)  id=08615870
+│ Original Q:  On which side is the notebook?
+│ Answer: right  | Model said: left
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [attribute_swap | attribute_change]  ✘
+│    Q:         On which side is the notebook?
+│    Expected:  not_right
+│    Predicted: left
+│    Reason:    expected swapped attribute 'not_right'; got 'left'
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'right'?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #3   [attribute]  Score: 0.00  (0/2 passed)  id=05891503
+│ Original Q:  Is the sweater white or black?
+│ Answer: black  | Model said: black
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | negation]  ✘
+│    Q:         Is it false that is the sweater white or black?
+│    Expected:  yes
+│    Predicted: black
+│    Reason:    unknown logical relation: negation
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'black'?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #4   [attribute]  Score: 0.00  (0/2 passed)  id=09400771
+│ Original Q:  On which side of the photo is the pine, the right or the left?
+│ Answer: right  | Model said: right
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [attribute_swap | attribute_change]  ✘
+│    Q:         On which side of the photo is the pine, the right or the left?
+│    Expected:  not_right
+│    Predicted: right
+│    Reason:    expected swapped attribute 'not_right'; got 'right'
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'right'?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #5   [attribute]  Score: 0.00  (0/3 passed)  id=015124
+│ Original Q:  Is the brown dog on the right or on the left side of the picture?
+│ Answer: left  | Model said: left
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | negation]  ✘
+│    Q:         Is it false that is the brown dog on the right or on the left side of the picture?
+│    Expected:  yes
+│    Predicted: left
+│    Reason:    unknown logical relation: negation
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'left'?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    entailed question should be yes; got no
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Is the brown dog under the right or on the left side of the picture?
+│    Expected:  unknown
+│    Predicted: left
+│    Reason:    spatial answer should differ from original; original=left, counterf...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #6   [attribute]  Score: 0.00  (0/2 passed)  id=08336842
+│ Original Q:  Is the boat in the water white and small?
+│ Answer: yes  | Model said: yes
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the boat in the water white and small?
+│    Expected:  no
+│    Predicted: yes
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: The attributes of the objects in the image are not visibl...
+│    Reason:    entailed question should be yes; got the attributes of the objects ...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #7   [attribute]  Score: 0.00  (0/2 passed)  id=02420925
+│ Original Q:  On which side of the photo is the bouquet?
+│ Answer: right  | Model said: left
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [attribute_swap | attribute_change]  ✘
+│    Q:         On which side of the photo is the bouquet?
+│    Expected:  not_right
+│    Predicted: left
+│    Reason:    expected swapped attribute 'not_right'; got 'left'
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'right'?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #8   [attribute]  Score: 0.00  (0/2 passed)  id=14106895
+│ Original Q:  Is the crowd white and large?
+│ Answer: yes  | Model said: no
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the crowd white and large?
+│    Expected:  no
+│    Predicted: no
+│    Reason:    expected opposite yes/no answer; original=no, counterfactual=no
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: The attributes of the objects in the image are not visibl...
+│    Reason:    entailed question should be yes; got the attributes of the objects ...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #9   [attribute]  Score: 0.00  (0/2 passed)  id=0610806
+│ Original Q:  On which side is the screen, the left or the right?
+│ Answer: right  | Model said: right
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [attribute_swap | attribute_change]  ✘
+│    Q:         On which side is the screen, the left or the right?
+│    Expected:  not_right
+│    Predicted: right
+│    Reason:    expected swapped attribute 'not_right'; got 'right'
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'right'?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #10  [attribute]  Score: 0.00  (0/2 passed)  id=16514497
+│ Original Q:  Is the broccoli steamed or raw?
+│ Answer: steamed  | Model said: The broccoli is steamed.
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | negation]  ✘
+│    Q:         Is it false that is the broccoli steamed or raw?
+│    Expected:  yes
+│    Predicted: steamed
+│    Reason:    unknown logical relation: negation
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'steamed'?
+│    Expected:  yes
+│    Predicted: The broccoli on the plate is not steamed, but it is cooke...
+│    Reason:    entailed question should be yes; got the broccoli on the plate is n...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #11  [attribute]  Score: 0.00  (0/2 passed)  id=04917728
+│ Original Q:  Is the zebra that is standing black and striped?
+│ Answer: yes  | Model said: yes
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the zebra that is standing black and striped?
+│    Expected:  no
+│    Predicted: yes
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: The attributes of the objects in the image are not visibl...
+│    Reason:    entailed question should be yes; got the attributes of the objects ...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #12  [attribute]  Score: 0.00  (0/3 passed)  id=04351648
+│ Original Q:  Does the umbrella behind the other umbrella look open and yellow?
+│ Answer: yes  | Model said: yes
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Doesn't the umbrella behind the other umbrella look open and yellow?
+│    Expected:  no
+│    Predicted: yes
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: The attributes of the objects in the image are not visibl...
+│    Reason:    entailed question should be yes; got the attributes of the objects ...
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Does the umbrella in front of the other umbrella look open and yellow?
+│    Expected:  unknown
+│    Predicted: yes
+│    Reason:    spatial yes/no answer should usually change; original=yes, counterf...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #13  [attribute]  Score: 0.00  (0/2 passed)  id=0893521
+│ Original Q:  Is the sky white and bright?
+│ Answer: no  | Model said: yes
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the sky white and bright?
+│    Expected:  yes
+│    Predicted: yes
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: The attributes of the objects in the image are visible, i...
+│    Reason:    entailed question should be yes; got the attributes of the objects ...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #14  [attribute]  Score: 0.00  (0/2 passed)  id=0693324
+│ Original Q:  On which side is the water bottle?
+│ Answer: right  | Model said: right
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [attribute_swap | attribute_change]  ✘
+│    Q:         On which side is the water bottle?
+│    Expected:  not_right
+│    Predicted: right
+│    Reason:    expected swapped attribute 'not_right'; got 'right'
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'right'?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #15  [attribute]  Score: 0.00  (0/2 passed)  id=12642563
+│ Original Q:  On which side of the picture are the people, the right or the left?
+│ Answer: right  | Model said: right
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [attribute_swap | attribute_change]  ✘
+│    Q:         On which side of the picture are the people, the right or the left?
+│    Expected:  not_right
+│    Predicted: right
+│    Reason:    expected swapped attribute 'not_right'; got 'right'
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'right'?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #16  [attribute]  Score: 0.00  (0/2 passed)  id=15632722
+│ Original Q:  Do the coat and the keyboard have the same color?
+│ Answer: no  | Model said: no
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Don't the coat and the keyboard have the same color?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    expected opposite yes/no answer; original=no, counterfactual=no
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: The attributes of the objects in the image are not visibl...
+│    Reason:    entailed question should be yes; got the attributes of the objects ...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #17  [attribute]  Score: 0.00  (0/2 passed)  id=00747847
+│ Original Q:  Do the tablecloth and the cake have the same color?
+│ Answer: no  | Model said: yes
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Don't the tablecloth and the cake have the same color?
+│    Expected:  yes
+│    Predicted: yes
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: The attributes of the objects in the image are not visibl...
+│    Reason:    entailed question should be yes; got the attributes of the objects ...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #18  [attribute]  Score: 0.00  (0/2 passed)  id=17866727
+│ Original Q:  Is the book of the shelf in the bottom or in the top part of the picture?
+│ Answer: bottom  | Model said: bottom
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | negation]  ✘
+│    Q:         Is it false that is the book of the shelf in the bottom or in the top part of the picture?
+│    Expected:  yes
+│    Predicted: bottom
+│    Reason:    unknown logical relation: negation
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'bottom'?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #19  [attribute]  Score: 0.00  (0/2 passed)  id=10607012
+│ Original Q:  Are the athletic shoe and the backpack the same color?
+│ Answer: no  | Model said: no
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Aren't the athletic shoe and the backpack the same color?
+│    Expected:  yes
+│    Predicted: no
+│    Reason:    expected opposite yes/no answer; original=no, counterfactual=no
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: The attributes of the objects in the image are not visibl...
+│    Reason:    entailed question should be yes; got the attributes of the objects ...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #20  [attribute]  Score: 0.00  (0/2 passed)  id=01775533
+│ Original Q:  Is the carpet both clean and brown?
+│ Answer: yes  | Model said: yes
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the carpet both clean and brown?
+│    Expected:  no
+│    Predicted: yes
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: The attributes of the objects in the image are not visibl...
+│    Reason:    entailed question should be yes; got the attributes of the objects ...
+└──────────────────────────────────────────────────────────────────────────────
+
+================================================================================
+  FAILURE PATTERN ANALYSIS — BY INTERVENTION TYPE
+================================================================================
+
+  attribute_swap              fail= 152/162   ( 93.8%)  ██████████████████
+    Example failure:
+      Orig:      On which side is the notebook?
+      CF:        On which side is the notebook?
+      Expected:  not_right
+      Got:       left
+    Example failure:
+      Orig:      What material is the fence, wire or stone?
+      CF:        What material is the fence, wire or stone?
+      Expected:  not_wire
+      Got:       wire
+    Example failure:
+      Orig:      On which side of the photo is the pine, the right or the left?
+      CF:        On which side of the photo is the pine, the right or the left?
+      Expected:  not_right
+      Got:       right
+
+  negation                    fail= 324/444   ( 73.0%)  ██████████████
+    Example failure:
+      Orig:      Is the umbrella on the right of the image?
+      CF:        Isn't the umbrella on the right of the image?
+      Expected:  yes
+      Got:       right
+    Example failure:
+      Orig:      Is the red bag to the right or to the left of the person that wears...
+      CF:        Is it false that is the red bag to the right or to the left of the ...
+      Expected:  yes
+      Got:       right
+    Example failure:
+      Orig:      Is the boy's nose white or black?
+      CF:        Is it false that is the boy's nose white or black?
+      Expected:  yes
+      Got:       yes
+
+  spatial_perturbation        fail= 257/355   ( 72.4%)  ██████████████
+    Example failure:
+      Orig:      What is the person to the left of the cat sitting on?
+      CF:        What is the person to the right of the cat sitting on?
+      Expected:  unknown
+      Got:       bed
+    Example failure:
+      Orig:      Is the grilled food to the right of the long meat?
+      CF:        Is the grilled food to the left of the long meat?
+      Expected:  unknown
+      Got:       yes
+    Example failure:
+      Orig:      Is the umbrella on the right of the image?
+      CF:        Is the umbrella on the left of the image?
+      Expected:  unknown
+      Got:       yes
+
+  entailment                  fail=  94/1000  (  9.4%)  █
+    Example failure:
+      Orig:      Do the animals have different species?
+      CF:        Are the attributes of the objects in the image visible?
+      Expected:  yes
+      Got:       The attributes of the objects in the image are not visibl...
+    Example failure:
+      Orig:      Does the sky have the same color as the blouse?
+      CF:        Are the attributes of the objects in the image visible?
+      Expected:  yes
+      Got:       The attributes of the objects in the image are not visible.
+    Example failure:
+      Orig:      Which color is the boat to the right of the surfboard, yellow or blue?
+      CF:        Is there something that has the attribute 'yellow'?
+      Expected:  yes
+      Got:       no
+
+================================================================================

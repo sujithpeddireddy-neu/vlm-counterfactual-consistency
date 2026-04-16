@@ -9,6 +9,21 @@ def normalize_text(value) -> str:
     return str(value).strip().lower()
 
 
+def extract_yesno(text: str) -> str:
+    """
+    Extract a bare 'yes' or 'no' from a verbose model prediction.
+    LLaVA and similar models often answer 'Yes, the car is red.' instead of just 'yes'.
+    If the normalised text starts with 'yes' or 'no', return that token; otherwise
+    return the full normalised text so callers can fall through to open-ended checks.
+    """
+    t = normalize_text(text)
+    if t.startswith("yes"):
+        return "yes"
+    if t.startswith("no"):
+        return "no"
+    return t
+
+
 def load_json(json_path: str):
     with Path(json_path).open("r", encoding="utf-8") as f:
         return json.load(f)
@@ -19,8 +34,8 @@ def answers_are_different(a: str, b: str) -> bool:
 
 
 def contradiction_check(original_pred: str, cf_pred: str) -> Tuple[bool, str]:
-    orig = normalize_text(original_pred)
-    cf = normalize_text(cf_pred)
+    orig = extract_yesno(original_pred)
+    cf = extract_yesno(cf_pred)
 
     if orig in {"yes", "no"} and cf in {"yes", "no"}:
         return (orig != cf, f"expected opposite yes/no answer; original={orig}, counterfactual={cf}")
@@ -29,35 +44,47 @@ def contradiction_check(original_pred: str, cf_pred: str) -> Tuple[bool, str]:
 
 
 def entailment_check(cf_pred: str) -> Tuple[bool, str]:
-    cf = normalize_text(cf_pred)
+    cf = extract_yesno(cf_pred)
     return (cf == "yes", f"entailed question should be yes; got {cf}")
 
 
+def _contains_word(text: str, word: str) -> bool:
+    """True if `word` appears as a whole word in `text` (case-insensitive)."""
+    import re
+    return bool(re.search(rf"\b{re.escape(word)}\b", text))
+
+
 def attribute_change_check(original_pred: str, cf_pred: str, expected_answer: str) -> Tuple[bool, str]:
-    orig = normalize_text(original_pred)
-    cf = normalize_text(cf_pred)
     expected = normalize_text(expected_answer)
+    # When the expected answer is yes/no, extract the yes/no signal from verbose predictions
+    orig = extract_yesno(original_pred) if expected in {"yes", "no"} else normalize_text(original_pred)
+    cf   = extract_yesno(cf_pred)       if expected in {"yes", "no"} else normalize_text(cf_pred)
 
     if expected:
-        return (cf == expected, f"expected swapped attribute '{expected}'; got '{cf}'")
+        # Accept verbose predictions that contain the expected keyword as a whole word
+        # e.g. "The fence is made of metal." should match expected="metal"
+        passed = (cf == expected) or _contains_word(cf, expected)
+        return (passed, f"expected swapped attribute '{expected}'; got '{cf}'")
 
     return (answers_are_different(orig, cf), f"counterfactual attribute should differ from original; original={orig}, counterfactual={cf}")
 
 
 def object_change_check(original_pred: str, cf_pred: str, expected_answer: str) -> Tuple[bool, str]:
-    orig = normalize_text(original_pred)
-    cf = normalize_text(cf_pred)
     expected = normalize_text(expected_answer)
+    orig = normalize_text(original_pred)
+    cf   = normalize_text(cf_pred)
 
     if expected:
-        return (cf == expected, f"expected swapped object '{expected}'; got '{cf}'")
+        # Accept verbose predictions that contain the expected keyword as a whole word
+        passed = (cf == expected) or _contains_word(cf, expected)
+        return (passed, f"expected swapped object '{expected}'; got '{cf}'")
 
     return (answers_are_different(orig, cf), f"counterfactual object should differ from original; original={orig}, counterfactual={cf}")
 
 
 def spatial_change_check(original_pred: str, cf_pred: str) -> Tuple[bool, str]:
-    orig = normalize_text(original_pred)
-    cf = normalize_text(cf_pred)
+    orig = extract_yesno(original_pred)
+    cf = extract_yesno(cf_pred)
 
     if orig in {"yes", "no"} and cf in {"yes", "no"}:
         return (orig != cf, f"spatial yes/no answer should usually change; original={orig}, counterfactual={cf}")
@@ -97,6 +124,7 @@ def score_counterfactual(original_prediction: str, cf_item: Dict) -> Dict:
 def score_family(prediction_family: Dict) -> Dict:
     original = prediction_family.get("original", {})
     original_prediction = original.get("model_prediction", "")
+    ground_truth = original.get("answer", "")
     counterfactuals = prediction_family.get("counterfactuals", [])
 
     scored_items = [score_counterfactual(original_prediction, item) for item in counterfactuals]
@@ -105,12 +133,19 @@ def score_family(prediction_family: Dict) -> Dict:
     total = len(scored_items)
     family_score = passed_count / total if total > 0 else 0.0
 
+    # Standard VQA accuracy: did the model answer the original question correctly?
+    # For yes/no ground truths, extract just the yes/no signal from verbose predictions.
+    gt_norm = normalize_text(ground_truth)
+    pred_norm = extract_yesno(original_prediction) if gt_norm in {"yes", "no"} else normalize_text(original_prediction)
+    original_correct = pred_norm == gt_norm
+
     return {
         "question_id": prediction_family.get("question_id"),
         "image_id": prediction_family.get("image_id"),
         "original_question": original.get("question"),
-        "original_answer": original.get("answer"),
+        "original_answer": ground_truth,
         "original_model_prediction": original_prediction,
+        "original_correct": original_correct,
         "passed_count": passed_count,
         "total_counterfactuals": total,
         "family_consistency_score": family_score,
@@ -120,12 +155,14 @@ def score_family(prediction_family: Dict) -> Dict:
 
 def score_dataset(prediction_families: List[Dict]) -> Dict:
     family_results = [score_family(family) for family in prediction_families]
-    total_score = sum(item["family_consistency_score"] for item in family_results)
-    dataset_score = total_score / len(family_results) if family_results else 0.0
+    n = len(family_results)
+    dataset_score = sum(item["family_consistency_score"] for item in family_results) / n if n else 0.0
+    vqa_accuracy = sum(1 for item in family_results if item["original_correct"]) / n if n else 0.0
 
     return {
-        "num_families": len(family_results),
+        "num_families": n,
         "dataset_consistency_score": dataset_score,
+        "vqa_accuracy": round(vqa_accuracy, 4),
         "family_results": family_results,
     }
 

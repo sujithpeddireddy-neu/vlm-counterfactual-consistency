@@ -1,0 +1,495 @@
+
+================================================================================
+  FAILURE CASE ANALYSIS  |  model: LLAVA
+================================================================================
+  Total families:      1000
+  Dataset score:       0.6880
+  Showing worst 20 families
+================================================================================
+
+┌──────────────────────────────────────────────────────────────────────────────
+│ #1   [yes/no]  Score: 0.00  (0/3 passed)  id=03811027
+│ Original Q:  Is the small candle to the right of a cup?
+│ Answer: no  | Model said: Yes, the small candle is to the right...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the small candle to the right of a cup?
+│    Expected:  yes
+│    Predicted: Yes, the small candle is located to the right of a cup.
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: No, the entity or relation mentioned in the question, whi...
+│    Reason:    entailed question should be yes; got no
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Is the small candle to the left of a cup?
+│    Expected:  unknown
+│    Predicted: Yes, the small candle is to the left of a cup.
+│    Reason:    spatial yes/no answer should usually change; original=yes, counterf...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #2   [attribute]  Score: 0.00  (0/2 passed)  id=18546659
+│ Original Q:  What is the fence made of?
+│ Answer: wood  | Model said: The fence is made of wood.
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [attribute_swap | attribute_change]  ✘
+│    Q:         What is the fence made of?
+│    Expected:  metal
+│    Predicted: The fence is made of wood.
+│    Reason:    expected swapped attribute 'metal'; got 'the fence is made of wood.'
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'wood'?
+│    Expected:  yes
+│    Predicted: No, there is no wood in the image.
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #3   [object]  Score: 0.00  (0/2 passed)  id=11138038
+│ Original Q:  Are there black letters or numbers in the photo?
+│ Answer: yes  | Model said: Yes, there are black letters or numbe...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Aren't there black letters or numbers in the photo?
+│    Expected:  no
+│    Predicted: Yes, there are black letters or numbers in the photo. The...
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is the referenced object present in the image?
+│    Expected:  yes
+│    Predicted: No, the object is not present in the image. The image sho...
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #4   [yes/no]  Score: 0.00  (0/3 passed)  id=10396563
+│ Original Q:  Is the man to the right of the horse the dog is leading?
+│ Answer: yes  | Model said: Yes, the man is to the right of the h...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the man to the right of the horse the dog is leading?
+│    Expected:  no
+│    Predicted: Yes, the man is standing next to the horse that the dog i...
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: No, the entity or relation "horses" is not present in the...
+│    Reason:    entailed question should be yes; got no
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Is the man to the left of the horse the dog is leading?
+│    Expected:  unknown
+│    Predicted: Yes, the man is to the left of the horse the dog is leading.
+│    Reason:    spatial yes/no answer should usually change; original=yes, counterf...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #5   [attribute]  Score: 0.00  (0/2 passed)  id=17950308
+│ Original Q:  Which shape is the tofu to the right of the other tofu?
+│ Answer: square  | Model said: Square
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [attribute_swap | attribute_change]  ✘
+│    Q:         Which shape is the tofu to the right of the other tofu?
+│    Expected:  not_square
+│    Predicted: Square
+│    Reason:    expected swapped attribute 'not_square'; got 'square'
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'square'?
+│    Expected:  yes
+│    Predicted: No
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #6   [yes/no]  Score: 0.00  (0/2 passed)  id=18899087
+│ Original Q:  Are there bears in the zoo?
+│ Answer: yes  | Model said: Yes, there are bears in the zoo. In t...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Aren't there bears in the zoo?
+│    Expected:  no
+│    Predicted: Yes, there are bears in zoos. In the image, a large black...
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: No, the entity or relation mentioned in the question is n...
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #7   [yes/no]  Score: 0.00  (0/2 passed)  id=02159418
+│ Original Q:  Are there desks in this photo that are tan?
+│ Answer: no  | Model said: Yes, there is a tan desk in the photo.
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Aren't there desks in this photo that are tan?
+│    Expected:  yes
+│    Predicted: Yes, there are tan desks in the photo, along with the bla...
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: No, the entity or relation mentioned in the question is n...
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #8   [attribute]  Score: 0.00  (0/2 passed)  id=04753391
+│ Original Q:  In which part of the image is the flag, the bottom or the top?
+│ Answer: bottom  | Model said: Bottom
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [attribute_swap | attribute_change]  ✘
+│    Q:         In which part of the image is the flag, the bottom or the top?
+│    Expected:  not_bottom
+│    Predicted: Bottom
+│    Reason:    expected swapped attribute 'not_bottom'; got 'bottom'
+│  ····························································
+│  CF#2  [entailment | entails]  ✘
+│    Q:         Is there something that has the attribute 'bottom'?
+│    Expected:  yes
+│    Predicted: No, there is no object in the image that has the attribut...
+│    Reason:    entailed question should be yes; got no
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #9   [yes/no]  Score: 0.33  (1/3 passed)  id=15485398
+│ Original Q:  Is the grilled food to the right of the long meat?
+│ Answer: yes  | Model said: Yes, the grilled food is to the right...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the grilled food to the right of the long meat?
+│    Expected:  no
+│    Predicted: Yes, the grilled food is to the right of the long meat.
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: Yes, the person who is sitting at the table is present in...
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Is the grilled food to the left of the long meat?
+│    Expected:  unknown
+│    Predicted: Yes, the grilled food is to the left of the long meat.
+│    Reason:    spatial yes/no answer should usually change; original=yes, counterf...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #10  [yes/no]  Score: 0.33  (1/3 passed)  id=14263131
+│ Original Q:  Are there chairs to the right of the person that is sitting at the table?
+│ Answer: yes  | Model said: Yes, there are chairs to the right of...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Aren't there chairs to the right of the person that is sitting at the table?
+│    Expected:  no
+│    Predicted: Yes, there are chairs to the right of the person sitting ...
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: Yes, the man in the image is wearing a hat.
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Are there chairs to the left of the person that is sitting at the table?
+│    Expected:  unknown
+│    Predicted: Yes, there are chairs to the left of the person sitting a...
+│    Reason:    spatial yes/no answer should usually change; original=yes, counterf...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #11  [spatial]  Score: 0.33  (1/3 passed)  id=14363431
+│ Original Q:  Is the red bag to the right or to the left of the person that wears a vest?
+│ Answer: left  | Model said: The red bag is to the right of the pe...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | negation]  ✘
+│    Q:         Is it false that is the red bag to the right or to the left of the person that wears a ...
+│    Expected:  yes
+│    Predicted: The red bag is to the right of the person wearing a vest.
+│    Reason:    unknown logical relation: negation
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Are the referenced objects visible in the image?
+│    Expected:  yes
+│    Predicted: Yes, the image shows a busy city street with cars, people...
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Is the red bag to the right or to the right of the person that wears a vest?
+│    Expected:  unknown
+│    Predicted: The red bag is to the right of the person wearing a vest.
+│    Reason:    spatial answer should differ from original; original=the red bag is...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #12  [yes/no]  Score: 0.33  (1/3 passed)  id=00725658
+│ Original Q:  Is the computer to the right of a keyboard?
+│ Answer: no  | Model said: No, the computer is to the left of a ...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the computer to the right of a keyboard?
+│    Expected:  yes
+│    Predicted: No, the computer is not to the right of a keyboard. The m...
+│    Reason:    expected opposite yes/no answer; original=no, counterfactual=no
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: Yes, the man is present in the image, sitting at a table ...
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Is the computer to the left of a keyboard?
+│    Expected:  unknown
+│    Predicted: No, the computer is not to the left of a keyboard. The ma...
+│    Reason:    spatial yes/no answer should usually change; original=no, counterfa...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #13  [yes/no]  Score: 0.33  (1/3 passed)  id=13420211
+│ Original Q:  Does the person to the right of the figurine wear a glove?
+│ Answer: no  | Model said: No, the person to the right of the fi...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Doesn't the person to the right of the figurine wear a glove?
+│    Expected:  yes
+│    Predicted: No, the person to the right of the figurine is not wearin...
+│    Reason:    expected opposite yes/no answer; original=no, counterfactual=no
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: Yes, the woman in the image is wearing glasses.
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Does the person to the left of the figurine wear a glove?
+│    Expected:  unknown
+│    Predicted: No, the person to the left of the figurine is not wearing...
+│    Reason:    spatial yes/no answer should usually change; original=no, counterfa...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #14  [yes/no]  Score: 0.33  (1/3 passed)  id=10443650
+│ Original Q:  Is the person in front of the mountains wearing a cap?
+│ Answer: yes  | Model said: Yes, the person in front of the mount...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the person in front of the mountains wearing a cap?
+│    Expected:  no
+│    Predicted: Yes, the person in front of the mountains is wearing a cap.
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: Yes, the person in the image is wearing a backpack.
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Is the person behind the mountains wearing a cap?
+│    Expected:  unknown
+│    Predicted: Yes, the person is wearing a cap while skiing.
+│    Reason:    spatial yes/no answer should usually change; original=yes, counterf...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #15  [yes/no]  Score: 0.33  (1/3 passed)  id=12656189
+│ Original Q:  Is the tall person to the right of the vehicle that is not short?
+│ Answer: no  | Model said: Yes, the tall person is standing next...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the tall person to the right of the vehicle that is not short?
+│    Expected:  yes
+│    Predicted: Yes, the tall person is standing next to the vehicle, whi...
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: Yes, the relation between the birds and the bench is pres...
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Is the tall person to the left of the vehicle that is not short?
+│    Expected:  unknown
+│    Predicted: Yes, the tall person is standing next to the vehicle, whi...
+│    Reason:    spatial yes/no answer should usually change; original=yes, counterf...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #16  [yes/no]  Score: 0.33  (1/3 passed)  id=10421326
+│ Original Q:  Do you see any plates near the device that is on the table?
+│ Answer: no  | Model said: No, there are no plates near the devi...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Don't you see any plates near the device that is on the table?
+│    Expected:  yes
+│    Predicted: No, there are no plates near the device that is on the ta...
+│    Reason:    expected opposite yes/no answer; original=no, counterfactual=no
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: Yes, the entity or relation mentioned in the question is ...
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Do you see any plates near the device that is under the table?
+│    Expected:  unknown
+│    Predicted: No, there are no plates near the device that is under the...
+│    Reason:    spatial yes/no answer should usually change; original=no, counterfa...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #17  [attribute]  Score: 0.33  (1/3 passed)  id=04351648
+│ Original Q:  Does the umbrella behind the other umbrella look open and yellow?
+│ Answer: yes  | Model said: Yes, the umbrella behind the other um...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Doesn't the umbrella behind the other umbrella look open and yellow?
+│    Expected:  no
+│    Predicted: Yes, the umbrella behind the other umbrella appears to be...
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Are the attributes of the objects in the image visible?
+│    Expected:  yes
+│    Predicted: Yes, the attributes of the objects in the image are visib...
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Does the umbrella in front of the other umbrella look open and yellow?
+│    Expected:  unknown
+│    Predicted: Yes, the umbrella in front of the other umbrella looks op...
+│    Reason:    spatial yes/no answer should usually change; original=yes, counterf...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #18  [yes/no]  Score: 0.33  (1/3 passed)  id=091003763
+│ Original Q:  Is the blue shirt on the wall?
+│ Answer: yes  | Model said: Yes, the blue shirt is hanging on the...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Isn't the blue shirt on the wall?
+│    Expected:  no
+│    Predicted: Yes, the blue shirt is on the wall.
+│    Reason:    expected opposite yes/no answer; original=yes, counterfactual=yes
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: Yes, the tennis player is present in the image, swinging ...
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Is the blue shirt under the wall?
+│    Expected:  unknown
+│    Predicted: Yes, the man in the blue shirt is sitting under the wall.
+│    Reason:    spatial yes/no answer should usually change; original=yes, counterf...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #19  [spatial]  Score: 0.33  (1/3 passed)  id=00491018
+│ Original Q:  Is the fence to the left or to the right of the bus in the middle of the image?
+│ Answer: left  | Model said: The fence is to the left of the bus i...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | negation]  ✘
+│    Q:         Is it false that is the fence to the left or to the right of the bus in the middle of t...
+│    Expected:  yes
+│    Predicted: The fence is to the left of the bus in the middle of the ...
+│    Reason:    unknown logical relation: negation
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Are the referenced objects visible in the image?
+│    Expected:  yes
+│    Predicted: Yes, the objects are visible in the image. The bus is dri...
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Is the fence to the left or to the left of the bus in the middle of the image?
+│    Expected:  unknown
+│    Predicted: The fence is to the left of the bus in the middle of the ...
+│    Reason:    spatial answer should differ from original; original=the fence is t...
+└──────────────────────────────────────────────────────────────────────────────
+┌──────────────────────────────────────────────────────────────────────────────
+│ #20  [yes/no]  Score: 0.33  (1/3 passed)  id=16406283
+│ Original Q:  Do you see any boys to the right of the couch the pillow is on?
+│ Answer: no  | Model said: No, there are no boys to the right of...
+├──────────────────────────────────────────────────────────────────────────────
+│  CF#1  [negation | contradiction]  ✘
+│    Q:         Don't you see any boys to the right of the couch the pillow is on?
+│    Expected:  yes
+│    Predicted: No, there are no boys to the right of the couch the pillo...
+│    Reason:    expected opposite yes/no answer; original=no, counterfactual=no
+│  ····························································
+│  CF#2  [entailment | entails]  ✔
+│    Q:         Is the entity or relation mentioned in the question present in the image?
+│    Expected:  yes
+│    Predicted: Yes, the image shows a man and a woman sitting in the kit...
+│  ····························································
+│  CF#3  [spatial_perturbation | spatial_change]  ✘
+│    Q:         Do you see any boys to the left of the couch the pillow is on?
+│    Expected:  unknown
+│    Predicted: No, there are no boys to the left of the couch the pillow...
+│    Reason:    spatial yes/no answer should usually change; original=no, counterfa...
+└──────────────────────────────────────────────────────────────────────────────
+
+================================================================================
+  FAILURE PATTERN ANALYSIS — BY INTERVENTION TYPE
+================================================================================
+
+  attribute_swap              fail= 160/162   ( 98.8%)  ███████████████████
+    Example failure:
+      Orig:      On which side is the notebook?
+      CF:        On which side is the notebook?
+      Expected:  not_right
+      Got:       Right
+    Example failure:
+      Orig:      What material is the fence, wire or stone?
+      CF:        What material is the fence, wire or stone?
+      Expected:  not_wire
+      Got:       The fence is made of wire.
+    Example failure:
+      Orig:      On which side of the photo is the pine, the right or the left?
+      CF:        On which side of the photo is the pine, the right or the left?
+      Expected:  not_right
+      Got:       Left
+
+  negation                    fail= 378/444   ( 85.1%)  █████████████████
+    Example failure:
+      Orig:      Is the grilled food to the right of the long meat?
+      CF:        Isn't the grilled food to the right of the long meat?
+      Expected:  no
+      Got:       Yes, the grilled food is to the right of the long meat.
+    Example failure:
+      Orig:      Do the animals have different species?
+      CF:        Don't the animals have different species?
+      Expected:  no
+      Got:       Yes, the image shows a variety of animals in the scene. T...
+    Example failure:
+      Orig:      Are there chairs to the right of the person that is sitting at the ...
+      CF:        Aren't there chairs to the right of the person that is sitting at t...
+      Expected:  no
+      Got:       Yes, there are chairs to the right of the person sitting ...
+
+  spatial_perturbation        fail= 167/355   ( 47.0%)  █████████
+    Example failure:
+      Orig:      What is the person to the left of the cat sitting on?
+      CF:        What is the person to the right of the cat sitting on?
+      Expected:  unknown
+      Got:       Bed
+    Example failure:
+      Orig:      Is the grilled food to the right of the long meat?
+      CF:        Is the grilled food to the left of the long meat?
+      Expected:  unknown
+      Got:       Yes, the grilled food is to the left of the long meat.
+    Example failure:
+      Orig:      What is the person to the left of the girl sitting on?
+      CF:        What is the person to the right of the girl sitting on?
+      Expected:  unknown
+      Got:       Chair
+
+  entailment                  fail=   9/1000  (  0.9%)  
+    Example failure:
+      Orig:      Is the small candle to the right of a cup?
+      CF:        Is the entity or relation mentioned in the question present in the ...
+      Expected:  yes
+      Got:       No, the entity or relation mentioned in the question, whi...
+    Example failure:
+      Orig:      What is the fence made of?
+      CF:        Is there something that has the attribute 'wood'?
+      Expected:  yes
+      Got:       No, there is no wood in the image.
+    Example failure:
+      Orig:      Are there black letters or numbers in the photo?
+      CF:        Is the referenced object present in the image?
+      Expected:  yes
+      Got:       No, the object is not present in the image. The image sho...
+
+================================================================================

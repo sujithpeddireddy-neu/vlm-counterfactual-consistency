@@ -1,0 +1,889 @@
+{
+  "model": "llava",
+  "dataset_consistency_score": 0.688,
+  "num_families": 1000,
+  "worst_families": [
+    {
+      "question_id": "03811027",
+      "image_id": "4776",
+      "original_question": "Is the small candle to the right of a cup?",
+      "original_answer": "no",
+      "original_model_prediction": "Yes, the small candle is to the right of a cup.",
+      "original_correct": false,
+      "passed_count": 0,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the small candle to the right of a cup?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the small candle is located to the right of a cup.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "No, the entity or relation mentioned in the question, which is a rabbit, is not present in the image. The image features a cake with a bow on it, a basket of eggs, and a plate with a bow on it.",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Is the small candle to the left of a cup?",
+          "expected_answer": "unknown",
+          "model_prediction": "Yes, the small candle is to the left of a cup.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "18546659",
+      "image_id": "2322017",
+      "original_question": "What is the fence made of?",
+      "original_answer": "wood",
+      "original_model_prediction": "The fence is made of wood.",
+      "original_correct": false,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "attribute_swap",
+          "logical_relation": "attribute_change",
+          "counterfactual_question": "What is the fence made of?",
+          "expected_answer": "metal",
+          "model_prediction": "The fence is made of wood.",
+          "passed": false,
+          "reason": "expected swapped attribute 'metal'; got 'the fence is made of wood.'"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'wood'?",
+          "expected_answer": "yes",
+          "model_prediction": "No, there is no wood in the image.",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "11138038",
+      "image_id": "2380673",
+      "original_question": "Are there black letters or numbers in the photo?",
+      "original_answer": "yes",
+      "original_model_prediction": "Yes, there are black letters or numbers in the photo.",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Aren't there black letters or numbers in the photo?",
+          "expected_answer": "no",
+          "model_prediction": "Yes, there are black letters or numbers in the photo. The image shows a close-up of a computer keyboard, which includes both black and white keys.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the referenced object present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "No, the object is not present in the image. The image shows a computer keyboard with various buttons, but the specific object is not visible.",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "object"
+    },
+    {
+      "question_id": "10396563",
+      "image_id": "2331948",
+      "original_question": "Is the man to the right of the horse the dog is leading?",
+      "original_answer": "yes",
+      "original_model_prediction": "Yes, the man is to the right of the horse the dog is leading.",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the man to the right of the horse the dog is leading?",
+          "expected_answer": "no",
+          "model_prediction": "Yes, the man is standing next to the horse that the dog is leading.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "No, the entity or relation \"horses\" is not present in the image. The image features two horses, but it does not show any horses pulling a carriage.",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Is the man to the left of the horse the dog is leading?",
+          "expected_answer": "unknown",
+          "model_prediction": "Yes, the man is to the left of the horse the dog is leading.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "17950308",
+      "image_id": "2362562",
+      "original_question": "Which shape is the tofu to the right of the other tofu?",
+      "original_answer": "square",
+      "original_model_prediction": "Square",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "attribute_swap",
+          "logical_relation": "attribute_change",
+          "counterfactual_question": "Which shape is the tofu to the right of the other tofu?",
+          "expected_answer": "not_square",
+          "model_prediction": "Square",
+          "passed": false,
+          "reason": "expected swapped attribute 'not_square'; got 'square'"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'square'?",
+          "expected_answer": "yes",
+          "model_prediction": "No",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "18899087",
+      "image_id": "2404598",
+      "original_question": "Are there bears in the zoo?",
+      "original_answer": "yes",
+      "original_model_prediction": "Yes, there are bears in the zoo. In the image, a black bear is sitting on the ground, and it appears to be a zoo setting. The presence of a bear in the zoo suggests that the facility houses various animal species, including",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Aren't there bears in the zoo?",
+          "expected_answer": "no",
+          "model_prediction": "Yes, there are bears in zoos. In the image, a large black bear is sitting on the ground, possibly in a zoo enclosure. Zoos often house bears and other wildlife species to educate the public about these animals",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "No, the entity or relation mentioned in the question is not present in the image.",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "02159418",
+      "image_id": "2363722",
+      "original_question": "Are there desks in this photo that are tan?",
+      "original_answer": "no",
+      "original_model_prediction": "Yes, there is a tan desk in the photo.",
+      "original_correct": false,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Aren't there desks in this photo that are tan?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, there are tan desks in the photo, along with the black couch and other furniture.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "No, the entity or relation mentioned in the question is not present in the image.",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "04753391",
+      "image_id": "2355202",
+      "original_question": "In which part of the image is the flag, the bottom or the top?",
+      "original_answer": "bottom",
+      "original_model_prediction": "Bottom",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "attribute_swap",
+          "logical_relation": "attribute_change",
+          "counterfactual_question": "In which part of the image is the flag, the bottom or the top?",
+          "expected_answer": "not_bottom",
+          "model_prediction": "Bottom",
+          "passed": false,
+          "reason": "expected swapped attribute 'not_bottom'; got 'bottom'"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'bottom'?",
+          "expected_answer": "yes",
+          "model_prediction": "No, there is no object in the image that has the attribute 'bottom'.",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "15485398",
+      "image_id": "2404539",
+      "original_question": "Is the grilled food to the right of the long meat?",
+      "original_answer": "yes",
+      "original_model_prediction": "Yes, the grilled food is to the right of the long meat.",
+      "original_correct": true,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the grilled food to the right of the long meat?",
+          "expected_answer": "no",
+          "model_prediction": "Yes, the grilled food is to the right of the long meat.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the person who is sitting at the table is present in the image.",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Is the grilled food to the left of the long meat?",
+          "expected_answer": "unknown",
+          "model_prediction": "Yes, the grilled food is to the left of the long meat.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "14263131",
+      "image_id": "2402329",
+      "original_question": "Are there chairs to the right of the person that is sitting at the table?",
+      "original_answer": "yes",
+      "original_model_prediction": "Yes, there are chairs to the right of the person sitting at the table.",
+      "original_correct": true,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Aren't there chairs to the right of the person that is sitting at the table?",
+          "expected_answer": "no",
+          "model_prediction": "Yes, there are chairs to the right of the person sitting at the table.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the man in the image is wearing a hat.",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Are there chairs to the left of the person that is sitting at the table?",
+          "expected_answer": "unknown",
+          "model_prediction": "Yes, there are chairs to the left of the person sitting at the table.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "14363431",
+      "image_id": "2412",
+      "original_question": "Is the red bag to the right or to the left of the person that wears a vest?",
+      "original_answer": "left",
+      "original_model_prediction": "The red bag is to the right of the person wearing a vest.",
+      "original_correct": false,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "negation",
+          "counterfactual_question": "Is it false that is the red bag to the right or to the left of the person that wears a vest?",
+          "expected_answer": "yes",
+          "model_prediction": "The red bag is to the right of the person wearing a vest.",
+          "passed": false,
+          "reason": "unknown logical relation: negation"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the referenced objects visible in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the image shows a busy city street with cars, people, and buildings. The street is filled with cars, and there are many people walking along the sidewalk. The presence of tall buildings and the bustling atmosphere indicate that the image",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Is the red bag to the right or to the right of the person that wears a vest?",
+          "expected_answer": "unknown",
+          "model_prediction": "The red bag is to the right of the person wearing a vest.",
+          "passed": false,
+          "reason": "spatial answer should differ from original; original=the red bag is to the right of the person wearing a vest., counterfactual=the red bag is to the right of the person wearing a vest."
+        }
+      ],
+      "question_type": "spatial"
+    },
+    {
+      "question_id": "00725658",
+      "image_id": "2339309",
+      "original_question": "Is the computer to the right of a keyboard?",
+      "original_answer": "no",
+      "original_model_prediction": "No, the computer is to the left of a keyboard.",
+      "original_correct": true,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the computer to the right of a keyboard?",
+          "expected_answer": "yes",
+          "model_prediction": "No, the computer is not to the right of a keyboard. The man is sitting at a table with a laptop, and there is no keyboard visible in the image.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=no, counterfactual=no"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the man is present in the image, sitting at a table with a laptop.",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Is the computer to the left of a keyboard?",
+          "expected_answer": "unknown",
+          "model_prediction": "No, the computer is not to the left of a keyboard. The man is sitting at a table with a laptop, and there is no keyboard visible in the image.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=no, counterfactual=no"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "13420211",
+      "image_id": "2335072",
+      "original_question": "Does the person to the right of the figurine wear a glove?",
+      "original_answer": "no",
+      "original_model_prediction": "No, the person to the right of the figurine is not wearing a glove.",
+      "original_correct": true,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Doesn't the person to the right of the figurine wear a glove?",
+          "expected_answer": "yes",
+          "model_prediction": "No, the person to the right of the figurine is not wearing a glove. They are holding a Wii remote and playing a video game.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=no, counterfactual=no"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the woman in the image is wearing glasses.",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Does the person to the left of the figurine wear a glove?",
+          "expected_answer": "unknown",
+          "model_prediction": "No, the person to the left of the figurine is not wearing a glove.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=no, counterfactual=no"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "10443650",
+      "image_id": "2372085",
+      "original_question": "Is the person in front of the mountains wearing a cap?",
+      "original_answer": "yes",
+      "original_model_prediction": "Yes, the person in front of the mountains is wearing a cap.",
+      "original_correct": true,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the person in front of the mountains wearing a cap?",
+          "expected_answer": "no",
+          "model_prediction": "Yes, the person in front of the mountains is wearing a cap.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the person in the image is wearing a backpack.",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Is the person behind the mountains wearing a cap?",
+          "expected_answer": "unknown",
+          "model_prediction": "Yes, the person is wearing a cap while skiing.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "12656189",
+      "image_id": "2395907",
+      "original_question": "Is the tall person to the right of the vehicle that is not short?",
+      "original_answer": "no",
+      "original_model_prediction": "Yes, the tall person is standing next to the vehicle that is not short.",
+      "original_correct": false,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the tall person to the right of the vehicle that is not short?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the tall person is standing next to the vehicle, which is a truck.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the relation between the birds and the bench is present in the image. The birds are sitting on the bench, and there are also other birds in the area.",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Is the tall person to the left of the vehicle that is not short?",
+          "expected_answer": "unknown",
+          "model_prediction": "Yes, the tall person is standing next to the vehicle, which is a truck.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "10421326",
+      "image_id": "2363244",
+      "original_question": "Do you see any plates near the device that is on the table?",
+      "original_answer": "no",
+      "original_model_prediction": "No, there are no plates near the device that is on the table.",
+      "original_correct": true,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Don't you see any plates near the device that is on the table?",
+          "expected_answer": "yes",
+          "model_prediction": "No, there are no plates near the device that is on the table.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=no, counterfactual=no"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the entity or relation mentioned in the question is present in the image. There is a laptop on the desk, which is a common piece of technology used for work or leisure.",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Do you see any plates near the device that is under the table?",
+          "expected_answer": "unknown",
+          "model_prediction": "No, there are no plates near the device that is under the table.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=no, counterfactual=no"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "04351648",
+      "image_id": "2394997",
+      "original_question": "Does the umbrella behind the other umbrella look open and yellow?",
+      "original_answer": "yes",
+      "original_model_prediction": "Yes, the umbrella behind the other umbrella looks open and yellow.",
+      "original_correct": true,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Doesn't the umbrella behind the other umbrella look open and yellow?",
+          "expected_answer": "no",
+          "model_prediction": "Yes, the umbrella behind the other umbrella appears to be open and yellow.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the attributes of the objects in the image are visible. The umbrellas are colorful, and they are placed on the ground. The umbrellas are also described as being colorful and having different colors. The presence of",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Does the umbrella in front of the other umbrella look open and yellow?",
+          "expected_answer": "unknown",
+          "model_prediction": "Yes, the umbrella in front of the other umbrella looks open and yellow.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "091003763",
+      "image_id": "2374796",
+      "original_question": "Is the blue shirt on the wall?",
+      "original_answer": "yes",
+      "original_model_prediction": "Yes, the blue shirt is hanging on the wall.",
+      "original_correct": true,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the blue shirt on the wall?",
+          "expected_answer": "no",
+          "model_prediction": "Yes, the blue shirt is on the wall.",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the tennis player is present in the image, swinging his racket to hit the ball.",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Is the blue shirt under the wall?",
+          "expected_answer": "unknown",
+          "model_prediction": "Yes, the man in the blue shirt is sitting under the wall.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+        }
+      ],
+      "question_type": "yes/no"
+    },
+    {
+      "question_id": "00491018",
+      "image_id": "2395",
+      "original_question": "Is the fence to the left or to the right of the bus in the middle of the image?",
+      "original_answer": "left",
+      "original_model_prediction": "The fence is to the left of the bus in the middle of the image.",
+      "original_correct": false,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "negation",
+          "counterfactual_question": "Is it false that is the fence to the left or to the right of the bus in the middle of the image?",
+          "expected_answer": "yes",
+          "model_prediction": "The fence is to the left of the bus in the middle of the image.",
+          "passed": false,
+          "reason": "unknown logical relation: negation"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the referenced objects visible in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the objects are visible in the image. The bus is driving down the street, and the people are walking on the sidewalk. The umbrella is also present in the scene, held by one of the pedestrians.",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Is the fence to the left or to the left of the bus in the middle of the image?",
+          "expected_answer": "unknown",
+          "model_prediction": "The fence is to the left of the bus in the middle of the image.",
+          "passed": false,
+          "reason": "spatial answer should differ from original; original=the fence is to the left of the bus in the middle of the image., counterfactual=the fence is to the left of the bus in the middle of the image."
+        }
+      ],
+      "question_type": "spatial"
+    },
+    {
+      "question_id": "16406283",
+      "image_id": "107903",
+      "original_question": "Do you see any boys to the right of the couch the pillow is on?",
+      "original_answer": "no",
+      "original_model_prediction": "No, there are no boys to the right of the couch the pillow is on.",
+      "original_correct": true,
+      "passed_count": 1,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.3333333333333333,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Don't you see any boys to the right of the couch the pillow is on?",
+          "expected_answer": "yes",
+          "model_prediction": "No, there are no boys to the right of the couch the pillow is on. The image shows a living room with a couch, a chair, a clock, and a dining table. There are also two people in the room",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=no, counterfactual=no"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+          "expected_answer": "yes",
+          "model_prediction": "Yes, the image shows a man and a woman sitting in the kitchen, which is a relation between the two individuals.",
+          "passed": true,
+          "reason": "entailed question should be yes; got yes"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Do you see any boys to the left of the couch the pillow is on?",
+          "expected_answer": "unknown",
+          "model_prediction": "No, there are no boys to the left of the couch the pillow is on.",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=no, counterfactual=no"
+        }
+      ],
+      "question_type": "yes/no"
+    }
+  ],
+  "intervention_failure_stats": {
+    "attribute_swap": {
+      "total": 162,
+      "failed": 160,
+      "failure_rate": 0.9877
+    },
+    "negation": {
+      "total": 444,
+      "failed": 378,
+      "failure_rate": 0.8514
+    },
+    "spatial_perturbation": {
+      "total": 355,
+      "failed": 167,
+      "failure_rate": 0.4704
+    },
+    "entailment": {
+      "total": 1000,
+      "failed": 9,
+      "failure_rate": 0.009
+    }
+  },
+  "intervention_failure_examples": {
+    "attribute_swap": [
+      {
+        "original_question": "On which side is the notebook?",
+        "counterfactual_question": "On which side is the notebook?",
+        "expected_answer": "not_right",
+        "model_prediction": "Right",
+        "reason": "expected swapped attribute 'not_right'; got 'right'"
+      },
+      {
+        "original_question": "What material is the fence, wire or stone?",
+        "counterfactual_question": "What material is the fence, wire or stone?",
+        "expected_answer": "not_wire",
+        "model_prediction": "The fence is made of wire.",
+        "reason": "expected swapped attribute 'not_wire'; got 'the fence is made of wire.'"
+      },
+      {
+        "original_question": "On which side of the photo is the pine, the right or the left?",
+        "counterfactual_question": "On which side of the photo is the pine, the right or the left?",
+        "expected_answer": "not_right",
+        "model_prediction": "Left",
+        "reason": "expected swapped attribute 'not_right'; got 'left'"
+      }
+    ],
+    "negation": [
+      {
+        "original_question": "Is the grilled food to the right of the long meat?",
+        "counterfactual_question": "Isn't the grilled food to the right of the long meat?",
+        "expected_answer": "no",
+        "model_prediction": "Yes, the grilled food is to the right of the long meat.",
+        "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+      },
+      {
+        "original_question": "Do the animals have different species?",
+        "counterfactual_question": "Don't the animals have different species?",
+        "expected_answer": "no",
+        "model_prediction": "Yes, the image shows a variety of animals in the scene. There are ducks, geese, and a swan in the water, as well as a dog on the shore. This diverse mix of animals creates a lively and interesting atmosphere",
+        "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+      },
+      {
+        "original_question": "Are there chairs to the right of the person that is sitting at the table?",
+        "counterfactual_question": "Aren't there chairs to the right of the person that is sitting at the table?",
+        "expected_answer": "no",
+        "model_prediction": "Yes, there are chairs to the right of the person sitting at the table.",
+        "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+      }
+    ],
+    "spatial_perturbation": [
+      {
+        "original_question": "What is the person to the left of the cat sitting on?",
+        "counterfactual_question": "What is the person to the right of the cat sitting on?",
+        "expected_answer": "unknown",
+        "model_prediction": "Bed",
+        "reason": "spatial answer should differ from original; original=bed, counterfactual=bed"
+      },
+      {
+        "original_question": "Is the grilled food to the right of the long meat?",
+        "counterfactual_question": "Is the grilled food to the left of the long meat?",
+        "expected_answer": "unknown",
+        "model_prediction": "Yes, the grilled food is to the left of the long meat.",
+        "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+      },
+      {
+        "original_question": "What is the person to the left of the girl sitting on?",
+        "counterfactual_question": "What is the person to the right of the girl sitting on?",
+        "expected_answer": "unknown",
+        "model_prediction": "Chair",
+        "reason": "spatial answer should differ from original; original=chair, counterfactual=chair"
+      }
+    ],
+    "entailment": [
+      {
+        "original_question": "Is the small candle to the right of a cup?",
+        "counterfactual_question": "Is the entity or relation mentioned in the question present in the image?",
+        "expected_answer": "yes",
+        "model_prediction": "No, the entity or relation mentioned in the question, which is a rabbit, is not present in the image. The image features a cake with a bow on it, a basket of eggs, and a plate with a bow on it.",
+        "reason": "entailed question should be yes; got no"
+      },
+      {
+        "original_question": "What is the fence made of?",
+        "counterfactual_question": "Is there something that has the attribute 'wood'?",
+        "expected_answer": "yes",
+        "model_prediction": "No, there is no wood in the image.",
+        "reason": "entailed question should be yes; got no"
+      },
+      {
+        "original_question": "Are there black letters or numbers in the photo?",
+        "counterfactual_question": "Is the referenced object present in the image?",
+        "expected_answer": "yes",
+        "model_prediction": "No, the object is not present in the image. The image shows a computer keyboard with various buttons, but the specific object is not visible.",
+        "reason": "entailed question should be yes; got no"
+      }
+    ]
+  }
+}

@@ -100,19 +100,53 @@ def swap_from_map(answer: str, mapping: Dict[str, str]) -> Optional[str]:
     return mapping.get(answer.lower())
 
 
+_CONTRACTION_MAP = {
+    "is":    "Isn't",
+    "are":   "Aren't",
+    "does":  "Doesn't",
+    "do":    "Don't",
+    "did":   "Didn't",
+    "can":   "Can't",
+    "could": "Couldn't",
+    "will":  "Won't",
+    "would": "Wouldn't",
+    "has":   "Hasn't",
+    "have":  "Haven't",
+    "had":   "Hadn't",
+}
+
+
+def _negate_yesno(q: str) -> Optional[str]:
+    """
+    Turn 'Is the car red?' → 'Isn't the car red?' using contraction substitution.
+    Returns None if no leading auxiliary verb is recognised.
+    """
+    for verb, contracted in _CONTRACTION_MAP.items():
+        pattern = rf"^{verb}\b"
+        if re.match(pattern, q.strip(), re.IGNORECASE):
+            negated = re.sub(pattern, contracted, q.strip(), count=1, flags=re.IGNORECASE)
+            if not negated.endswith("?"):
+                negated += "?"
+            return negated
+    return None
+
+
 def build_negation(example: Dict) -> Dict:
     q = normalize_question(example["question"])
     a = str(example["answer"]).strip().lower()
 
     if is_yes_no_question(q) and a in {"yes", "no"}:
-        return {
-            "intervention_type": "negation",
-            "counterfactual_question": q,
-            "expected_answer": "no" if a == "yes" else "yes",
-            "logical_relation": "contradiction",
-            "generation_note": "yes/no answer flip",
-        }
+        negated_q = _negate_yesno(q)
+        if negated_q is not None:
+            return {
+                "intervention_type": "negation",
+                "counterfactual_question": negated_q,
+                "expected_answer": "no" if a == "yes" else "yes",
+                "logical_relation": "contradiction",
+                "generation_note": f"contraction negation: '{q}' → '{negated_q}'",
+            }
 
+    # Fallback for non-yes/no questions or unrecognised auxiliary verbs
     lowered = strip_qmark(q).lower()
     return {
         "intervention_type": "negation",
@@ -123,23 +157,72 @@ def build_negation(example: Dict) -> Dict:
     }
 
 
+def _swap_in_question(q: str, old: str, new: str) -> Optional[str]:
+    """Replace first word-boundary occurrence of `old` in `q` (case-insensitive).
+    Returns the modified question, or None if `old` is not found."""
+    pattern = rf"\b{re.escape(old.lower())}\b"
+    if not re.search(pattern, q.lower()):
+        return None
+    replaced = re.sub(pattern, new, q.lower(), count=1)
+    replaced = replaced[0].upper() + replaced[1:]
+    if not replaced.endswith("?"):
+        replaced += "?"
+    return replaced
+
+
 def build_attribute_swap(example: Dict) -> Dict:
     q = normalize_question(example["question"])
     a = str(example["answer"]).strip()
+    a_lower = a.lower()
 
-    swapped = (
-        swap_from_map(a, COLOR_SWAP)
-        or swap_from_map(a, SIZE_SWAP)
-        or swap_from_map(a, MATERIAL_SWAP)
-        or f"not_{a.lower()}"
-    )
+    cf_question: Optional[str] = None
+    expected: Optional[str] = None
+    note: str = ""
+
+    # ── Case 1: yes/no question — scan question text for a swappable attribute ──
+    # e.g. "Is the car red?" → "Is the car blue?", expected flips yes↔no
+    if is_yes_no_question(q) and a_lower in {"yes", "no"}:
+        for mapping in (COLOR_SWAP, SIZE_SWAP, MATERIAL_SWAP):
+            for attr_val, swapped_val in mapping.items():
+                swapped_q = _swap_in_question(q, attr_val, swapped_val)
+                if swapped_q is not None:
+                    cf_question = swapped_q
+                    expected = "no" if a_lower == "yes" else "yes"
+                    note = f"swapped '{attr_val}' → '{swapped_val}' in question; answer flipped"
+                    break
+            if cf_question:
+                break
+
+    # ── Case 2: open-ended — try replacing the answer value in the question ──
+    # e.g. "What is the color of the red car?" + answer "red" → swap "red" in question
+    if cf_question is None:
+        swapped_ans = (
+            swap_from_map(a, COLOR_SWAP)
+            or swap_from_map(a, SIZE_SWAP)
+            or swap_from_map(a, MATERIAL_SWAP)
+        )
+        if swapped_ans:
+            swapped_q = _swap_in_question(q, a, swapped_ans)
+            if swapped_q is not None:
+                cf_question = swapped_q
+                expected = swapped_ans
+                note = f"swapped answer value '{a_lower}' → '{swapped_ans}' in question"
+            else:
+                # Answer not in question text (typical open-ended): keep question, swap expected
+                cf_question = q
+                expected = swapped_ans
+                note = f"attribute answer swapped to '{swapped_ans}' (value absent from question)"
+        else:
+            cf_question = q
+            expected = f"not_{a_lower}"
+            note = "no swap mapping found; negated expected answer"
 
     return {
         "intervention_type": "attribute_swap",
-        "counterfactual_question": q,
-        "expected_answer": swapped,
+        "counterfactual_question": cf_question,
+        "expected_answer": expected,
         "logical_relation": "attribute_change",
-        "generation_note": "attribute answer swapped",
+        "generation_note": note,
     }
 
 
@@ -148,12 +231,23 @@ def build_object_swap(example: Dict) -> Dict:
     a = str(example["answer"]).strip()
 
     swapped = swap_from_map(a, OBJECT_SWAP) or f"different_{a.lower()}"
+
+    # Try to replace the object name in the question text
+    # e.g. "Is the person holding an umbrella?" → "Is the person holding a bag?"
+    swapped_q = _swap_in_question(q, a, swapped)
+    if swapped_q is not None:
+        cf_question = swapped_q
+        note = f"object '{a.lower()}' → '{swapped}' swapped in question text"
+    else:
+        cf_question = q
+        note = f"object answer swapped to '{swapped}' (object absent from question)"
+
     return {
         "intervention_type": "object_swap",
-        "counterfactual_question": q,
+        "counterfactual_question": cf_question,
         "expected_answer": swapped,
         "logical_relation": "object_change",
-        "generation_note": "object answer swapped",
+        "generation_note": note,
     }
 
 
@@ -162,7 +256,11 @@ def build_entailment(example: Dict) -> Dict:
     a = str(example["answer"]).strip().lower()
 
     if qtype == "attribute":
-        cf_question = f"Is there something that has the attribute '{a}'?"
+        # Only use answer as attribute label when it's a real attribute value (not yes/no).
+        if a not in {"yes", "no", ""}:
+            cf_question = f"Is there something that has the attribute '{a}'?"
+        else:
+            cf_question = "Are the attributes of the objects in the image visible?"
     elif qtype == "object":
         cf_question = "Is the referenced object present in the image?"
     elif qtype == "spatial":
@@ -270,15 +368,26 @@ def generate_counterfactual_family(example: Dict) -> Dict:
 
 
 def main() -> None:
-    input_path = "data/raw/gqa_sample/questions.json"
-    output_path = "data/counterfactual/gqa_sample_counterfactuals.json"
+    import argparse
+    parser = argparse.ArgumentParser(
+        description="Generate counterfactual families from internal-format questions JSON."
+    )
+    parser.add_argument(
+        "--input", default="data/raw/gqa_sample/questions.json",
+        help="Input questions JSON (list of {question_id, image_id, question, answer, question_type})",
+    )
+    parser.add_argument(
+        "--output", default="data/counterfactual/gqa_sample_counterfactuals.json",
+        help="Output path for counterfactual families JSON",
+    )
+    args = parser.parse_args()
 
-    questions = load_questions(input_path)
+    questions = load_questions(args.input)
     families = [generate_counterfactual_family(q) for q in questions]
-    save_counterfactuals(families, output_path)
+    save_counterfactuals(families, args.output)
 
     print(f"Loaded {len(questions)} questions")
-    print(f"Saved counterfactual families to: {output_path}")
+    print(f"Saved {len(families)} counterfactual families to: {args.output}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,781 @@
+{
+  "model": "instructblip",
+  "dataset_consistency_score": 0.6263333333333334,
+  "num_families": 1000,
+  "worst_families": [
+    {
+      "question_id": "16433904",
+      "image_id": "1159963",
+      "original_question": "Does the sky have the same color as the blouse?",
+      "original_answer": "no",
+      "original_model_prediction": "no",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Doesn't the sky have the same color as the blouse?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=no, counterfactual=no"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "The attributes of the objects in the image are not visible.",
+          "passed": false,
+          "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible."
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "08615870",
+      "image_id": "2378770",
+      "original_question": "On which side is the notebook?",
+      "original_answer": "right",
+      "original_model_prediction": "left",
+      "original_correct": false,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "attribute_swap",
+          "logical_relation": "attribute_change",
+          "counterfactual_question": "On which side is the notebook?",
+          "expected_answer": "not_right",
+          "model_prediction": "left",
+          "passed": false,
+          "reason": "expected swapped attribute 'not_right'; got 'left'"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'right'?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "05891503",
+      "image_id": "2384647",
+      "original_question": "Is the sweater white or black?",
+      "original_answer": "black",
+      "original_model_prediction": "black",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "negation",
+          "counterfactual_question": "Is it false that is the sweater white or black?",
+          "expected_answer": "yes",
+          "model_prediction": "black",
+          "passed": false,
+          "reason": "unknown logical relation: negation"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'black'?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "09400771",
+      "image_id": "2327284",
+      "original_question": "On which side of the photo is the pine, the right or the left?",
+      "original_answer": "right",
+      "original_model_prediction": "right",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "attribute_swap",
+          "logical_relation": "attribute_change",
+          "counterfactual_question": "On which side of the photo is the pine, the right or the left?",
+          "expected_answer": "not_right",
+          "model_prediction": "right",
+          "passed": false,
+          "reason": "expected swapped attribute 'not_right'; got 'right'"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'right'?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "015124",
+      "image_id": "2360763",
+      "original_question": "Is the brown dog on the right or on the left side of the picture?",
+      "original_answer": "left",
+      "original_model_prediction": "left",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "negation",
+          "counterfactual_question": "Is it false that is the brown dog on the right or on the left side of the picture?",
+          "expected_answer": "yes",
+          "model_prediction": "left",
+          "passed": false,
+          "reason": "unknown logical relation: negation"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'left'?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Is the brown dog under the right or on the left side of the picture?",
+          "expected_answer": "unknown",
+          "model_prediction": "left",
+          "passed": false,
+          "reason": "spatial answer should differ from original; original=left, counterfactual=left"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "08336842",
+      "image_id": "2319877",
+      "original_question": "Is the boat in the water white and small?",
+      "original_answer": "yes",
+      "original_model_prediction": "yes",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the boat in the water white and small?",
+          "expected_answer": "no",
+          "model_prediction": "yes",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "The attributes of the objects in the image are not visible, but the boy is holding a fishing rod and a small boat in the water. The boat is small and white, while the fishing rod is black and white.",
+          "passed": false,
+          "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible, but the boy is holding a fishing rod and a small boat in the water. the boat is small and white, while the fishing rod is black and white."
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "02420925",
+      "image_id": "2340962",
+      "original_question": "On which side of the photo is the bouquet?",
+      "original_answer": "right",
+      "original_model_prediction": "left",
+      "original_correct": false,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "attribute_swap",
+          "logical_relation": "attribute_change",
+          "counterfactual_question": "On which side of the photo is the bouquet?",
+          "expected_answer": "not_right",
+          "model_prediction": "left",
+          "passed": false,
+          "reason": "expected swapped attribute 'not_right'; got 'left'"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'right'?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "14106895",
+      "image_id": "2364897",
+      "original_question": "Is the crowd white and large?",
+      "original_answer": "yes",
+      "original_model_prediction": "no",
+      "original_correct": false,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the crowd white and large?",
+          "expected_answer": "no",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=no, counterfactual=no"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "The attributes of the objects in the image are not visible, but the skiers are wearing skis and are standing on a snowy slope. The skiers are wearing skis with bright colors, which may indicate that they are wearing skis",
+          "passed": false,
+          "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible, but the skiers are wearing skis and are standing on a snowy slope. the skiers are wearing skis with bright colors, which may indicate that they are wearing skis"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "0610806",
+      "image_id": "2404484",
+      "original_question": "On which side is the screen, the left or the right?",
+      "original_answer": "right",
+      "original_model_prediction": "right",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "attribute_swap",
+          "logical_relation": "attribute_change",
+          "counterfactual_question": "On which side is the screen, the left or the right?",
+          "expected_answer": "not_right",
+          "model_prediction": "right",
+          "passed": false,
+          "reason": "expected swapped attribute 'not_right'; got 'right'"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'right'?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "16514497",
+      "image_id": "2402718",
+      "original_question": "Is the broccoli steamed or raw?",
+      "original_answer": "steamed",
+      "original_model_prediction": "The broccoli is steamed.",
+      "original_correct": false,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "negation",
+          "counterfactual_question": "Is it false that is the broccoli steamed or raw?",
+          "expected_answer": "yes",
+          "model_prediction": "steamed",
+          "passed": false,
+          "reason": "unknown logical relation: negation"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'steamed'?",
+          "expected_answer": "yes",
+          "model_prediction": "The broccoli on the plate is not steamed, but it is cooked in a frying pan.",
+          "passed": false,
+          "reason": "entailed question should be yes; got the broccoli on the plate is not steamed, but it is cooked in a frying pan."
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "04917728",
+      "image_id": "2380189",
+      "original_question": "Is the zebra that is standing black and striped?",
+      "original_answer": "yes",
+      "original_model_prediction": "yes",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the zebra that is standing black and striped?",
+          "expected_answer": "no",
+          "model_prediction": "yes",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "The attributes of the objects in the image are not visible, but it is possible to discern the shape, size, and color of the zebras.",
+          "passed": false,
+          "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible, but it is possible to discern the shape, size, and color of the zebras."
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "04351648",
+      "image_id": "2394997",
+      "original_question": "Does the umbrella behind the other umbrella look open and yellow?",
+      "original_answer": "yes",
+      "original_model_prediction": "yes",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 3,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Doesn't the umbrella behind the other umbrella look open and yellow?",
+          "expected_answer": "no",
+          "model_prediction": "yes",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "The attributes of the objects in the image are not visible, but the colors of the umbrellas are visible.",
+          "passed": false,
+          "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible, but the colors of the umbrellas are visible."
+        },
+        {
+          "intervention_type": "spatial_perturbation",
+          "logical_relation": "spatial_change",
+          "counterfactual_question": "Does the umbrella in front of the other umbrella look open and yellow?",
+          "expected_answer": "unknown",
+          "model_prediction": "yes",
+          "passed": false,
+          "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "0893521",
+      "image_id": "2414129",
+      "original_question": "Is the sky white and bright?",
+      "original_answer": "no",
+      "original_model_prediction": "yes",
+      "original_correct": false,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the sky white and bright?",
+          "expected_answer": "yes",
+          "model_prediction": "yes",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "The attributes of the objects in the image are visible, including the color of the bus, the height of the bus, and the direction of the bus. The bus is parked in the middle of the street, and the people are standing in the",
+          "passed": false,
+          "reason": "entailed question should be yes; got the attributes of the objects in the image are visible, including the color of the bus, the height of the bus, and the direction of the bus. the bus is parked in the middle of the street, and the people are standing in the"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "0693324",
+      "image_id": "2370435",
+      "original_question": "On which side is the water bottle?",
+      "original_answer": "right",
+      "original_model_prediction": "right",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "attribute_swap",
+          "logical_relation": "attribute_change",
+          "counterfactual_question": "On which side is the water bottle?",
+          "expected_answer": "not_right",
+          "model_prediction": "right",
+          "passed": false,
+          "reason": "expected swapped attribute 'not_right'; got 'right'"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'right'?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "12642563",
+      "image_id": "2318140",
+      "original_question": "On which side of the picture are the people, the right or the left?",
+      "original_answer": "right",
+      "original_model_prediction": "right",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "attribute_swap",
+          "logical_relation": "attribute_change",
+          "counterfactual_question": "On which side of the picture are the people, the right or the left?",
+          "expected_answer": "not_right",
+          "model_prediction": "right",
+          "passed": false,
+          "reason": "expected swapped attribute 'not_right'; got 'right'"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'right'?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "15632722",
+      "image_id": "2351404",
+      "original_question": "Do the coat and the keyboard have the same color?",
+      "original_answer": "no",
+      "original_model_prediction": "no",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Don't the coat and the keyboard have the same color?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=no, counterfactual=no"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "The attributes of the objects in the image are not visible, but the overall appearance of the workspace is clear. The desk is cluttered with various items, including a computer, a laptop, a printer, and a phone. The",
+          "passed": false,
+          "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible, but the overall appearance of the workspace is clear. the desk is cluttered with various items, including a computer, a laptop, a printer, and a phone. the"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "00747847",
+      "image_id": "2344727",
+      "original_question": "Do the tablecloth and the cake have the same color?",
+      "original_answer": "no",
+      "original_model_prediction": "yes",
+      "original_correct": false,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Don't the tablecloth and the cake have the same color?",
+          "expected_answer": "yes",
+          "model_prediction": "yes",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "The attributes of the objects in the image are not visible, but the people and the cake are clearly visible.",
+          "passed": false,
+          "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible, but the people and the cake are clearly visible."
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "17866727",
+      "image_id": "2412235",
+      "original_question": "Is the book of the shelf in the bottom or in the top part of the picture?",
+      "original_answer": "bottom",
+      "original_model_prediction": "bottom",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "negation",
+          "counterfactual_question": "Is it false that is the book of the shelf in the bottom or in the top part of the picture?",
+          "expected_answer": "yes",
+          "model_prediction": "bottom",
+          "passed": false,
+          "reason": "unknown logical relation: negation"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Is there something that has the attribute 'bottom'?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "entailed question should be yes; got no"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "10607012",
+      "image_id": "2404261",
+      "original_question": "Are the athletic shoe and the backpack the same color?",
+      "original_answer": "no",
+      "original_model_prediction": "no",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Aren't the athletic shoe and the backpack the same color?",
+          "expected_answer": "yes",
+          "model_prediction": "no",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=no, counterfactual=no"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "The attributes of the objects in the image are not visible, but the person is wearing a black shirt and a black jacket, which can be interpreted as a black suit. The man is standing on a surfboard, which is",
+          "passed": false,
+          "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible, but the person is wearing a black shirt and a black jacket, which can be interpreted as a black suit. the man is standing on a surfboard, which is"
+        }
+      ],
+      "question_type": "attribute"
+    },
+    {
+      "question_id": "01775533",
+      "image_id": "2346673",
+      "original_question": "Is the carpet both clean and brown?",
+      "original_answer": "yes",
+      "original_model_prediction": "yes",
+      "original_correct": true,
+      "passed_count": 0,
+      "total_counterfactuals": 2,
+      "family_consistency_score": 0.0,
+      "details": [
+        {
+          "intervention_type": "negation",
+          "logical_relation": "contradiction",
+          "counterfactual_question": "Isn't the carpet both clean and brown?",
+          "expected_answer": "no",
+          "model_prediction": "yes",
+          "passed": false,
+          "reason": "expected opposite yes/no answer; original=yes, counterfactual=yes"
+        },
+        {
+          "intervention_type": "entailment",
+          "logical_relation": "entails",
+          "counterfactual_question": "Are the attributes of the objects in the image visible?",
+          "expected_answer": "yes",
+          "model_prediction": "The attributes of the objects in the image are not visible, but the room is well-lit and the objects are clearly visible. The room is a child's room, which means that the objects are likely to be toys or play items.",
+          "passed": false,
+          "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible, but the room is well-lit and the objects are clearly visible. the room is a child's room, which means that the objects are likely to be toys or play items."
+        }
+      ],
+      "question_type": "attribute"
+    }
+  ],
+  "intervention_failure_stats": {
+    "attribute_swap": {
+      "total": 162,
+      "failed": 152,
+      "failure_rate": 0.9383
+    },
+    "negation": {
+      "total": 444,
+      "failed": 324,
+      "failure_rate": 0.7297
+    },
+    "spatial_perturbation": {
+      "total": 355,
+      "failed": 257,
+      "failure_rate": 0.7239
+    },
+    "entailment": {
+      "total": 1000,
+      "failed": 94,
+      "failure_rate": 0.094
+    }
+  },
+  "intervention_failure_examples": {
+    "attribute_swap": [
+      {
+        "original_question": "On which side is the notebook?",
+        "counterfactual_question": "On which side is the notebook?",
+        "expected_answer": "not_right",
+        "model_prediction": "left",
+        "reason": "expected swapped attribute 'not_right'; got 'left'"
+      },
+      {
+        "original_question": "What material is the fence, wire or stone?",
+        "counterfactual_question": "What material is the fence, wire or stone?",
+        "expected_answer": "not_wire",
+        "model_prediction": "wire",
+        "reason": "expected swapped attribute 'not_wire'; got 'wire'"
+      },
+      {
+        "original_question": "On which side of the photo is the pine, the right or the left?",
+        "counterfactual_question": "On which side of the photo is the pine, the right or the left?",
+        "expected_answer": "not_right",
+        "model_prediction": "right",
+        "reason": "expected swapped attribute 'not_right'; got 'right'"
+      }
+    ],
+    "negation": [
+      {
+        "original_question": "Is the umbrella on the right of the image?",
+        "counterfactual_question": "Isn't the umbrella on the right of the image?",
+        "expected_answer": "yes",
+        "model_prediction": "right",
+        "reason": "unsupported contradiction pair: original=yes, counterfactual=right"
+      },
+      {
+        "original_question": "Is the red bag to the right or to the left of the person that wears a vest?",
+        "counterfactual_question": "Is it false that is the red bag to the right or to the left of the person that wears a vest?",
+        "expected_answer": "yes",
+        "model_prediction": "right",
+        "reason": "unknown logical relation: negation"
+      },
+      {
+        "original_question": "Is the boy's nose white or black?",
+        "counterfactual_question": "Is it false that is the boy's nose white or black?",
+        "expected_answer": "yes",
+        "model_prediction": "yes",
+        "reason": "unknown logical relation: negation"
+      }
+    ],
+    "spatial_perturbation": [
+      {
+        "original_question": "What is the person to the left of the cat sitting on?",
+        "counterfactual_question": "What is the person to the right of the cat sitting on?",
+        "expected_answer": "unknown",
+        "model_prediction": "bed",
+        "reason": "spatial answer should differ from original; original=bed, counterfactual=bed"
+      },
+      {
+        "original_question": "Is the grilled food to the right of the long meat?",
+        "counterfactual_question": "Is the grilled food to the left of the long meat?",
+        "expected_answer": "unknown",
+        "model_prediction": "yes",
+        "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+      },
+      {
+        "original_question": "Is the umbrella on the right of the image?",
+        "counterfactual_question": "Is the umbrella on the left of the image?",
+        "expected_answer": "unknown",
+        "model_prediction": "yes",
+        "reason": "spatial yes/no answer should usually change; original=yes, counterfactual=yes"
+      }
+    ],
+    "entailment": [
+      {
+        "original_question": "Do the animals have different species?",
+        "counterfactual_question": "Are the attributes of the objects in the image visible?",
+        "expected_answer": "yes",
+        "model_prediction": "The attributes of the objects in the image are not visible, but the man is wearing a hat and a pair of sunglasses, which can be seen in the image.",
+        "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible, but the man is wearing a hat and a pair of sunglasses, which can be seen in the image."
+      },
+      {
+        "original_question": "Does the sky have the same color as the blouse?",
+        "counterfactual_question": "Are the attributes of the objects in the image visible?",
+        "expected_answer": "yes",
+        "model_prediction": "The attributes of the objects in the image are not visible.",
+        "reason": "entailed question should be yes; got the attributes of the objects in the image are not visible."
+      },
+      {
+        "original_question": "Which color is the boat to the right of the surfboard, yellow or blue?",
+        "counterfactual_question": "Is there something that has the attribute 'yellow'?",
+        "expected_answer": "yes",
+        "model_prediction": "no",
+        "reason": "entailed question should be yes; got no"
+      }
+    ]
+  }
+}

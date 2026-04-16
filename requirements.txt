@@ -3,6 +3,7 @@ accelerate
 datasets
 evaluate
 peft
+bitsandbytes>=0.46.1
 pillow
 scikit-learn
 pandas

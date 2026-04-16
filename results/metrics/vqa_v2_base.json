@@ -1,0 +1,3512 @@
+{
+  "model": "llava-hf/llava-1.5-7b-hf",
+  "lora_checkpoint": null,
+  "num_samples": 500,
+  "overall_vqa_accuracy": 0.33,
+  "yes_no_accuracy": 0.8027,
+  "open_ended_accuracy": 0.0252,
+  "yes_no_count": 196,
+  "open_ended_count": 304,
+  "per_sample_results": [
+    {
+      "question_id": 262148000,
+      "question": "Where is he looking?",
+      "prediction": "The skateboarder is looking up, possibly focusing on the trick he is performing or the audience watching him.",
+      "multiple_choice_answer": "down",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262148001,
+      "question": "What are the people in the background doing?",
+      "prediction": "The people in the background are watching the skateboarder perform tricks on the bench.",
+      "multiple_choice_answer": "watching",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262148002,
+      "question": "What is he on top of?",
+      "prediction": "He is on top of a skateboard.",
+      "multiple_choice_answer": "picnic table",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393225000,
+      "question": "What website copyrighted the picture?",
+      "prediction": "The picture is copyrighted by \"foodiebaker.com\".",
+      "multiple_choice_answer": "foodiebakercom",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393225001,
+      "question": "Is this a creamy soup?",
+      "prediction": "Yes, this is a creamy soup, as it contains shrimp, carrots, and noodles. The presence of shrimp and carrots suggests that the soup is likely a seafood or vegetable-based",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393225002,
+      "question": "Is this rice noodle soup?",
+      "prediction": "Yes, this is a bowl of rice noodle soup, which is filled with various ingredients such as shrimp, carrots, and possibly other vegetables. The soup is served in a white bowl, and there",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393225003,
+      "question": "What is to the right of the soup?",
+      "prediction": "A spoon is to the right of the soup.",
+      "multiple_choice_answer": "chopsticks",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393226000,
+      "question": "What is the man doing in the street?",
+      "prediction": "The man is walking across the street, likely to get to the other side or to a specific destination.",
+      "multiple_choice_answer": "walking",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393226001,
+      "question": "How many photo's can you see?",
+      "prediction": "I can see two photo's in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393226002,
+      "question": "What does the truck on the left sell?",
+      "prediction": "The truck on the left sells ice cream.",
+      "multiple_choice_answer": "ice cream",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 240301000,
+      "question": "Why is there a gap between the roof and wall?",
+      "prediction": "The gap between the roof and wall is likely due to the construction method used for the building. In some cases, the roof and wall are not connected, allowing for better ventilation and insulation. This design choice can help maintain a comfortable temperature inside",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 240301001,
+      "question": "Is it daylight in this picture?",
+      "prediction": "Yes, it is daylight in the picture.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 240301002,
+      "question": "Why is the cow laying down?",
+      "prediction": "The cow is laying down because it is resting or sleeping. Cows, like other animals, need to rest and sleep to maintain their overall health and well-being. In the image, the cow is laying down in a",
+      "multiple_choice_answer": "tired",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131089000,
+      "question": "What color is the grass in this picture?",
+      "prediction": "The grass in this picture is green.",
+      "multiple_choice_answer": "green",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131089001,
+      "question": "Did the batter hit the ball?",
+      "prediction": "Yes, the batter successfully hit the ball.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131089002,
+      "question": "How many are playing ball?",
+      "prediction": "There is only one person playing ball in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131089003,
+      "question": "Is there a chain link fence in the image?",
+      "prediction": "Yes, there is a chain link fence in the image, and the boy is standing in front of it.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131089004,
+      "question": "Is the boy playing baseball?",
+      "prediction": "Yes, the boy is playing baseball, as he is swinging a baseball bat and preparing to hit the ball.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262162000,
+      "question": "Is that a folding chair?",
+      "prediction": "Yes, it is a folding chair.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162001,
+      "question": "How many beds?",
+      "prediction": "There is one bed in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162002,
+      "question": "What color is the bedspread?",
+      "prediction": "The bedspread is tan.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162003,
+      "question": "How many pictures are there?",
+      "prediction": "There are three pictures on the wall.",
+      "multiple_choice_answer": "7",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162004,
+      "question": "Are these twin mattresses?",
+      "prediction": "No, these are twin mattresses placed on the floor.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262162005,
+      "question": "How many sources of light are there?",
+      "prediction": "There are two sources of light in the image: natural light coming through the window and artificial light from the desk lamp.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162006,
+      "question": "Is this room decorated for the 1970s?",
+      "prediction": "No, this room is not decorated for the 1970s. The image shows a modern-looking room with a bed, a desk, a chair, and a laptop. The presence of a laptop, a chair, and",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262162007,
+      "question": "Are the lights on in this room?",
+      "prediction": "Yes, the lights are on in the room, creating a well-lit and comfortable atmosphere.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162008,
+      "question": "Are the windows big?",
+      "prediction": "Yes, the windows in the room are big, allowing for plenty of natural light to enter the space.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262162009,
+      "question": "What is the chair made of?",
+      "prediction": "The chair is made of leather.",
+      "multiple_choice_answer": "leather",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162010,
+      "question": "Is this room in someone's home?",
+      "prediction": "Yes, this room is in someone's home, as it is a bedroom with a bed, a desk, and a chair.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262162011,
+      "question": "Which room is this?",
+      "prediction": "Bedroom",
+      "multiple_choice_answer": "bedroom",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262162012,
+      "question": "Is the bed white?",
+      "prediction": "Yes, the bed is white.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262162013,
+      "question": "Could this be a hotel room?",
+      "prediction": "Yes, it is possible that this is a hotel room. The presence of a bed, desk, and chair suggests a hotel setting. Additionally, the room appears to be well-organized and clean, which is typical of hotel rooms. However",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 262162014,
+      "question": "Is the bed made?",
+      "prediction": "No, the bed is unmade.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.6667
+    },
+    {
+      "question_id": 262162015,
+      "question": "Are there bed headboards present in the photo?",
+      "prediction": "Yes, there is a bed headboard in the photo.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162016,
+      "question": "Is there a mirror in the room?",
+      "prediction": "Yes, there is a mirror in the room, located above the desk.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162017,
+      "question": "What kind of room is this?",
+      "prediction": "This is a bedroom, as indicated by the presence of a bed, a desk, and a chair.",
+      "multiple_choice_answer": "bedroom",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162018,
+      "question": "How many chairs are in the photo?",
+      "prediction": "There are two chairs in the photo.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162019,
+      "question": "Is the desk cluttered?",
+      "prediction": "Yes, the desk is cluttered with various items, including a computer, a keyboard, a mouse, and a cup.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162020,
+      "question": "Has the bed been made?",
+      "prediction": "Yes, the bed has been made, with a neatly arranged blanket and pillows.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262162021,
+      "question": "How many seats are there?",
+      "prediction": "There are two seats in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162022,
+      "question": "How many frames are on the wall?",
+      "prediction": "There are three frames on the wall.",
+      "multiple_choice_answer": "7",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162023,
+      "question": "What color are the walls?",
+      "prediction": "The walls are white.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162024,
+      "question": "Are there any boxes in the room?",
+      "prediction": "Yes, there are boxes in the room, which are located near the bed.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162025,
+      "question": "Could this be a multi-purpose room?",
+      "prediction": "Yes, this room could be a multi-purpose room, as it contains a bed, a desk with a computer, and a chair. The presence of a bed and a chair suggests that the room is designed for sleeping and relaxation",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262162026,
+      "question": "What animal print does that chair resemble?",
+      "prediction": "The chair resembles a leopard print.",
+      "multiple_choice_answer": "none",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162027,
+      "question": "What is behind the foot of the bed?",
+      "prediction": "Behind the foot of the bed, there is a chair.",
+      "multiple_choice_answer": "chair",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162028,
+      "question": "What is the size of the bed?",
+      "prediction": "The bed is small in size.",
+      "multiple_choice_answer": "queen",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262162029,
+      "question": "How many pictures on the wall?",
+      "prediction": "There are three pictures on the wall.",
+      "multiple_choice_answer": "7",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393243000,
+      "question": "Will this kid leave the powdered sugar on his face?",
+      "prediction": "Yes, the young boy is likely to leave the powdered sugar on his face as he is eating a pastry covered in powdered sugar. The sugar is likely to stick to his face and hands while he enjoys his treat.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393243001,
+      "question": "What is the child eating?",
+      "prediction": "The child is eating a piece of cake.",
+      "multiple_choice_answer": "donut",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393243002,
+      "question": "Is this person wearing a tie?",
+      "prediction": "No, the person is not wearing a tie. They are wearing a brown shirt and a brown jacket.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393243003,
+      "question": "What color is the kids hair?",
+      "prediction": "The kid's hair is blonde.",
+      "multiple_choice_answer": "blonde",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262175000,
+      "question": "Is the man's tie purple?",
+      "prediction": "No, the man's tie is not purple. It is green.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262175001,
+      "question": "Where was the picture taken of the man?",
+      "prediction": "The picture was taken in a forest, with the man standing in front of a tree.",
+      "multiple_choice_answer": "forest",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262175002,
+      "question": "What is the man wearing on his head?",
+      "prediction": "The man is wearing a pineapple on his head.",
+      "multiple_choice_answer": "hat",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262175003,
+      "question": "Is this a designer tie?",
+      "prediction": "Yes, the man is wearing a tie made of leaves, which is a unique and creative design.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131108000,
+      "question": "Is this photo color?",
+      "prediction": "No, this photo is in black and white.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131108001,
+      "question": "Does the door open inward or outward?",
+      "prediction": "The door opens inward.",
+      "multiple_choice_answer": "inward",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131108002,
+      "question": "Is there a drainage in the pic?",
+      "prediction": "Yes, there is a drainage in the image, located on the sidewalk near the brick building.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393254000,
+      "question": "What does the sentence on the top say?",
+      "prediction": "The sentence on the top says, \"The tent is blue and yellow.\"",
+      "multiple_choice_answer": "this is camping",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393254001,
+      "question": "What kind of vehicle is the RV pulling on the bottom picture?",
+      "prediction": "The RV is pulling a small car on the bottom picture.",
+      "multiple_choice_answer": "jeep",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393254002,
+      "question": "Where is the camping tent?",
+      "prediction": "The camping tent is located in the woods, near a forest.",
+      "multiple_choice_answer": "woods",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 42000,
+      "question": "What color are the gym shoes?",
+      "prediction": "The gym shoes are black.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 42001,
+      "question": "Is there a red sandal here?",
+      "prediction": "Yes, there is a red sandal in the image.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 42002,
+      "question": "What color is the flip flop?",
+      "prediction": "The flip flop is red.",
+      "multiple_choice_answer": "red",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131115000,
+      "question": "Are there players in the dugout?",
+      "prediction": "Yes, there are players in the dugout watching the game.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131115001,
+      "question": "Is the battery looking at the ball?",
+      "prediction": "Yes, the batter is looking at the ball as it is pitched to him.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131115002,
+      "question": "How many people are on the field?",
+      "prediction": "There are three people on the field: a batter, a catcher, and an umpire.",
+      "multiple_choice_answer": "3",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262189000,
+      "question": "How many signs?",
+      "prediction": "There are four street signs in the image.",
+      "multiple_choice_answer": "4",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262189001,
+      "question": "What color is the Salisbury Rd. sign?",
+      "prediction": "The Salisbury Rd. sign is yellow.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262189002,
+      "question": "What does the last sign say?",
+      "prediction": "The last sign says \"St.\"",
+      "multiple_choice_answer": "ross st",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393266000,
+      "question": "What color is the sign?",
+      "prediction": "The sign is red and yellow.",
+      "multiple_choice_answer": "red and yellow",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393266001,
+      "question": "Can you turn right or left in the tunnel?",
+      "prediction": "In the tunnel, you can turn right or left, as there are two different directions indicated by the street signs.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393266002,
+      "question": "What color is the plant?",
+      "prediction": "The plant is green.",
+      "multiple_choice_answer": "green",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393267000,
+      "question": "What color is the woman's shirt on the left?",
+      "prediction": "The woman's shirt on the left is black.",
+      "multiple_choice_answer": "black",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393267001,
+      "question": "What type of beverage is being displayed?",
+      "prediction": "The beverage being displayed is wine.",
+      "multiple_choice_answer": "wine",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393267002,
+      "question": "Why are some people wearing hats?",
+      "prediction": "In the image, some people are wearing hats while others are not. The reason for this difference could be related to the event or gathering taking place. For example, the hatted individuals might be participating in a wine tasting",
+      "multiple_choice_answer": "nobody is wearing hats",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393267003,
+      "question": "What kind of event are the people involved in?",
+      "prediction": "The people in the image are involved in a wine tasting event. They are gathered around a table filled with various wine bottles, and some of them are holding wine glasses. The woman serving the wine is likely providing samples of different w",
+      "multiple_choice_answer": "wine tasting",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262197000,
+      "question": "How many skyscrapers are there?",
+      "prediction": "There are two skyscrapers in the image.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262197001,
+      "question": "What is the color of the building in the background?",
+      "prediction": "The color of the building in the background is brown.",
+      "multiple_choice_answer": "brown",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262197002,
+      "question": "Is there a tree in front of the building?",
+      "prediction": "Yes, there is a tree in front of the building.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262197003,
+      "question": "Is there a person riding a bike?",
+      "prediction": "Yes, there is a person riding a bike in the image.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262197004,
+      "question": "Are there lights on in the two buildings?",
+      "prediction": "Yes, there are lights on in the two buildings, which are likely lit up during the daytime.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262197005,
+      "question": "How many stories is the building on the left?",
+      "prediction": "The building on the left has three stories.",
+      "multiple_choice_answer": "3",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262197006,
+      "question": "Is this a hospital?",
+      "prediction": "Yes, the image shows a large hospital building with clocks on the side of the building. The presence of clocks on the building suggests that it is a hospital, where time is crucial for patient care and scheduling.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262197007,
+      "question": "How many umbrellas do you see?",
+      "prediction": "There are two umbrellas in the image.",
+      "multiple_choice_answer": "0",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262197008,
+      "question": "How many colors is the building on the right painted?",
+      "prediction": "The building on the right is painted in two colors: red and white.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262197009,
+      "question": "What is on the boy's back walking?",
+      "prediction": "The boy is carrying a backpack on his back while walking.",
+      "multiple_choice_answer": "backpack",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262197010,
+      "question": "How many modes of transportation are depicted?",
+      "prediction": "There are two modes of transportation depicted in the image: cars and pedestrians.",
+      "multiple_choice_answer": "0",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262197011,
+      "question": "What color is the building?",
+      "prediction": "The building is brown.",
+      "multiple_choice_answer": "brown",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393271000,
+      "question": "Is it still snowing in the picture?",
+      "prediction": "Yes, it is still snowing in the picture, as the snow is falling while the people are snowboarding.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393271001,
+      "question": "Does this appear to be a photo of multiple exposures of the black clad snowboarder?",
+      "prediction": "Yes, the image appears to be a photo of multiple exposures of the black clad snowboarder. The snowboarder is captured in various positions while riding down the snowy hill, creating a dynamic and interesting visual effect.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393271002,
+      "question": "How many people can you see in the picture?",
+      "prediction": "I can see six people in the picture.",
+      "multiple_choice_answer": "8",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262200000,
+      "question": "Is this an adult party?",
+      "prediction": "No, this is not an adult party. The image shows a group of children gathered around a table with a cake, celebrating a birthday or a special occasion. The presence of candles on the cake suggests that it is a birth",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262200001,
+      "question": "What is being celebrated?",
+      "prediction": "The image shows a group of children gathered around a table with a cake on it, which suggests that they are celebrating a birthday or a special occasion. The presence of candles on the cake further supports the idea that it is a",
+      "multiple_choice_answer": "birthday",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262200002,
+      "question": "Who is in front of the cake with candles?",
+      "prediction": "Children",
+      "multiple_choice_answer": "boy",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393274000,
+      "question": "What is this vehicle?",
+      "prediction": "This vehicle is a train, specifically a yellow and purple passenger train.",
+      "multiple_choice_answer": "train",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393274001,
+      "question": "Can you see the hook up for the train?",
+      "prediction": "Yes, the train is hooked up to a platform, which is a common way to connect trains to their respective stations.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.6667
+    },
+    {
+      "question_id": 393274002,
+      "question": "Is this train at the station?",
+      "prediction": "Yes, the train is at the station, as it is pulling into the station.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393274003,
+      "question": "What is cast?",
+      "prediction": "The shadow of the train is cast on the platform.",
+      "multiple_choice_answer": "shadow",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393274004,
+      "question": "What is the background metal structure?",
+      "prediction": "The background metal structure is a train station platform.",
+      "multiple_choice_answer": "platform",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393274005,
+      "question": "Is there smoke coming out of the train?",
+      "prediction": "No, there is no smoke coming out of the train. The train is a modern yellow and purple passenger train, and it is pulling into the station.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393274006,
+      "question": "Is this station in a rural setting?",
+      "prediction": "Yes, the station appears to be in a rural setting, as it is described as a small rural train station.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393274007,
+      "question": "Are the train tracks clear?",
+      "prediction": "Yes, the train tracks are clear, allowing the train to travel smoothly.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131131000,
+      "question": "What type of cat is this?",
+      "prediction": "This is a black and white tuxedo cat.",
+      "multiple_choice_answer": "tabby",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131131001,
+      "question": "What is written lg in the pic?",
+      "prediction": "In the image, there is a TV screen with the word \"LG\" written on it.",
+      "multiple_choice_answer": "monitor",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131131002,
+      "question": "How many cats are in the image?",
+      "prediction": "There are two cats in the image.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393277000,
+      "question": "Are there any tour buses?",
+      "prediction": "No, there are no tour buses in the image.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393277001,
+      "question": "What's the statue of?",
+      "prediction": "The statue is of a clock tower.",
+      "multiple_choice_answer": "clock tower",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393277002,
+      "question": "Are all three cars facing the same direction?",
+      "prediction": "No, not all three cars are facing the same direction. Two cars are facing the same direction, while the third car is facing in the opposite direction.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393277003,
+      "question": "What year is the car?",
+      "prediction": "The car is a 2014 model.",
+      "multiple_choice_answer": "2010",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393277004,
+      "question": "What color is the sky?",
+      "prediction": "The sky is blue.",
+      "multiple_choice_answer": "blue",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393277005,
+      "question": "What time is it on the clock?",
+      "prediction": "The time on the clock is 12:00.",
+      "multiple_choice_answer": "8:35",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393277006,
+      "question": "Are there a lot of people milling around?",
+      "prediction": "No, there are no people milling around in the image. The scene is mostly empty, with a clock tower towering over the city and a few cars parked nearby.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393277007,
+      "question": "Is the building large?",
+      "prediction": "Yes, the building is large, as it is described as a \"large building\" and a \"tall building.\"",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393277008,
+      "question": "How is the weather?",
+      "prediction": "The weather appears to be cloudy, as the clock tower is surrounded by a cloudy sky.",
+      "multiple_choice_answer": "cloudy",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393277009,
+      "question": "What color is the building the background?",
+      "prediction": "The building in the background is white.",
+      "multiple_choice_answer": "gray",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393277010,
+      "question": "What time is it?",
+      "prediction": "The time displayed on the clock is 12:00.",
+      "multiple_choice_answer": "8:35",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393277011,
+      "question": "Does it rain here a lot?",
+      "prediction": "Yes, it appears that it rains a lot in this area, as the clock tower is surrounded by buildings and the sky is cloudy. The presence of a clock tower in the middle of a city also suggests that the area might experience frequent ra",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393277012,
+      "question": "Which famous landmark appears in the background?",
+      "prediction": "The famous landmark that appears in the background is the Big Ben clock tower in London.",
+      "multiple_choice_answer": "big ben",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393277013,
+      "question": "Is that a cake?",
+      "prediction": "No, it is not a cake. The image features a tall clock tower with two clocks on its sides. The clock tower is located in a city, and the clocks are visible on the sides of the tower.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393277014,
+      "question": "Is this a one way street?",
+      "prediction": "Yes, the street is one way, as indicated by the presence of a one-way sign.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393277015,
+      "question": "What color is the dome of the building off in the distance?",
+      "prediction": "The dome of the building off in the distance is red.",
+      "multiple_choice_answer": "red",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393277016,
+      "question": "What is in the tower?",
+      "prediction": "The tower has a clock on each of its sides, making it a four-sided clock tower.",
+      "multiple_choice_answer": "clock",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393282000,
+      "question": "Is the giraffe a baby?",
+      "prediction": "Yes, the giraffe is a baby.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393282001,
+      "question": "How many giraffes are there?",
+      "prediction": "There are two giraffes in the image.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393282002,
+      "question": "Are the animals in the shade?",
+      "prediction": "Yes, the two giraffes are standing in the shade, which provides them with a cooler and more comfortable environment.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393282003,
+      "question": "How many giraffes can been seen?",
+      "prediction": "There are two giraffes visible in the image.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393282004,
+      "question": "Are the animals in the wild?",
+      "prediction": "No, the animals are in a zoo enclosure.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393282005,
+      "question": "Why is there a white roofed open pavilion?",
+      "prediction": "The white roofed open pavilion is likely present in the giraffe enclosure to provide shade and shelter for the giraffes, especially during hot or rainy weather. It can also serve as a place for the gira",
+      "multiple_choice_answer": "for shade",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393282006,
+      "question": "Will these giraffes be eating the grass for dinner?",
+      "prediction": "In the image, there are two giraffes standing in a grassy field. One of the giraffes is eating the grass, while the other one is not eating. It is not clear if the other giraffe",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393282007,
+      "question": "Do you see a body of water in the picture?",
+      "prediction": "No, there is no body of water visible in the picture.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393282008,
+      "question": "What is in front of the giraffe?",
+      "prediction": "In front of the giraffe, there is a small giraffe.",
+      "multiple_choice_answer": "dirt",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393282009,
+      "question": "How many giraffe are pictured?",
+      "prediction": "There are two giraffes pictured.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393282010,
+      "question": "Where do these animals live?",
+      "prediction": "These animals, specifically the two giraffes, live in a zoo enclosure. The image shows them standing in a dirt field, which is typical of a zoo habitat. Zoos provide a controlled environment for animals to live, ensuring",
+      "multiple_choice_answer": "zoo",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393282011,
+      "question": "What are these animals?",
+      "prediction": "These animals are giraffes.",
+      "multiple_choice_answer": "giraffes",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393284000,
+      "question": "Is this a beach scene?",
+      "prediction": "No, this is not a beach scene. The image shows a snowboarder performing a trick in the air, which suggests that the scene takes place in a snowy environment, likely on a mountain or a snow-covered slope.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393284001,
+      "question": "What kind of object is the kid riding?",
+      "prediction": "The kid is riding a snowboard, which is a type of board used for snow sports.",
+      "multiple_choice_answer": "snowboard",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393284002,
+      "question": "What is the this person doing?",
+      "prediction": "The person in the image is performing a snowboarding trick, jumping high in the air while riding a snowboard. They are showcasing their skills and agility during this impressive stunt.",
+      "multiple_choice_answer": "snowboarding",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393284003,
+      "question": "What sport is the man doing?",
+      "prediction": "The man is doing snowboarding, a winter sport where he rides on a snowboard and performs tricks in the air.",
+      "multiple_choice_answer": "snowboarding",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393284004,
+      "question": "Is this man snowboarding?",
+      "prediction": "Yes, the man is snowboarding. He is performing a trick in the air while riding a snowboard.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393284005,
+      "question": "Is there any snow on the trees?",
+      "prediction": "Yes, there is snow on the trees, indicating that the image was taken during the winter season.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 393284006,
+      "question": "Is this person flying?",
+      "prediction": "No, the person is not flying. They are performing a snowboarding trick, which involves jumping in the air while riding a snowboard. The image captures the snowboarder in mid-air, showcasing their skill and",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393284007,
+      "question": "Is this man flying off of the ski slope?",
+      "prediction": "Yes, the man is flying off of the ski slope, as he is captured in mid-air while performing a trick on his snowboard.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393284008,
+      "question": "What is the person wearing?",
+      "prediction": "The person is wearing a red jacket and yellow pants while performing a snowboarding trick.",
+      "multiple_choice_answer": "ski gear",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393284009,
+      "question": "What is the man doing?",
+      "prediction": "The man is performing a snowboarding trick, jumping high in the air while riding his snowboard.",
+      "multiple_choice_answer": "snowboarding",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393284010,
+      "question": "What pattern is painted on the helmet?",
+      "prediction": "The helmet has a checkered pattern painted on it.",
+      "multiple_choice_answer": "no helmet",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393284011,
+      "question": "Is he going to land?",
+      "prediction": "Yes, the man is going to land after performing the jump on his snowboard.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393284012,
+      "question": "What sport is the man participating in?",
+      "prediction": "The man is participating in snowboarding, a winter sport where he rides on a snowboard and performs tricks in the air.",
+      "multiple_choice_answer": "snowboarding",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393284013,
+      "question": "What is in the air?",
+      "prediction": "A snowboarder is in the air, performing a trick on his snowboard.",
+      "multiple_choice_answer": "snowboarder",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393284014,
+      "question": "Does the man have goggles on?",
+      "prediction": "Yes, the man is wearing goggles while performing the trick on his snowboard.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393284015,
+      "question": "What color is the man's jacket?",
+      "prediction": "The man's jacket is red.",
+      "multiple_choice_answer": "red",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393288000,
+      "question": "What kind of building is this?",
+      "prediction": "This is a large, ornate church with a tall steeple and a cross on top. The church features a red brick exterior and has a prominent clock tower. The presence of a cross on top and the clock tower suggest that it is a",
+      "multiple_choice_answer": "church",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393288001,
+      "question": "What color is the dome shaped roof in the back?",
+      "prediction": "The dome shaped roof in the back is red.",
+      "multiple_choice_answer": "gray",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393288002,
+      "question": "What color is the church?",
+      "prediction": "The church is red.",
+      "multiple_choice_answer": "brown",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393288003,
+      "question": "Where are the cars?",
+      "prediction": "The cars are parked in front of the church.",
+      "multiple_choice_answer": "street",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393288004,
+      "question": "What is displayed under the triangular dome?",
+      "prediction": "Under the triangular dome, there is a cross displayed. This is a common feature in churches and religious buildings, symbolizing the crucifixion of Jesus Christ.",
+      "multiple_choice_answer": "windows",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524361000,
+      "question": "Where is the bird?",
+      "prediction": "The bird is sitting on top of a car's windshield wiper.",
+      "multiple_choice_answer": "on metal",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524361001,
+      "question": "How many birds?",
+      "prediction": "There is one bird in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524361002,
+      "question": "What color are the bird's feathers?",
+      "prediction": "The bird's feathers are brown.",
+      "multiple_choice_answer": "gray",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 74000,
+      "question": "Does this dog have a collar?",
+      "prediction": "Yes, the dog has a collar.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 74001,
+      "question": "Where is the dog laying?",
+      "prediction": "The dog is laying on a sidewalk or street.",
+      "multiple_choice_answer": "sidewalk",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 74002,
+      "question": "What is the dog doing?",
+      "prediction": "The dog is laying down on the sidewalk, possibly sleeping or resting.",
+      "multiple_choice_answer": "sleeping",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131152000,
+      "question": "Are any of these people wearing a wetsuit?",
+      "prediction": "Yes, there is a man wearing a wetsuit in the image.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131152001,
+      "question": "How are the waves?",
+      "prediction": "The waves are small and gentle, making it suitable for surfing and learning.",
+      "multiple_choice_answer": "small",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131152002,
+      "question": "How many people are here?",
+      "prediction": "There are several people in the image, including a man on a surfboard and others in the water.",
+      "multiple_choice_answer": "5",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131152003,
+      "question": "Are these people wet?",
+      "prediction": "Yes, the people in the image are wet, as they are in the ocean and riding surfboards.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262227000,
+      "question": "Are there pill bottles?",
+      "prediction": "No, there are no pill bottles in the image.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262227001,
+      "question": "What kind of sign is above the doorway?",
+      "prediction": "There is a \"Do Not Enter\" sign above the doorway.",
+      "multiple_choice_answer": "exit",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262227002,
+      "question": "Is the computer a popular model?",
+      "prediction": "Yes, the computer is a popular model, as it is a Dell computer.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262227003,
+      "question": "What color is the ribbon?",
+      "prediction": "The ribbon is purple.",
+      "multiple_choice_answer": "purple",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262228000,
+      "question": "What is the ground made of?",
+      "prediction": "The ground is made of bricks.",
+      "multiple_choice_answer": "bricks",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262228001,
+      "question": "Why are the bicycles chained?",
+      "prediction": "The bicycles are chained to a pole or a bike rack to prevent theft. By securing the bicycles to a fixed object, the owner can ensure that their bikes are safe from potential thieves who might",
+      "multiple_choice_answer": "bike rack",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262228002,
+      "question": "What type of vehicles are these?",
+      "prediction": "These are bicycles.",
+      "multiple_choice_answer": "bikes",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262228003,
+      "question": "Are these comfortable chairs?",
+      "prediction": "No, these are not comfortable chairs. They are bicycle racks, which are designed to securely hold bicycles while they are not in use. The racks are made of metal and are typically found in public areas, such",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262228004,
+      "question": "Where are these bicycles chained at?",
+      "prediction": "These bicycles are chained to a metal pole on a sidewalk.",
+      "multiple_choice_answer": "bike rack",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262228005,
+      "question": "What is on the ground?",
+      "prediction": "Bicycle",
+      "multiple_choice_answer": "bricks",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 262229000,
+      "question": "What is gliding in the air?",
+      "prediction": "A soccer ball is gliding in the air during the game.",
+      "multiple_choice_answer": "nothing",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262229001,
+      "question": "What sport are the girls playing?",
+      "prediction": "The girls are playing soccer.",
+      "multiple_choice_answer": "soccer",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262229002,
+      "question": "Are the girls professionals?",
+      "prediction": "Yes, the girls in the image are professionals, as they are part of a soccer team.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 262229003,
+      "question": "How many babies are there?",
+      "prediction": "There are no babies in the image. The scene features a group of young women playing soccer on a field.",
+      "multiple_choice_answer": "0",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262229004,
+      "question": "Are these men or women?",
+      "prediction": "These are women playing soccer.",
+      "multiple_choice_answer": "women",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262229005,
+      "question": "What are on the girls heads?",
+      "prediction": "The girls have headbands on their heads.",
+      "multiple_choice_answer": "headbands",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262229006,
+      "question": "What game are they playing?",
+      "prediction": "The girls are playing soccer on a field.",
+      "multiple_choice_answer": "soccer",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131159000,
+      "question": "Where is the bear sitting?",
+      "prediction": "The bear is sitting on the floor of a car.",
+      "multiple_choice_answer": "car floor",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131159001,
+      "question": "Is the bear real?",
+      "prediction": "No, the bear is not real. It is a stuffed toy bear placed in the car.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131159002,
+      "question": "What is the color of the bear?",
+      "prediction": "The color of the bear is yellow.",
+      "multiple_choice_answer": "yellow",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262235000,
+      "question": "What type of facial expression does the woman have?",
+      "prediction": "The woman has a smiling facial expression while talking on her cell phone.",
+      "multiple_choice_answer": "smile",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262235001,
+      "question": "What covers the window?",
+      "prediction": "The window is covered with a curtain.",
+      "multiple_choice_answer": "curtain",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262235002,
+      "question": "What color are the woman's nails?",
+      "prediction": "The woman's nails are painted black.",
+      "multiple_choice_answer": "clear",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262235003,
+      "question": "What does the woman have around her neck?",
+      "prediction": "The woman has a lanyard around her neck.",
+      "multiple_choice_answer": "lanyard",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262235004,
+      "question": "Who is smiling?",
+      "prediction": "Woman",
+      "multiple_choice_answer": "woman",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262235005,
+      "question": "Is this a woman or man?",
+      "prediction": "This is a woman.",
+      "multiple_choice_answer": "woman",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262235006,
+      "question": "What is the girl doing?",
+      "prediction": "The girl is sitting and talking on her cell phone.",
+      "multiple_choice_answer": "talking on phone",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524382000,
+      "question": "What brand of dogs are these?",
+      "prediction": "These dogs are of the Beagle breed.",
+      "multiple_choice_answer": "beagles",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524382001,
+      "question": "What is keeping the dogs from running away?",
+      "prediction": "The dogs are kept in a fenced area, which serves as a barrier to prevent them from running away. The fence ensures that the dogs remain within the designated space while still allowing them to interact with each other.",
+      "multiple_choice_answer": "fence",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524382002,
+      "question": "Are all the dogs looking in the same direction?",
+      "prediction": "Yes, all the dogs are looking in the same direction, which is through the fence.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262242000,
+      "question": "What is the women's racket touching?",
+      "prediction": "The women's racket is touching the tennis net.",
+      "multiple_choice_answer": "ball",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262242001,
+      "question": "What is stretched across the court?",
+      "prediction": "A tennis net is stretched across the court.",
+      "multiple_choice_answer": "net",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262242002,
+      "question": "Does the man enjoy tennis?",
+      "prediction": "Yes, the man enjoys tennis as he is standing on a tennis court, holding a tennis racket, and waving to someone. This suggests that he is engaged in the sport and possibly participating in a game or practice session.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262242003,
+      "question": "What color is the court?",
+      "prediction": "The court is green.",
+      "multiple_choice_answer": "green",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262242004,
+      "question": "Are the players tired?",
+      "prediction": "It is not possible to determine the players' tiredness from the image alone. However, the presence of a man and a woman playing tennis on the court suggests that they are actively engaged in the game, which could imply that they are not tired",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262242005,
+      "question": "Is the court blue?",
+      "prediction": "No, the court is not blue. It is a green tennis court.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262242006,
+      "question": "Is he playing doubles?",
+      "prediction": "Yes, the man is playing doubles tennis, as there are two people on the court, one holding a tennis racket and the other holding a tennis ball.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262242007,
+      "question": "Are both men wearing hats?",
+      "prediction": "No, only one man is wearing a hat.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262242008,
+      "question": "Are these two men professional tennis players?",
+      "prediction": "Based on the image, it is not possible to definitively determine if the two men are professional tennis players. They could be amateur players, coaches, or even just friends enjoying a game of tennis. The image only shows them playing tennis on",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131171000,
+      "question": "Is this bread?",
+      "prediction": "Yes, this is bread.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131171001,
+      "question": "How many bins?",
+      "prediction": "There are two bins.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131171002,
+      "question": "Does this look like a healthy meal?",
+      "prediction": "The meal displayed in the image consists of a sandwich, grapes, and meat. While the sandwich and grapes can be considered healthy food choices, the meat may not be the healthiest option, depending on the type",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161000,
+      "question": "How many exhaust pipes are shown in this photo?",
+      "prediction": "There are two exhaust pipes shown in this photo.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161001,
+      "question": "Is the silver bike new?",
+      "prediction": "Yes, the silver bike appears to be new, as it is parked in a grassy field and is not yet ridden.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 262161002,
+      "question": "Is the grass bright green?",
+      "prediction": "Yes, the grass is bright green.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262161003,
+      "question": "What is the bike on?",
+      "prediction": "The bike is on a wooden block.",
+      "multiple_choice_answer": "grass",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161004,
+      "question": "Why is there a number on this vehicle?",
+      "prediction": "The number on the vehicle, in this case, a motorcycle, is likely used for identification purposes. It could be a unique identifier assigned by the manufacturer, a registration number assigned by the relevant authorities, or a model number used to differentiate",
+      "multiple_choice_answer": "750",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161005,
+      "question": "Why is there a number on the vehicle?",
+      "prediction": "The number on the vehicle, in this case, a motorcycle, is likely used for identification purposes. It could be a unique identifier assigned by the manufacturer, a registration number assigned by the local authorities, or a model number used to differentiate",
+      "multiple_choice_answer": "750",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161006,
+      "question": "Who is the maker of the scooter?",
+      "prediction": "Ducati",
+      "multiple_choice_answer": "ducati",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262161007,
+      "question": "What color is the bike on the right?",
+      "prediction": "The bike on the right is white.",
+      "multiple_choice_answer": "gray",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161008,
+      "question": "Does the bike in the foreground have a single or a double seat?",
+      "prediction": "The bike in the foreground has a single seat.",
+      "multiple_choice_answer": "single",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161009,
+      "question": "Is the blue container on the ground blocking the motorcycle?",
+      "prediction": "Yes, the blue container on the ground is blocking the motorcycle, making it difficult to access or move the motorcycle.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161010,
+      "question": "What is that white thing behind the motorcyclist?",
+      "prediction": "Behind the motorcyclist, there is a white car.",
+      "multiple_choice_answer": "car",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161011,
+      "question": "What color is the bike?",
+      "prediction": "The bike is silver and blue.",
+      "multiple_choice_answer": "silver",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161012,
+      "question": "How many wheels do you see?",
+      "prediction": "I see two wheels in the image.",
+      "multiple_choice_answer": "4",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161013,
+      "question": "How is this red bike called?",
+      "prediction": "The red bike is called a Ducati.",
+      "multiple_choice_answer": "motorcycle",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161014,
+      "question": "Does this bike travel often?",
+      "prediction": "Based on the image, it is not possible to determine the frequency of travel for the motorcycle. However, the motorcycle is parked in a grassy field, which suggests that it might be used for leisure activities or outdoor events",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161015,
+      "question": "What color is the seat?",
+      "prediction": "The seat is black.",
+      "multiple_choice_answer": "black",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161016,
+      "question": "What kind of a show does this look like it is despite the motorcycle?",
+      "prediction": "The image appears to be a motorcycle show, as there are multiple motorcycles on display, including a Ducati motorcycle. The presence of people in the scene suggests that the event is a social gathering where enthusiasts can admire",
+      "multiple_choice_answer": "car",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161017,
+      "question": "Is this motorcycle propped up?",
+      "prediction": "Yes, the motorcycle is propped up on a wooden block, which is placed on the grass.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262161018,
+      "question": "What number is on the motorcycle?",
+      "prediction": "The number 750 is on the motorcycle.",
+      "multiple_choice_answer": "750",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161019,
+      "question": "What make is the bike?",
+      "prediction": "The bike is a Ducati.",
+      "multiple_choice_answer": "ducati",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262161020,
+      "question": "Are both motorbikes the same size?",
+      "prediction": "No, the motorbikes are of different sizes. One is a small motorcycle, while the other is a larger motorcycle.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524392000,
+      "question": "What color is the fridge?",
+      "prediction": "The fridge is silver in color.",
+      "multiple_choice_answer": "silver",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524392001,
+      "question": "Is the light on?",
+      "prediction": "No, the light is off in the image.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524392002,
+      "question": "What is this appliance used for?",
+      "prediction": "The appliance in the image is a large, stainless steel refrigerator. It is used for storing and preserving food items at a low temperature, typically in the range of 35-38°F (1.",
+      "multiple_choice_answer": "refrigeration",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262262000,
+      "question": "Is the time correct?",
+      "prediction": "Yes, the time displayed on the clock is correct. The clock shows 12:00, which is the correct time for the image.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262262001,
+      "question": "Is it an overcast day?",
+      "prediction": "Yes, it is an overcast day, as the sky is cloudy and the lighting is dim.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262262002,
+      "question": "What type of building is this?",
+      "prediction": "This is a tall clock tower, which is a part of a building.",
+      "multiple_choice_answer": "clock tower",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393338000,
+      "question": "What  2 colors are the flowers?",
+      "prediction": "The flowers in the vase are yellow and red.",
+      "multiple_choice_answer": "red and yellow",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393338001,
+      "question": "What kind of flowers are in the vase?",
+      "prediction": "The vase contains yellow and red tulips.",
+      "multiple_choice_answer": "tulips",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393338002,
+      "question": "What color is the vase?",
+      "prediction": "The vase is clear.",
+      "multiple_choice_answer": "clear",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262274000,
+      "question": "Who left their surfboard?",
+      "prediction": "A woman left her surfboard on the beach.",
+      "multiple_choice_answer": "lifeguard",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262274001,
+      "question": "What is written on the surfboard?",
+      "prediction": "The surfboard has the word \"Lifeguard\" written on it.",
+      "multiple_choice_answer": "lifeguard",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262274002,
+      "question": "What is written on the board?",
+      "prediction": "The word \"LifeGuard\" is written on the board.",
+      "multiple_choice_answer": "lifeguard",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262274003,
+      "question": "How many boards are there?",
+      "prediction": "There are two boards on the beach.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262274004,
+      "question": "Is it going to rain?",
+      "prediction": "Based on the image, it is not possible to determine if it is going to rain. The weather appears to be sunny, and there are no visible signs of rain or storm clouds.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262274005,
+      "question": "Is it low tide?",
+      "prediction": "Yes, it is low tide, as the surfboards are sitting on the beach with the water receding.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262274006,
+      "question": "Are there palm trees on the board?",
+      "prediction": "Yes, there are palm trees on the surfboard.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262274007,
+      "question": "Is it cloudy?",
+      "prediction": "No, it is not cloudy. The sky is blue, and the weather appears to be sunny and pleasant.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262275000,
+      "question": "How old is the girl?",
+      "prediction": "The girl is a young child, possibly a little girl or a small child. However, it is difficult to determine her exact age from the image.",
+      "multiple_choice_answer": "6",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262275001,
+      "question": "What color is the horse?",
+      "prediction": "The horse is brown.",
+      "multiple_choice_answer": "brown",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262275002,
+      "question": "Is the girl sitting on the horse correctly?",
+      "prediction": "Yes, the girl is sitting on the horse correctly. She is wearing a helmet and a pink dress, which indicates that she is following safety precautions while riding the horse. The girl is also holding the reins, which",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262275003,
+      "question": "Is this an English saddle?",
+      "prediction": "Yes, this is an English saddle.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262275004,
+      "question": "What is on the little girls head?",
+      "prediction": "A helmet is on the little girl's head.",
+      "multiple_choice_answer": "helmet",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 133000,
+      "question": "What color is lamp?",
+      "prediction": "The lamp is yellow.",
+      "multiple_choice_answer": "blue",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 133001,
+      "question": "Is this a child room?",
+      "prediction": "Yes, this is a child's room, as indicated by the presence of a bed, a dresser, and a nightstand.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 133002,
+      "question": "What size mattress would you need for this bed?",
+      "prediction": "For this bed, you would need a twin mattress, which is a smaller size compared to a full or queen mattress. The bed is designed for a single person or a small child, and the twin mattress would",
+      "multiple_choice_answer": "twin",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131207000,
+      "question": "How many birds?",
+      "prediction": "There are two birds in the image.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131207001,
+      "question": "How many birds can be seen?",
+      "prediction": "There are two birds visible in the image.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131207002,
+      "question": "Are the birds legs touching the water?",
+      "prediction": "Yes, the birds have their legs touching the water, which is a common behavior among birds, especially when they are resting or preening.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131207003,
+      "question": "Does the water look calm?",
+      "prediction": "Yes, the water appears calm in the image.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131207004,
+      "question": "What color are the birds?",
+      "prediction": "The birds are white.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131207005,
+      "question": "What kind of birds are these?",
+      "prediction": "These birds are white egrets, which are wading birds commonly found in marshes, swamps, and shallow waters. They are known for their long legs and sharp beaks, which they use to catch fish and other small aqu",
+      "multiple_choice_answer": "crane",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131207006,
+      "question": "What color is the bench?",
+      "prediction": "The bench is brown.",
+      "multiple_choice_answer": "brown",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131207007,
+      "question": "Are this flamingos?",
+      "prediction": "No, these are white birds, likely herons or egrets, standing on a pier.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 136000,
+      "question": "Is this in a museum?",
+      "prediction": "Yes, the image shows two giraffes in a museum, standing in an enclosure.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 136001,
+      "question": "How many animals are in the picture?",
+      "prediction": "There are two animals in the picture.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 136002,
+      "question": "What kind of animal is shown?",
+      "prediction": "The image shows two giraffes.",
+      "multiple_choice_answer": "giraffe",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 139000,
+      "question": "What is the woman in the room doing?",
+      "prediction": "The woman in the room is standing near a table, possibly in the kitchen area, and looking out the window.",
+      "multiple_choice_answer": "talking",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 139001,
+      "question": "How many yellow vases?",
+      "prediction": "There are two yellow vases in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 139002,
+      "question": "What color is the floor?",
+      "prediction": "The floor is brown.",
+      "multiple_choice_answer": "brown",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 139003,
+      "question": "What color is the flower?",
+      "prediction": "The flower is pink.",
+      "multiple_choice_answer": "pink",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262284000,
+      "question": "How many sets of doors are open?",
+      "prediction": "There are two sets of doors open in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262284001,
+      "question": "What is this?",
+      "prediction": "This is a bathroom scene featuring a shower stall with a glass door. The shower stall is made of tiles and has a metal shower rod. The bathroom also includes a toilet and a sink. The overall",
+      "multiple_choice_answer": "shower",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262284002,
+      "question": "Is the floor tilted?",
+      "prediction": "Yes, the floor of the shower is tilted.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262284003,
+      "question": "What room is this?",
+      "prediction": "This is a bathroom.",
+      "multiple_choice_answer": "bathroom",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 143000,
+      "question": "What color is the tip of the birds' tails?",
+      "prediction": "The tip of the birds' tails is yellow.",
+      "multiple_choice_answer": "yellow",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 143001,
+      "question": "How many birds are in the tree?",
+      "prediction": "There are six birds in the tree.",
+      "multiple_choice_answer": "8",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 143002,
+      "question": "Who many birds are black?",
+      "prediction": "There are six black birds in the image.",
+      "multiple_choice_answer": "0",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 240323000,
+      "question": "Is there meat on this plate?",
+      "prediction": "Yes, there is meat on this plate. The plate contains a variety of food items, including meat, vegetables, and fruit.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 240323001,
+      "question": "Is this a vegetarian meal?",
+      "prediction": "No, this is not a vegetarian meal. The plate contains meat, specifically ham, and a variety of vegetables, including carrots and oranges. The presence of meat and the variety of vegetables make this a non-ve",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 240323002,
+      "question": "What is the green fruit called?",
+      "prediction": "The green fruit is an avocado.",
+      "multiple_choice_answer": "avocado",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524436000,
+      "question": "Is there a woman sitting on this bench??",
+      "prediction": "Yes, there is a woman sitting on the bench.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524436001,
+      "question": "Where are they sitting?",
+      "prediction": "The man and woman are sitting on a bench.",
+      "multiple_choice_answer": "bench",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524436002,
+      "question": "Are there cars in the picture?",
+      "prediction": "Yes, there are cars in the picture, with a couple sitting on a bench in front of them.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524436003,
+      "question": "What is the woman sitting on?",
+      "prediction": "The woman is sitting on a bench.",
+      "multiple_choice_answer": "bench",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524436004,
+      "question": "Is it raining?",
+      "prediction": "No, it is not raining in the image. The couple is sitting on a bench, and the weather appears to be pleasant.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524436005,
+      "question": "Are these two people a couple?",
+      "prediction": "Yes, the two people in the image are a couple, as they are sitting close together on a bench and sharing a kiss.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372000,
+      "question": "Is her hair blue?",
+      "prediction": "Yes, her hair is blue.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372001,
+      "question": "Can her eyes be seen?",
+      "prediction": "Yes, her eyes can be seen in the image.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372002,
+      "question": "Is she wearing long sleeves?",
+      "prediction": "Yes, the woman is wearing long sleeves in the image.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372003,
+      "question": "What color is the wig?",
+      "prediction": "The wig is purple.",
+      "multiple_choice_answer": "purple",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372004,
+      "question": "Is the girl smiling?",
+      "prediction": "No, the girl is not smiling. She is looking at the camera with a serious expression.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372005,
+      "question": "Is this a male or female?",
+      "prediction": "Female",
+      "multiple_choice_answer": "female",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372006,
+      "question": "Is this a man or woman?",
+      "prediction": "This is a woman.",
+      "multiple_choice_answer": "woman",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372007,
+      "question": "What facial piercing does the girl have?",
+      "prediction": "The girl has a nose piercing.",
+      "multiple_choice_answer": "none",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372008,
+      "question": "Which  ear is pierced?",
+      "prediction": "The left ear of the person is pierced.",
+      "multiple_choice_answer": "right",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372009,
+      "question": "Does the woman look happy?",
+      "prediction": "No, the woman does not look happy. She is staring at the camera with a frown on her face.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372010,
+      "question": "What color is her hair?",
+      "prediction": "Her hair is purple.",
+      "multiple_choice_answer": "blue",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372011,
+      "question": "What type of shirt is the girl wearing?",
+      "prediction": "The girl is wearing a black shirt.",
+      "multiple_choice_answer": "button up",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372012,
+      "question": "What color is her eyes?",
+      "prediction": "Her eyes are blue.",
+      "multiple_choice_answer": "blue",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372013,
+      "question": "What color hair does the woman have?",
+      "prediction": "The woman has purple hair.",
+      "multiple_choice_answer": "purple",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372014,
+      "question": "What about this man's appearance might bother a conservative employer?",
+      "prediction": "A conservative employer might be bothered by the man's appearance due to his purple hair, which is often associated with a more unconventional or alternative lifestyle. The man's hair color and style might be perce",
+      "multiple_choice_answer": "blue hair",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372015,
+      "question": "Is the woman's hair straight or curly?",
+      "prediction": "The woman's hair is curly.",
+      "multiple_choice_answer": "straight",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372016,
+      "question": "Is this person only wearing a black shirt?",
+      "prediction": "Yes, the person in the image is wearing only a black shirt.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372017,
+      "question": "Is the woman looking at the camera?",
+      "prediction": "Yes, the woman is looking at the camera.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372018,
+      "question": "Is the girl's part in her hair even?",
+      "prediction": "Yes, the girl's part in her hair is even.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372019,
+      "question": "Does the person have any facial piercings?",
+      "prediction": "Yes, the person has a nose piercing.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 393372020,
+      "question": "What is her expression?",
+      "prediction": "Her expression is a mix of a smirk and a frown, which suggests that she might be feeling a bit conflicted or playful.",
+      "multiple_choice_answer": "serious",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393372021,
+      "question": "Is the girl funny?",
+      "prediction": "Yes, the girl is funny, as she is described as a \"funny looking\" woman with purple hair.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393372022,
+      "question": "Is cleavage visible?",
+      "prediction": "No, cleavage is not visible in the image. The focus is on the woman's purple hair and her attire.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524450000,
+      "question": "What type of trucks are in the photo?",
+      "prediction": "The photo features a large passenger bus, which is a type of truck designed for transporting people.",
+      "multiple_choice_answer": "bus",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450001,
+      "question": "Where are the ducks?",
+      "prediction": "The ducks are not present in the image. The scene features a bus parked in a parking lot, with a person standing next to it. There are no ducks visible in the picture.",
+      "multiple_choice_answer": "nowhere",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450002,
+      "question": "Is this a fire engine?",
+      "prediction": "No, this is not a fire engine. It is a large bus parked in a parking lot.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524450003,
+      "question": "Are they all going to board a train?",
+      "prediction": "Yes, the people in the image are all going to board a train. They are standing in front of a large bus, which is likely a tour bus or a shuttle bus, waiting to board the train. The presence of multiple people and",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450004,
+      "question": "What is moving on the street?",
+      "prediction": "A bus is moving on the street.",
+      "multiple_choice_answer": "bus",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450005,
+      "question": "What color is the bus?",
+      "prediction": "The bus is silver.",
+      "multiple_choice_answer": "gray",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450006,
+      "question": "Why is there water on the ground?",
+      "prediction": "The presence of water on the ground near the bus could be due to various reasons. One possibility is that the water is a result of melting snow or ice, which is common during winter months. Another possibility is that the water is a result of",
+      "multiple_choice_answer": "raining",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450007,
+      "question": "Why does the bus have to stop?",
+      "prediction": "The bus has to stop because there are people standing in front of it. In the image, two people are standing close to the bus, which is parked in a parking lot. The bus driver is likely waiting for the passengers to board or",
+      "multiple_choice_answer": "passengers",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450008,
+      "question": "What color is the vehicle?",
+      "prediction": "The vehicle is silver.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450009,
+      "question": "What kind of vehicle is pictured?",
+      "prediction": "The vehicle pictured is a large bus.",
+      "multiple_choice_answer": "bus",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450010,
+      "question": "Are there people inside the bus?",
+      "prediction": "Yes, there are people inside the bus.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524450011,
+      "question": "Is this a tour bus?",
+      "prediction": "Yes, this is a tour bus, as indicated by the presence of a tour bus logo on the side of the vehicle.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524450012,
+      "question": "What is the man holding?",
+      "prediction": "The man is holding a suitcase.",
+      "multiple_choice_answer": "bag",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450013,
+      "question": "Is the bus in a parking space?",
+      "prediction": "Yes, the bus is parked in a parking space.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524450014,
+      "question": "What time of the day is it?",
+      "prediction": "It is daytime, as the bus is parked in the sunlight.",
+      "multiple_choice_answer": "afternoon",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450015,
+      "question": "How many people are boarding the bus?",
+      "prediction": "There are two people boarding the bus.",
+      "multiple_choice_answer": "3",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450016,
+      "question": "Is anybody getting off the bus?",
+      "prediction": "Yes, there is a person getting off the bus.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 524450017,
+      "question": "What is the weather like?",
+      "prediction": "The weather appears to be sunny, as the bus is parked in the sun.",
+      "multiple_choice_answer": "sunny",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450018,
+      "question": "Is there a container available for trash?",
+      "prediction": "Yes, there is a container available for trash in the parking lot.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450019,
+      "question": "What is mainly featured?",
+      "prediction": "The main feature of the image is a large bus parked in a parking lot.",
+      "multiple_choice_answer": "bus",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450020,
+      "question": "What are the streets made of?",
+      "prediction": "The streets are made of asphalt.",
+      "multiple_choice_answer": "concrete",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450021,
+      "question": "What color is the camper?",
+      "prediction": "The camper is grey.",
+      "multiple_choice_answer": "silver",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450022,
+      "question": "Are the bus lights on at bottom?",
+      "prediction": "No, the bus lights are not on at the bottom.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524450023,
+      "question": "What is the man riding?",
+      "prediction": "The man is riding a bus.",
+      "multiple_choice_answer": "bus",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524450024,
+      "question": "Where is the bus located?",
+      "prediction": "The bus is located in a parking lot.",
+      "multiple_choice_answer": "parking lot",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 164000,
+      "question": "How many paper towel rolls?",
+      "prediction": "There are two paper towel rolls in the kitchen.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 164001,
+      "question": "What is the color of the refrigerator?",
+      "prediction": "The color of the refrigerator is white.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 164002,
+      "question": "Is the light on?",
+      "prediction": "Yes, the light is on in the kitchen.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 164003,
+      "question": "What color is the wall?",
+      "prediction": "The wall is white.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524456000,
+      "question": "How many mice are on the desk?",
+      "prediction": "There are two mice on the desk.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524456001,
+      "question": "Does the person working on the computer have a car?",
+      "prediction": "No, the person working on the computer does not have a car.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 524456002,
+      "question": "Is the person on the laptop married?",
+      "prediction": "Yes, the person on the laptop is married.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524459000,
+      "question": "What kind of animal is on the Guinness poster?",
+      "prediction": "A penguin is on the Guinness poster.",
+      "multiple_choice_answer": "toucan",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524459001,
+      "question": "Is the man using a laptop or desktop computer?",
+      "prediction": "The man is using a laptop.",
+      "multiple_choice_answer": "laptop",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524459002,
+      "question": "Is this man disgusted?",
+      "prediction": "Yes, the man appears to be disgusted while using his laptop.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 436936000,
+      "question": "How many animals are visible?",
+      "prediction": "There is only one animal visible in the image, which is a black bear.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 436936001,
+      "question": "Is the animal on a tree branch or bush?",
+      "prediction": "The animal is on a tree branch.",
+      "multiple_choice_answer": "branch",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 436936002,
+      "question": "What animal is this?",
+      "prediction": "This is a black bear.",
+      "multiple_choice_answer": "bear",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262323000,
+      "question": "What is behind the giraffe?",
+      "prediction": "Behind the giraffe, there is a bird.",
+      "multiple_choice_answer": "ostrich",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262323001,
+      "question": "What is similar about the two animals in this photo?",
+      "prediction": "In the photo, both the giraffe and the ostrich are standing in a grassy area, which suggests that they are in a similar environment. The giraffe is located on the left side of the image, while the ostr",
+      "multiple_choice_answer": "tamed",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262323002,
+      "question": "How many animals do you see?",
+      "prediction": "There are two animals in the image: a giraffe and a bird.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262323003,
+      "question": "Is the giraffes head small?",
+      "prediction": "No, the giraffes head is not small. It is a large head, which is typical for giraffes.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262325000,
+      "question": "How green are the vegetables?",
+      "prediction": "The vegetables in the image are very green, indicating that they are fresh and possibly uncooked.",
+      "multiple_choice_answer": "very",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262325001,
+      "question": "Is this an unhealthy snack?",
+      "prediction": "No, this is not an unhealthy snack. The image shows a plate filled with a variety of vegetables, including broccoli, carrots, and possibly other vegetables. These vegetables are known for their nutr",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262325002,
+      "question": "Are the vegetables cooked?",
+      "prediction": "Yes, the vegetables, including broccoli and carrots, are cooked in a dish.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262325003,
+      "question": "What are the veggies on?",
+      "prediction": "The veggies are on a plate.",
+      "multiple_choice_answer": "bowl",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262334000,
+      "question": "Is this indoors?",
+      "prediction": "Yes, this is indoors, as the woman is wearing a hat and standing in a room.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262334001,
+      "question": "What type of hat is she wearing?",
+      "prediction": "She is wearing a plaid hat.",
+      "multiple_choice_answer": "cap",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262334002,
+      "question": "Is the lady inside or outside?",
+      "prediction": "The lady is inside a room.",
+      "multiple_choice_answer": "inside",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262334003,
+      "question": "What is the floor made of?",
+      "prediction": "The floor is made of wood.",
+      "multiple_choice_answer": "wood",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 192000,
+      "question": "What sport is being played?",
+      "prediction": "The sport being played is baseball.",
+      "multiple_choice_answer": "baseball",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 192001,
+      "question": "Is the catcher wearing safety gear?",
+      "prediction": "Yes, the catcher is wearing safety gear, including a helmet and a mask.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 192002,
+      "question": "What is the name of the teams?",
+      "prediction": "The name of the teams is not provided in the image description.",
+      "multiple_choice_answer": "cubs",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393410000,
+      "question": "Is this a propeller plane?",
+      "prediction": "No, this is not a propeller plane. The image shows a large jet airplane flying in the blue sky.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393410001,
+      "question": "Is the plane taking off or landing?",
+      "prediction": "The plane is taking off, as it is flying upward in the sky.",
+      "multiple_choice_answer": "landing",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393410002,
+      "question": "Was this taken at sunset?",
+      "prediction": "No, this image was not taken at sunset. The airplane is flying through a clear blue sky, which suggests a daytime scene.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393410003,
+      "question": "Is it getting dark?",
+      "prediction": "No, it is not getting dark. The image shows a clear blue sky with a plane flying through it, indicating a bright and sunny day.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393410004,
+      "question": "What color is the plane?",
+      "prediction": "The plane is white.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393410005,
+      "question": "What are these flying?",
+      "prediction": "These are airplanes flying in the sky.",
+      "multiple_choice_answer": "plane",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393410006,
+      "question": "Are there clouds in the sky?",
+      "prediction": "No, there are no clouds in the sky. The sky is clear and blue.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393410007,
+      "question": "Is the plane flying too low?",
+      "prediction": "No, the plane is not flying too low. It is flying high in the blue sky, which is a safe altitude for air travel.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393410008,
+      "question": "What is the color of the sky?",
+      "prediction": "The color of the sky is blue.",
+      "multiple_choice_answer": "blue",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393410009,
+      "question": "Is there a seagull?",
+      "prediction": "No, there is no seagull in the image. The image features a large airplane flying through the blue sky.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393410010,
+      "question": "What's in the sky?",
+      "prediction": "Airplane",
+      "multiple_choice_answer": "plane",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 393411000,
+      "question": "Is the door closed?",
+      "prediction": "Yes, the door is closed.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393411001,
+      "question": "What is on the train?",
+      "prediction": "There is graffiti on the train.",
+      "multiple_choice_answer": "graffiti",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393411002,
+      "question": "What is the vandalism/painting on above the doors called?",
+      "prediction": "The vandalism/painting on the red train above the doors is called \"Geffer!\" or \"Geffer!\".",
+      "multiple_choice_answer": "graffiti",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 196000,
+      "question": "What is the yellow food?",
+      "prediction": "The yellow food is corn.",
+      "multiple_choice_answer": "corn",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 196001,
+      "question": "Are there lots of healthy options on the table?",
+      "prediction": "Yes, there are several healthy options available on the table. The image shows a variety of foods, including a salad, which is a nutritious choice. Additionally, there are multiple bowls and plates filled with different dishes",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 196002,
+      "question": "How many containers?",
+      "prediction": "There are several containers filled with various foods on the table.",
+      "multiple_choice_answer": "20",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 196003,
+      "question": "How many dishes of food are in the picture?",
+      "prediction": "There are several dishes of food in the picture, including a variety of different foods.",
+      "multiple_choice_answer": "19",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 196004,
+      "question": "Is this going to be a feast?",
+      "prediction": "Yes, it appears to be a feast with a large variety of food items displayed on the table. The table is filled with different dishes, including pies, casseroles, salads, and other foods. The presence of multiple",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131273000,
+      "question": "Which type of dog?",
+      "prediction": "Husky",
+      "multiple_choice_answer": "husky",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131273001,
+      "question": "Where is the dog looking at?",
+      "prediction": "The dog is looking out the window of the car.",
+      "multiple_choice_answer": "outside",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131273002,
+      "question": "Is the door window open or closed?",
+      "prediction": "The door window is open.",
+      "multiple_choice_answer": "open",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262347000,
+      "question": "Is this a farmers market?",
+      "prediction": "No, this is not a farmers market. The image shows a park bench surrounded by flowers and greenery, which suggests a peaceful and relaxing outdoor setting. The bench is located in a garden, and there are no visible",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262347001,
+      "question": "Is there a beehive in the garden?",
+      "prediction": "No, there is no beehive in the garden. The image features a garden with a bench, flowers, and greenery, but there is no beehive visible.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262347002,
+      "question": "What kind of flowers are here?",
+      "prediction": "The flowers in the image are white flowers, which could be daisies or other similar types of flowers.",
+      "multiple_choice_answer": "daisies",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262347003,
+      "question": "Is there a bench in the garden?",
+      "prediction": "Yes, there is a bench in the garden.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131276000,
+      "question": "Are all the people of the same race?",
+      "prediction": "No, the people in the image are of different races.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 131276001,
+      "question": "How many women are in the image?",
+      "prediction": "There are two women in the image.",
+      "multiple_choice_answer": "3",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131276002,
+      "question": "What type of food is being sold?",
+      "prediction": "The image shows a display case filled with various types of doughnuts.",
+      "multiple_choice_answer": "donuts",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393421000,
+      "question": "What room is pictured?",
+      "prediction": "The room pictured is a bedroom.",
+      "multiple_choice_answer": "bedroom",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393421001,
+      "question": "How many suitcases  are shown?",
+      "prediction": "There are two suitcases shown in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393421002,
+      "question": "Is this a hotel room?",
+      "prediction": "Yes, this is a hotel room. The image shows a bedroom with a bed, a nightstand, and a suitcase. The presence of a suitcase suggests that the room is being used for temporary accommodation, which is typical in hotel",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393421003,
+      "question": "What is glowing?",
+      "prediction": "The light is glowing in the room.",
+      "multiple_choice_answer": "light",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393421004,
+      "question": "Does this room have tile?",
+      "prediction": "No, the room does not have tile. It has a carpeted floor.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393421005,
+      "question": "What color is the carpet?",
+      "prediction": "The carpet is green.",
+      "multiple_choice_answer": "gray",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393423000,
+      "question": "What are these animals?",
+      "prediction": "These animals are giraffes.",
+      "multiple_choice_answer": "giraffes",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393423001,
+      "question": "Where are the giraffes?",
+      "prediction": "The giraffes are in a field, standing next to each other.",
+      "multiple_choice_answer": "field",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393423002,
+      "question": "Are the animals in a zoo?",
+      "prediction": "No, the animals are not in a zoo. They are in a natural setting, standing in a field with trees in the background.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 393423003,
+      "question": "What is the large figure?",
+      "prediction": "The large figure is a giraffe.",
+      "multiple_choice_answer": "giraffe",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393423004,
+      "question": "How many giraffes are in this photo?",
+      "prediction": "There are two giraffes in this photo.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393423005,
+      "question": "Where is this scene taken?",
+      "prediction": "This scene is taken in a field, likely in Africa, where two giraffes are standing next to each other.",
+      "multiple_choice_answer": "africa",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393423006,
+      "question": "What are the giraffes doing?",
+      "prediction": "The giraffes are standing next to each other in a field, possibly interacting or simply enjoying each other's company.",
+      "multiple_choice_answer": "hugging",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 393423007,
+      "question": "How many giraffes in the horizon?",
+      "prediction": "There are two giraffes in the horizon.",
+      "multiple_choice_answer": "2",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131280000,
+      "question": "What color is the lettering on shirts?",
+      "prediction": "The lettering on the shirts is red.",
+      "multiple_choice_answer": "red",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131280001,
+      "question": "How many teams are visible?",
+      "prediction": "There are two teams visible in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131280002,
+      "question": "Is this a baseball field?",
+      "prediction": "Yes, this is a baseball field. In the image, there are multiple people, including a young boy, a man, and a boy wearing a baseball uniform. They are all standing on the baseball field, which suggests that they are either playing",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262353000,
+      "question": "How many people are there?",
+      "prediction": "There are several people in the image, including a group of women and a man.",
+      "multiple_choice_answer": "8",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262353001,
+      "question": "Is the man in the orange sweater combing the lady's hair?",
+      "prediction": "Yes, the man in the orange sweater is combing the lady's hair while the group of people is sitting around a table.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262353002,
+      "question": "Do the people know each other?",
+      "prediction": "Based on the image, it is not possible to definitively determine if the people know each other. However, they are gathered around a table, which suggests that they might be friends or acquaintances. The presence of a man in an orange shirt",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131282000,
+      "question": "What words are on the cup?",
+      "prediction": "The words \"ASSI\" are on the cup.",
+      "multiple_choice_answer": "allstate",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131282001,
+      "question": "Is all the food on the plate vegetables?",
+      "prediction": "Yes, all the food on the plate is vegetables.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131282002,
+      "question": "Does she eat with the right hand?",
+      "prediction": "Yes, the woman is eating with her right hand.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131282003,
+      "question": "What color is the sauce?",
+      "prediction": "The sauce is green.",
+      "multiple_choice_answer": "green",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131282004,
+      "question": "Has the food this woman is preparing been fried?",
+      "prediction": "No, the food the woman is preparing has not been fried. The image shows a person preparing a meal, which includes a plate of vegetables and a bowl of sauce. The vegetables are not fried, and",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524502000,
+      "question": "What is the red object in this picture?",
+      "prediction": "The red object in this picture is a fire hydrant.",
+      "multiple_choice_answer": "fire hydrant",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524502001,
+      "question": "What color are the rocks near the fire hydrant?",
+      "prediction": "The rocks near the fire hydrant are red.",
+      "multiple_choice_answer": "brown",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524502002,
+      "question": "What is the large pole sticking up for?",
+      "prediction": "The large pole sticking up is likely a telephone pole, which is used to support and distribute telephone lines. In the image, the pole is surrounded by trees, indicating that it is located in a wooded area. Telephone pol",
+      "multiple_choice_answer": "hydrant",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524502003,
+      "question": "Is there snow?",
+      "prediction": "No, there is no snow in the image.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262360000,
+      "question": "Is this a glass flower vase?",
+      "prediction": "Yes, this is a glass flower vase filled with pink flowers.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262360001,
+      "question": "What color is the vase?",
+      "prediction": "The vase is clear.",
+      "multiple_choice_answer": "clear",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262360002,
+      "question": "What kind of flowers?",
+      "prediction": "The flowers in the vase are pink carnations.",
+      "multiple_choice_answer": "carnations",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262360003,
+      "question": "Which color is the flower?",
+      "prediction": "The flower is pink.",
+      "multiple_choice_answer": "pink",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262360004,
+      "question": "Are the flowers dead?",
+      "prediction": "No, the flowers are not dead. They are fresh and pink, and they are placed in a vase on a table.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262360005,
+      "question": "Is this edible?",
+      "prediction": "No, this is not edible. The image shows a vase filled with pink flowers, which are typically used for decoration and not for consumption.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524507000,
+      "question": "Are cars allowed?",
+      "prediction": "Yes, cars are allowed in the area, as there are cars visible in the image.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524507001,
+      "question": "What language is the sign written in?",
+      "prediction": "The sign is written in English.",
+      "multiple_choice_answer": "german",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524507002,
+      "question": "Will this man's head get wet without the umbrella?",
+      "prediction": "Yes, the man's head would get wet without the umbrella, as the umbrella is currently shielding him from the rain. If the umbrella were to be closed or if the man were to remove it, his head",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131295000,
+      "question": "How many vehicles are in the picture?",
+      "prediction": "There is one vehicle in the picture, which is a train.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131295001,
+      "question": "Is the train in the city?",
+      "prediction": "No, the train is not in the city. It is traveling on a track through a rural area, surrounded by grass and gravel.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131295002,
+      "question": "From what perspective was this photo taken?",
+      "prediction": "The photo was taken from a low-angle perspective, looking up at the train as it travels down the tracks.",
+      "multiple_choice_answer": "in air",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131295003,
+      "question": "Is the train moving fast?",
+      "prediction": "Yes, the train is moving fast down the tracks.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 131295004,
+      "question": "What does it drive on?",
+      "prediction": "The train drives on steel tracks.",
+      "multiple_choice_answer": "tracks",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 131295005,
+      "question": "What is the title of the person that drives this?",
+      "prediction": "Conductor",
+      "multiple_choice_answer": "conductor",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262371000,
+      "question": "Is this cat ready for bed?",
+      "prediction": "Yes, the cat appears to be ready for bed, as it is laying on a black bag or suitcase, which is typically used for packing or storing belongings. The cat's position on the bag suggests that it is either rest",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262371001,
+      "question": "Where is the cat sitting?",
+      "prediction": "The cat is sitting on top of a black bag or a piece of luggage.",
+      "multiple_choice_answer": "backpack",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262371002,
+      "question": "What is the cat sitting on?",
+      "prediction": "The cat is sitting on a black bag or a piece of luggage.",
+      "multiple_choice_answer": "backpack",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262371003,
+      "question": "What is the animal sitting on?",
+      "prediction": "The animal is sitting on a piece of luggage or a bag.",
+      "multiple_choice_answer": "backpack",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262371004,
+      "question": "What kind of mood is this cat in?",
+      "prediction": "The cat appears to be in a playful and curious mood, as it is sitting on top of a backpack and looking at the camera. This suggests that the cat might be exploring its surroundings or simply enjoying the attention it",
+      "multiple_choice_answer": "sleepy",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262371005,
+      "question": "What is the cat looking at?",
+      "prediction": "The cat is looking at the camera.",
+      "multiple_choice_answer": "camera",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262371006,
+      "question": "How many cats?",
+      "prediction": "There is one cat in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262376000,
+      "question": "Are flowers on the Umbrellas?",
+      "prediction": "Yes, there are flowers on the umbrellas.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262376001,
+      "question": "How many upside-down umbrellas are visible?",
+      "prediction": "There are three upside-down umbrellas visible in the image.",
+      "multiple_choice_answer": "11",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262376002,
+      "question": "Is this a big building?",
+      "prediction": "Yes, this is a big building, as it has a large dome and a lot of red and yellow umbrellas hanging from it.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 241000,
+      "question": "What is he sitting on?",
+      "prediction": "He is sitting on a couch.",
+      "multiple_choice_answer": "chair",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 241001,
+      "question": "What emotions are the people depicting?",
+      "prediction": "The people in the image are depicting a mix of emotions. The man standing in the living room is holding a Wii controller, which suggests that he is engaged in playing a video game. The woman sitting on the couch is watching",
+      "multiple_choice_answer": "boredom",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 241002,
+      "question": "What is on the floor next to the lady?",
+      "prediction": "A handbag is on the floor next to the lady.",
+      "multiple_choice_answer": "purse",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 241003,
+      "question": "Do you think these two boys are brothers?",
+      "prediction": "It is possible that the two boys are brothers, as they are sitting together on a couch and playing a video game. However, without more information or context, it is not possible to definitively determine their relationship.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 241004,
+      "question": "What color are the cups?",
+      "prediction": "The cups are white.",
+      "multiple_choice_answer": "red",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386000,
+      "question": "How many rolls of toilet paper are there?",
+      "prediction": "There are two rolls of toilet paper in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386001,
+      "question": "What is next to the toilet paper?",
+      "prediction": "Next to the toilet paper, there is a toilet paper holder.",
+      "multiple_choice_answer": "toilet",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386002,
+      "question": "Is this a bathroom?",
+      "prediction": "Yes, this is a bathroom. The image shows a white toilet with a roll of toilet paper on the wall next to it.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386003,
+      "question": "Who uses these?",
+      "prediction": "People use these toilets for their personal hygiene needs.",
+      "multiple_choice_answer": "people",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386004,
+      "question": "Can these fixtures be used right where they are?",
+      "prediction": "Yes, these fixtures can be used right where they are. The toilet is already installed in the bathroom, and the toilet paper is placed next to it, ready for use. The toilet paper holder is also",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386005,
+      "question": "Is there a shelf above the toilet?",
+      "prediction": "Yes, there is a shelf above the toilet.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386006,
+      "question": "Is this  toilet in the floor?",
+      "prediction": "No, this is a toilet in a wall.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.3333
+    },
+    {
+      "question_id": 262386007,
+      "question": "What color is the bathroom?",
+      "prediction": "The bathroom is white.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386008,
+      "question": "Is this a metal toilet?",
+      "prediction": "No, this is not a metal toilet. It is a white porcelain toilet.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386009,
+      "question": "Are these items real or just models?",
+      "prediction": "These items are real, as they are a toilet and a roll of toilet paper in a bathroom.",
+      "multiple_choice_answer": "real",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386010,
+      "question": "How many cats?",
+      "prediction": "0",
+      "multiple_choice_answer": "0",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386011,
+      "question": "Who took this photo?",
+      "prediction": "A person",
+      "multiple_choice_answer": "person",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386012,
+      "question": "Is the stove gas or electric?",
+      "prediction": "The stove in the image is electric.",
+      "multiple_choice_answer": "neither",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386013,
+      "question": "Is this bathroom dirty?",
+      "prediction": "No, the bathroom appears to be clean and well-maintained.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386014,
+      "question": "Who has the copyright of this picture?",
+      "prediction": "The copyright of this picture belongs to the original creator or owner.",
+      "multiple_choice_answer": "photographer",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386015,
+      "question": "Are the toilets complete?",
+      "prediction": "Yes, the toilets are complete, with the toilet seat and toilet paper provided.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386016,
+      "question": "Is there any toilet paper?",
+      "prediction": "Yes, there is a roll of toilet paper on the wall next to the toilet.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386017,
+      "question": "What shape is the room?",
+      "prediction": "The room is square-shaped.",
+      "multiple_choice_answer": "square",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386018,
+      "question": "Is the floor dirty?",
+      "prediction": "No, the floor is not dirty. It is a clean bathroom floor.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386019,
+      "question": "What color is the wall?",
+      "prediction": "The wall is white.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386020,
+      "question": "Does this toilet have a lit?",
+      "prediction": "No, the toilet does not have a light.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 0.6667
+    },
+    {
+      "question_id": 262386021,
+      "question": "Is there a fire extinguisher?",
+      "prediction": "No, there is no fire extinguisher in the image. The image shows a white toilet in a bathroom with a roll of toilet paper on the wall.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386022,
+      "question": "Is this a private bathroom?",
+      "prediction": "Yes, this is a private bathroom, as it is a small, white toilet situated in a corner of a room.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386023,
+      "question": "Is the toilet paper loaded to roll over or under?",
+      "prediction": "The toilet paper is loaded to roll over.",
+      "multiple_choice_answer": "over",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386024,
+      "question": "Is there a toilet brush?",
+      "prediction": "Yes, there is a toilet brush in the image.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386025,
+      "question": "Is the toilet clean?",
+      "prediction": "Yes, the toilet appears to be clean and well-maintained.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386026,
+      "question": "Is the floor wet?",
+      "prediction": "No, the floor is not wet.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386027,
+      "question": "Can two different species perform their \"business\" here?",
+      "prediction": "No, the image shows a toilet in a bathroom, which is designed for human use. It is not possible for two different species to perform their \"business\" in this setting. The toilet is specifically designed for human use",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386028,
+      "question": "What is this toilet made out of?",
+      "prediction": "The toilet in the image is made out of white porcelain.",
+      "multiple_choice_answer": "porcelain",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386029,
+      "question": "Is the toilet lid up?",
+      "prediction": "Yes, the toilet lid is up in the image.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386030,
+      "question": "Is the bathroom clean?",
+      "prediction": "Yes, the bathroom appears to be clean and well-maintained.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386031,
+      "question": "Is there a mirror?",
+      "prediction": "No, there is no mirror in the image. The focus is on the toilet and the toilet paper holder.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386032,
+      "question": "What material is the toilet?",
+      "prediction": "The toilet is made of white porcelain.",
+      "multiple_choice_answer": "porcelain",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386033,
+      "question": "What color is the toilet?",
+      "prediction": "The toilet is white.",
+      "multiple_choice_answer": "white",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386034,
+      "question": "Is this toilet dirty?",
+      "prediction": "No, the toilet in the image is clean and ready for use.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386035,
+      "question": "How many toilets are there?",
+      "prediction": "There is only one toilet in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386036,
+      "question": "Is this toilet usable right now?",
+      "prediction": "Yes, the toilet is usable right now. It is clean and ready for use.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386037,
+      "question": "What color is the floor?",
+      "prediction": "The floor is brown.",
+      "multiple_choice_answer": "brown",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386038,
+      "question": "What color is the pipe that is behind the base of the toilet?",
+      "prediction": "The pipe behind the base of the toilet is silver.",
+      "multiple_choice_answer": "silver",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386039,
+      "question": "Do the toilets have lids?",
+      "prediction": "Yes, the toilets have lids.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262386040,
+      "question": "What is the metal rack on the wall for?",
+      "prediction": "The metal rack on the wall is for toilet paper.",
+      "multiple_choice_answer": "toilet paper",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386041,
+      "question": "Are there tiles on the wall?",
+      "prediction": "Yes, there are tiles on the wall.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262386042,
+      "question": "How many toilet paper rolls are there?",
+      "prediction": "There are two toilet paper rolls in the image.",
+      "multiple_choice_answer": "1",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524533000,
+      "question": "What is the bus advertising?",
+      "prediction": "The bus is advertising Outlook.com, a popular email service.",
+      "multiple_choice_answer": "outlookcom",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 524533001,
+      "question": "Does the bus look to gaudy?",
+      "prediction": "Yes, the bus appears to be very gaudy, with its bright blue color and numerous pictures and symbols covering its exterior. This unique design choice might be intended to attract attention or make a statement, but it could also be perceived as over",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 524533002,
+      "question": "What kind of flag is in the picture?",
+      "prediction": "The picture features a blue flag with a white arrow on it.",
+      "multiple_choice_answer": "american",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262391000,
+      "question": "Can you see through these curtains?",
+      "prediction": "Yes, you can see through the curtains in the image.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262391001,
+      "question": "Are the curtains too long for the windows?",
+      "prediction": "Yes, the curtains are too long for the windows, as they are hanging down past the windows.",
+      "multiple_choice_answer": "yes",
+      "soft_accuracy": 1.0
+    },
+    {
+      "question_id": 262391002,
+      "question": "What piece of equipment is being used?",
+      "prediction": "A Wii remote is being used in the image.",
+      "multiple_choice_answer": "wii",
+      "soft_accuracy": 0.0
+    },
+    {
+      "question_id": 262391003,
+      "question": "Are the curtains too short?",
+      "prediction": "Yes, the curtains are too short, as they are covering the window.",
+      "multiple_choice_answer": "no",
+      "soft_accuracy": 0.3333
+    }
+  ]
+}
