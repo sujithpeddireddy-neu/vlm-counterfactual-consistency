@@ -5,8 +5,6 @@
 **Hemanth Sai Madadapu · Sujith Peddireddy**  
 Khoury College of Computer Sciences, Northeastern University
 
----
-
 <!-- ## Overview
 
 LLaVA-1.5 and InstructBLIP score well on standard VQA benchmarks, but high accuracy alone doesn't tell you whether a model is actually reasoning about the image or just pattern-matching on question wording. A model that answers "red" to _"What color is the car?"_ should also answer "no" to _"Is the car blue?"_ — but many don't.
@@ -58,7 +56,7 @@ We benchmark LLaVA-1.5 and InstructBLIP on 1,000 GQA questions across four inter
 ### Prerequisites
 
 - Linux or Windows (WSL2)
-- NVIDIA GPU with ≥ 8 GB VRAM (tested on RTX 5060 Laptop GPU)
+- GPU with ≥ 8 GB VRAM (tested on RTX 5060 Laptop GPU)
 - [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or Anaconda
 
 ### Install
