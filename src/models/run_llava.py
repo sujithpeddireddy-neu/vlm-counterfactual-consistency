@@ -1,4 +1,3 @@
-from typing import Optional
 
 from transformers import AutoProcessor, LlavaForConditionalGeneration, BitsAndBytesConfig
 from PIL import Image
@@ -11,7 +10,7 @@ MODEL_ID = "llava-hf/llava-1.5-7b-hf"
 _VRAM_THRESHOLD_GB = 12.0
 
 
-def _use_4bit() -> bool:
+def _use_4bit():
     if not torch.cuda.is_available():
         return False
     vram_gb = torch.cuda.get_device_properties(0).total_memory / 1e9
@@ -19,9 +18,9 @@ def _use_4bit() -> bool:
 
 
 class LlavaRunner:
-    """Loads LLaVA-1.5 once and answers VQA questions efficiently."""
+    # loads LLaVA-1.5 once and reuses it for multiple questions
 
-    def __init__(self, model_id: str = MODEL_ID, lora_checkpoint: Optional[str] = None):
+    def __init__(self, model_id=MODEL_ID, lora_checkpoint=None):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.processor = AutoProcessor.from_pretrained(model_id)
 
@@ -31,6 +30,7 @@ class LlavaRunner:
                 bnb_4bit_compute_dtype=torch.float16,
                 bnb_4bit_use_double_quant=True,
                 bnb_4bit_quant_type="nf4",
+                llm_int8_enable_fp32_cpu_offload=True,
             )
             self.model = LlavaForConditionalGeneration.from_pretrained(
                 model_id,
@@ -56,7 +56,7 @@ class LlavaRunner:
         self.model.eval()
 
     @torch.no_grad()
-    def answer_question(self, image_path: str, question: str) -> str:
+    def answer_question(self, image_path, question):
         image = Image.open(image_path).convert("RGB")
         prompt = f"USER: <image>\n{question}\nASSISTANT:"
         inputs = self.processor(text=prompt, images=image, return_tensors="pt")
@@ -70,8 +70,8 @@ class LlavaRunner:
         return full_text.strip()
 
 
-def answer_question(image_path: str, question: str) -> str:
-    """Convenience wrapper — loads a fresh model each call. Use LlavaRunner for batches."""
+def answer_question(image_path, question):
+    # convenience wrapper; for batches use LlavaRunner directly
     return LlavaRunner().answer_question(image_path, question)
 
 

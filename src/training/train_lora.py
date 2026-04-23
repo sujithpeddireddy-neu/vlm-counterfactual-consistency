@@ -1,27 +1,10 @@
-"""
-train_lora.py — LoRA fine-tuning of LLaVA-1.5 with pairwise consistency loss.
-
-Loss = (CE_orig + CE_cf) + λ * pairwise_consistency_loss
-
-The pairwise consistency loss penalises logically contradictory answer pairs:
-  - contradiction : both say yes OR both say no
-  - entails       : CF doesn't say yes
-  - other         : answers are too similar
-
-Usage:
-    python src/training/train_lora.py \
-        --families data/counterfactual/gqa_sample_counterfactuals.json \
-        --images   data/raw/gqa_sample/images \
-        --output   results/checkpoints/lora_llava \
-        [--epochs 3] [--lr 2e-4] [--lora-r 16] [--consistency-weight 0.5]
-"""
+# train_lora.py - LoRA fine-tuning of LLaVA-1.5 with pairwise consistency loss
 import argparse
 import json
 import logging
 import os
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
 import torch
 
@@ -42,20 +25,11 @@ IGNORE_INDEX = -100
 ASSISTANT_MARKER = "ASSISTANT:"
 
 
-# ---------------------------------------------------------------------------
 # Dataset
-# ---------------------------------------------------------------------------
-
 class CounterfactualPairDataset(Dataset):
-    """
-    Flattens counterfactual families into individual (original, counterfactual) pairs.
+    # dataset that flattens counterfactual families into (original, counterfactual) pairs
 
-    Each item contains everything needed to compute both the CE loss on the
-    original and counterfactual answers and the pairwise consistency loss.
-    Items with missing images are returned with image=None and skipped in training.
-    """
-
-    def __init__(self, families_path: str, images_dir: str) -> None:
+    def __init__(self, families_path, images_dir):
         with open(families_path, encoding="utf-8") as f:
             families = json.load(f)
 
@@ -63,62 +37,39 @@ class CounterfactualPairDataset(Dataset):
         self.pairs: List[Dict] = []
 
         for family in families:
-            orig = family["original"]
+            original = family["original"]
             image_id = str(family["image_id"])
             for cf in family["counterfactuals"]:
                 self.pairs.append(
                     {
                         "image_id": image_id,
-                        "orig_question": orig["question"],
-                        "orig_answer": str(orig["answer"]).strip().lower(),
+                        "orig_question": original["question"],
+                        "orig_answer": str(original["answer"]).strip().lower(),
                         "cf_question": cf["counterfactual_question"],
                         "cf_expected_answer": str(cf.get("expected_answer", "")).strip().lower(),
                         "logical_relation": cf.get("logical_relation", ""),
                     }
                 )
 
-    def __len__(self) -> int:
+    def __len__(self):
         return len(self.pairs)
 
-    def __getitem__(self, idx: int) -> Dict:
+    def __getitem__(self, idx):
         item = dict(self.pairs[idx])
         img_path = self._find_image(item["image_id"])
         item["image"] = Image.open(img_path).convert("RGB") if img_path else None
         return item
 
-    def _find_image(self, image_id: str) -> Optional[str]:
+    def _find_image(self, image_id):
         for ext in (".jpg", ".jpeg", ".png"):
-            p = self.images_dir / f"{image_id}{ext}"
-            if p.exists():
-                return str(p)
+            path = self.images_dir / f"{image_id}{ext}"
+            if path.exists():
+                return str(path)
         return None
 
 
-# ---------------------------------------------------------------------------
-# Tokenisation
-# ---------------------------------------------------------------------------
-
-def encode_qa(
-    processor,
-    image: Optional[Image.Image],
-    question: str,
-    answer: str,
-    device: torch.device,
-) -> Tuple[Dict[str, torch.Tensor], int]:
-    """
-    Tokenise (image, question, answer) for teacher-forced training.
-
-    Returns:
-        enc          : dict of tensors ready for model(**enc)
-        answer_start : index of the first answer token in input_ids
-                       (used by pairwise_consistency_loss to locate the
-                        logits that predict the first answer token)
-
-    Note on tokenisation: "ASSISTANT:" ends without a trailing space. The
-    answer is prefixed with a space (" " + answer) so that SentencePiece
-    tokenises the space as part of the first answer token (e.g. "▁yes"),
-    ensuring enc is longer than enc_prompt by at least 1 token.
-    """
+def encode_qa(processor, image, question, answer, device):
+    # tokenize (image, question, answer) for teacher-forced training, returns enc and answer_start
     prompt_text = f"USER: <image>\n{question}\n{ASSISTANT_MARKER}"  # no trailing space
     full_text = prompt_text + " " + answer                           # space goes with answer
 
@@ -133,12 +84,12 @@ def encode_qa(
 
     # answer_start is the index of the first answer token.
     # prompt_len counts all prompt tokens (including image tokens).
-    # If, despite the fix, full_text tokenises to the same length as prompt_text
+    # If, despite the fix, full_text tokenizes to the same length as prompt_text
     # (e.g. answer is empty), fall back to prompt_len - 1 so at least 1 token
     # is included in the CE computation.
     prompt_len = enc_prompt["input_ids"].shape[1]
     full_len   = enc["input_ids"].shape[1]
-    answer_start: int = prompt_len if full_len > prompt_len else max(0, prompt_len - 1)
+    answer_start = prompt_len if full_len > prompt_len else max(0, prompt_len - 1)
 
     enc = {k: v.to(device) for k, v in enc.items()}
 
@@ -150,82 +101,50 @@ def encode_qa(
     return enc, answer_start
 
 
-# ---------------------------------------------------------------------------
 # Pairwise consistency loss
-# ---------------------------------------------------------------------------
-
-def pairwise_consistency_loss(
-    logits_orig: torch.Tensor,
-    logits_cf: torch.Tensor,
-    answer_start_orig: int,
-    answer_start_cf: int,
-    logical_relation: str,
-    yes_id: int,
-    no_id: int,
-) -> torch.Tensor:
-    """
-    Differentiable loss that penalises logically inconsistent answer pairs.
-
-    We inspect the model's distribution at the position that predicts the
-    first answer token (answer_start - 1 in the logits tensor).
-
-    Args:
-        logits_orig / logits_cf : (1, seq_len, vocab_size)
-        answer_start_*          : first answer token index (from encode_qa)
-        logical_relation        : one of contradiction / entails / attribute_change /
-                                  object_change / spatial_change
-        yes_id / no_id          : token IDs for "yes" and "no"
-    """
+def pairwise_consistency_loss(logits_orig, logits_cf, answer_start_orig, answer_start_cf, logical_relation, yes_id, no_id):
+    # penalize logically inconsistent yes/no answer pairs based on softmax distributions
     # Clamp to avoid out-of-bounds on very short sequences
-    pos_o = max(0, min(answer_start_orig - 1, logits_orig.size(1) - 1))
-    pos_c = max(0, min(answer_start_cf   - 1, logits_cf.size(1)   - 1))
+    pos_orig = max(0, min(answer_start_orig - 1, logits_orig.size(1) - 1))
+    pos_cf   = max(0, min(answer_start_cf   - 1, logits_cf.size(1)   - 1))
 
-    p_orig = torch.softmax(logits_orig[0, pos_o], dim=-1)
-    p_cf   = torch.softmax(logits_cf[0, pos_c],   dim=-1)
+    probs_orig = torch.softmax(logits_orig[0, pos_orig], dim=-1)
+    probs_cf   = torch.softmax(logits_cf[0, pos_cf],     dim=-1)
 
-    p_yes_o, p_no_o = p_orig[yes_id], p_orig[no_id]
-    p_yes_c, p_no_c = p_cf[yes_id],   p_cf[no_id]
+    p_yes_orig, p_no_orig = probs_orig[yes_id], probs_orig[no_id]
+    p_yes_cf,   p_no_cf   = probs_cf[yes_id],   probs_cf[no_id]
 
     if logical_relation == "contradiction":
-        # Penalise agreement: P(yes|O)·P(yes|CF) + P(no|O)·P(no|CF)
-        # Loss → 0 when one says yes and the other says no (correct)
-        # Loss → 1 when both say the same thing (incorrect)
-        loss = p_yes_o * p_yes_c + p_no_o * p_no_c
+        # penalize agreement: P(yes|O)·P(yes|CF) + P(no|O)·P(no|CF)
+        # Loss -> 0 when one says yes and the other says no (correct)
+        # Loss -> 1 when both say the same thing (incorrect)
+        loss = p_yes_orig * p_yes_cf + p_no_orig * p_no_cf
 
     elif logical_relation == "entails":
         # The counterfactual is a weaker claim entailed by the original, so
         # a truthful model should always answer "yes" to the CF question.
-        loss = -torch.log(p_yes_c + 1e-8)
+        loss = -torch.log(p_yes_cf + 1e-8)
 
     else:
         # attribute_change / object_change / spatial_change:
         # answers should differ — loss = 0 when maximally different, 1 when identical
-        loss = 1.0 - torch.abs(p_yes_o - p_yes_c)
+        loss = 1.0 - torch.abs(p_yes_orig - p_yes_cf)
 
     return loss
 
 
-# ---------------------------------------------------------------------------
 # LoRA model
-# ---------------------------------------------------------------------------
-
 _VRAM_THRESHOLD_GB = 12.0
 
 
-def _use_4bit(device: torch.device) -> bool:
+def _use_4bit(device):
     if device.type != "cuda":
         return False
     return torch.cuda.get_device_properties(0).total_memory / 1e9 < _VRAM_THRESHOLD_GB
 
 
-def build_lora_model(
-    model_id: str,
-    lora_r: int,
-    lora_alpha: int,
-    lora_dropout: float,
-    device: torch.device,
-) -> LlavaForConditionalGeneration:
-    log.info("Loading %s ...", model_id)
+def build_lora_model(model_id, lora_r, lora_alpha, lora_dropout, device):
+    log.info("Loading %s : ", model_id)
     if _use_4bit(device):
         log.info("VRAM < %.0f GB — loading in 4-bit QLoRA (bitsandbytes)", _VRAM_THRESHOLD_GB)
         bnb_cfg = BitsAndBytesConfig(
@@ -264,11 +183,8 @@ def build_lora_model(
     return model
 
 
-# ---------------------------------------------------------------------------
 # Training loop
-# ---------------------------------------------------------------------------
-
-def train(args: argparse.Namespace) -> None:
+def train(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     log.info("Using device: %s", device)
 
@@ -295,7 +211,7 @@ def train(args: argparse.Namespace) -> None:
                         collate_fn=lambda batch: batch[0])
 
     optimizer = torch.optim.AdamW(
-        [p for p in model.parameters() if p.requires_grad],
+        [param for param in model.parameters() if param.requires_grad],
         lr=args.lr,
         weight_decay=0.01,
     )
@@ -303,12 +219,12 @@ def train(args: argparse.Namespace) -> None:
     output_dir = Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    log_entries: List[Dict] = []
+    epoch_logs = []
 
     for epoch in range(1, args.epochs + 1):
         model.train()
-        sum_ce = sum_pc = 0.0
-        n_steps = 0
+        total_ce_loss = total_pc_loss = 0.0
+        num_steps = 0
 
         for step, item in enumerate(loader):
             if item["image"] is None:
@@ -316,8 +232,8 @@ def train(args: argparse.Namespace) -> None:
 
             optimizer.zero_grad()
 
-            # ------ Original forward pass ------
-            enc_orig, ans_start_orig = encode_qa(
+            # original question
+            enc_orig, answer_start_orig = encode_qa(
                 processor, item["image"],
                 item["orig_question"], item["orig_answer"],
                 tensor_device,
@@ -325,28 +241,25 @@ def train(args: argparse.Namespace) -> None:
             out_orig = model(**enc_orig)
             ce_orig = out_orig.loss  # CE on original answer tokens
 
-            # ------ Counterfactual data augmentation (CE on CF examples) ------
-            # Training on (CF_question, expected_answer) as additional QA pairs
-            # augments the training set with logically-related examples, pushing
-            # the model to answer counterfactual questions correctly.
-            cf_ans = item["cf_expected_answer"]
-            has_cf_target = bool(cf_ans) and cf_ans not in {"unknown", "n/a", ""}
+            # counterfactual question — also train on it directly as a QA pair
+            # so the model learns to answer CFs correctly, not just consistently
+            cf_answer = item["cf_expected_answer"]
+            has_cf_target = bool(cf_answer) and cf_answer not in {"unknown", "n/a", ""}
 
-            enc_cf, ans_start_cf = encode_qa(
+            enc_cf, answer_start_cf = encode_qa(
                 processor, item["image"],
                 item["cf_question"],
-                cf_ans if has_cf_target else "yes",  # placeholder when target unknown
+                cf_answer if has_cf_target else "yes",  # placeholder when target unknown
                 tensor_device,
             )
             out_cf = model(**enc_cf)
             # ce_aug: cross-entropy on the CF as an independent QA training example
             ce_aug = out_cf.loss if has_cf_target else torch.tensor(0.0, device=tensor_device)
 
-            # ------ Pairwise consistency loss ------
-            # Enforces logical consistency between original and CF answer distributions.
+            # pairwise consistency loss
             pc_loss = pairwise_consistency_loss(
                 out_orig.logits, out_cf.logits,
-                ans_start_orig, ans_start_cf,
+                answer_start_orig, answer_start_cf,
                 item["logical_relation"],
                 yes_id, no_id,
             )
@@ -362,29 +275,29 @@ def train(args: argparse.Namespace) -> None:
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             optimizer.step()
 
-            sum_ce += (ce_orig + args.augmentation_weight * ce_aug).item()
-            sum_pc += pc_loss.item()
-            n_steps += 1
+            total_ce_loss += (ce_orig + args.augmentation_weight * ce_aug).item()
+            total_pc_loss += pc_loss.item()
+            num_steps += 1
 
             if (step + 1) % args.log_every == 0:
                 log.info(
                     "Epoch %d  step %d/%d  CE=%.4f  PC=%.4f",
                     epoch, step + 1, len(dataset),
-                    sum_ce / n_steps, sum_pc / n_steps,
+                    total_ce_loss / num_steps, total_pc_loss / num_steps,
                 )
 
-        avg_ce = sum_ce / max(n_steps, 1)
-        avg_pc = sum_pc / max(n_steps, 1)
+        avg_ce = total_ce_loss / max(num_steps, 1)
+        avg_pc = total_pc_loss / max(num_steps, 1)
         log.info(
-            "=== Epoch %d complete — avg CE=%.4f  avg PC=%.4f  steps=%d ===",
-            epoch, avg_ce, avg_pc, n_steps,
+            "Epoch %d done — avg CE=%.4f  avg PC=%.4f  steps=%d",
+            epoch, avg_ce, avg_pc, num_steps,
         )
-        log_entries.append(
+        epoch_logs.append(
             {
                 "epoch": epoch,
                 "avg_ce_loss": round(avg_ce, 6),
                 "avg_pairwise_consistency_loss": round(avg_pc, 6),
-                "steps": n_steps,
+                "steps": num_steps,
             }
         )
 
@@ -397,15 +310,12 @@ def train(args: argparse.Namespace) -> None:
     # Persist training metrics for the final report
     log_path = output_dir / "training_log.json"
     with log_path.open("w", encoding="utf-8") as f:
-        json.dump(log_entries, f, indent=2)
+        json.dump(epoch_logs, f, indent=2)
     log.info("Training log saved -> %s", log_path)
 
 
-# ---------------------------------------------------------------------------
 # Entry point
-# ---------------------------------------------------------------------------
-
-def main() -> None:
+def main():
     parser = argparse.ArgumentParser(
         description="LoRA fine-tune LLaVA-1.5 with pairwise consistency loss."
     )

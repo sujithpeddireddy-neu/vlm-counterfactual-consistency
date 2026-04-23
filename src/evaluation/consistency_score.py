@@ -1,39 +1,33 @@
 import json
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 
-def normalize_text(value) -> str:
+def normalize_text(value):
     if value is None:
         return ""
     return str(value).strip().lower()
 
 
-def extract_yesno(text: str) -> str:
-    """
-    Extract a bare 'yes' or 'no' from a verbose model prediction.
-    LLaVA and similar models often answer 'Yes, the car is red.' instead of just 'yes'.
-    If the normalised text starts with 'yes' or 'no', return that token; otherwise
-    return the full normalised text so callers can fall through to open-ended checks.
-    """
-    t = normalize_text(text)
-    if t.startswith("yes"):
+def extract_yesno(text):
+    # extract bare yes/no from a verbose prediction like "Yes, the car is red."
+    normalized = normalize_text(text)
+    if normalized.startswith("yes"):
         return "yes"
-    if t.startswith("no"):
+    if normalized.startswith("no"):
         return "no"
-    return t
+    return normalized
 
 
-def load_json(json_path: str):
+def load_json(json_path):
     with Path(json_path).open("r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def answers_are_different(a: str, b: str) -> bool:
-    return normalize_text(a) != normalize_text(b)
+def answers_are_different(left, right):
+    return normalize_text(left) != normalize_text(right)
 
 
-def contradiction_check(original_pred: str, cf_pred: str) -> Tuple[bool, str]:
+def contradiction_check(original_pred, cf_pred):
     orig = extract_yesno(original_pred)
     cf = extract_yesno(cf_pred)
 
@@ -43,18 +37,18 @@ def contradiction_check(original_pred: str, cf_pred: str) -> Tuple[bool, str]:
     return (False, f"unsupported contradiction pair: original={orig}, counterfactual={cf}")
 
 
-def entailment_check(cf_pred: str) -> Tuple[bool, str]:
+def entailment_check(cf_pred):
     cf = extract_yesno(cf_pred)
     return (cf == "yes", f"entailed question should be yes; got {cf}")
 
 
-def _contains_word(text: str, word: str) -> bool:
-    """True if `word` appears as a whole word in `text` (case-insensitive)."""
+def _contains_word(text, word):
+    # true if word appears as a whole word in text (case-insensitive)
     import re
     return bool(re.search(rf"\b{re.escape(word)}\b", text))
 
 
-def attribute_change_check(original_pred: str, cf_pred: str, expected_answer: str) -> Tuple[bool, str]:
+def attribute_change_check(original_pred, cf_pred, expected_answer):
     expected = normalize_text(expected_answer)
     # When the expected answer is yes/no, extract the yes/no signal from verbose predictions
     orig = extract_yesno(original_pred) if expected in {"yes", "no"} else normalize_text(original_pred)
@@ -69,7 +63,7 @@ def attribute_change_check(original_pred: str, cf_pred: str, expected_answer: st
     return (answers_are_different(orig, cf), f"counterfactual attribute should differ from original; original={orig}, counterfactual={cf}")
 
 
-def object_change_check(original_pred: str, cf_pred: str, expected_answer: str) -> Tuple[bool, str]:
+def object_change_check(original_pred, cf_pred, expected_answer):
     expected = normalize_text(expected_answer)
     orig = normalize_text(original_pred)
     cf   = normalize_text(cf_pred)
@@ -82,7 +76,7 @@ def object_change_check(original_pred: str, cf_pred: str, expected_answer: str) 
     return (answers_are_different(orig, cf), f"counterfactual object should differ from original; original={orig}, counterfactual={cf}")
 
 
-def spatial_change_check(original_pred: str, cf_pred: str) -> Tuple[bool, str]:
+def spatial_change_check(original_pred, cf_pred):
     orig = extract_yesno(original_pred)
     cf = extract_yesno(cf_pred)
 
@@ -92,7 +86,7 @@ def spatial_change_check(original_pred: str, cf_pred: str) -> Tuple[bool, str]:
     return (answers_are_different(orig, cf), f"spatial answer should differ from original; original={orig}, counterfactual={cf}")
 
 
-def score_counterfactual(original_prediction: str, cf_item: Dict) -> Dict:
+def score_counterfactual(original_prediction, cf_item):
     relation = cf_item.get("logical_relation", "")
     cf_prediction = cf_item.get("model_prediction", "")
     expected_answer = cf_item.get("expected_answer", "")
@@ -121,7 +115,7 @@ def score_counterfactual(original_prediction: str, cf_item: Dict) -> Dict:
     }
 
 
-def score_family(prediction_family: Dict) -> Dict:
+def score_family(prediction_family):
     original = prediction_family.get("original", {})
     original_prediction = original.get("model_prediction", "")
     ground_truth = original.get("answer", "")
@@ -153,28 +147,28 @@ def score_family(prediction_family: Dict) -> Dict:
     }
 
 
-def score_dataset(prediction_families: List[Dict]) -> Dict:
+def score_dataset(prediction_families):
     family_results = [score_family(family) for family in prediction_families]
-    n = len(family_results)
-    dataset_score = sum(item["family_consistency_score"] for item in family_results) / n if n else 0.0
-    vqa_accuracy = sum(1 for item in family_results if item["original_correct"]) / n if n else 0.0
+    num_families = len(family_results)
+    dataset_score = sum(r["family_consistency_score"] for r in family_results) / num_families if num_families else 0.0
+    vqa_accuracy = sum(1 for r in family_results if r["original_correct"]) / num_families if num_families else 0.0
 
     return {
-        "num_families": n,
+        "num_families": num_families,
         "dataset_consistency_score": dataset_score,
         "vqa_accuracy": round(vqa_accuracy, 4),
         "family_results": family_results,
     }
 
 
-def save_json(obj, output_path: str) -> None:
+def save_json(obj, output_path):
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as f:
         json.dump(obj, f, indent=2, ensure_ascii=False)
 
 
-def main() -> None:
+def main():
     input_path = "results/predictions/mock_predictions.json"
     output_path = "results/metrics/mock_consistency_scores.json"
 

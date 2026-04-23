@@ -1,36 +1,13 @@
-"""
-gqa_loader.py — Convert GQA questions JSON to the pipeline's internal format.
-
-GQA format (dict):  {qid: {question, imageId, answer, types:{structural, semantic}, ...}}
-Our format (list):  [{question_id, image_id, question, answer, question_type}, ...]
-
-Type mapping:
-  structural == "verify"  →  "yes/no"
-  semantic   == "attr"    →  "attribute"
-  semantic   == "rel"     →  "spatial"
-  semantic   == "obj"     →  "object"
-  fallback                →  structural value (e.g. "query", "choose", "logical")
-
-Usage:
-    python src/counterfactual/gqa_loader.py \
-        --questions Data/questions/val_balanced_questions.json \
-        --images    Data/images \
-        --output    data/raw/gqa_val/questions.json \
-        --max-samples 1000
-"""
+# gqa_loader.py - convert GQA questions JSON to the pipeline internal format
 import argparse
 import json
 import random
 from collections import Counter, defaultdict
 from pathlib import Path
-from typing import Dict, List, Optional
 
 
-# ---------------------------------------------------------------------------
 # Type mapping
-# ---------------------------------------------------------------------------
-
-def map_question_type(types: dict) -> str:
+def map_question_type(types):
     structural = types.get("structural", "")
     semantic   = types.get("semantic",   "")
     if structural == "verify": return "yes/no"
@@ -40,31 +17,9 @@ def map_question_type(types: dict) -> str:
     return structural or "unknown"
 
 
-# ---------------------------------------------------------------------------
 # Loading and filtering
-# ---------------------------------------------------------------------------
-
-def load_gqa(
-    questions_path: str,
-    images_dir: str,
-    max_samples: Optional[int] = None,
-    keep_types: Optional[List[str]] = None,
-    seed: int = 42,
-) -> List[Dict]:
-    """
-    Load GQA questions, filter to existing images, map types, optionally sample.
-
-    Args:
-        questions_path : path to a GQA questions JSON (dict format)
-        images_dir     : directory containing {imageId}.jpg files
-        max_samples    : if set, stratified sample down to this many questions
-        keep_types     : if set, only keep questions of these question_type values
-                         (e.g. ["yes/no", "attribute", "spatial", "object"])
-        seed           : random seed for reproducible sampling
-
-    Returns:
-        List of dicts: [{question_id, image_id, question, answer, question_type}]
-    """
+def load_gqa(questions_path, images_dir, max_samples=None, keep_types=None, seed=42):
+    # load GQA questions, filter to existing images, map types, optionally sample
     images_dir = Path(images_dir)
 
     print(f"Loading {questions_path} ...")
@@ -73,7 +28,7 @@ def load_gqa(
     print(f"  {len(raw):,} questions in file")
 
     # Convert and filter in one pass
-    records: List[Dict] = []
+    records = []
     missing_images = 0
     for qid, item in raw.items():
         image_id = item["imageId"]
@@ -107,16 +62,16 @@ def load_gqa(
     return records
 
 
-def _stratified_sample(records: List[Dict], n: int, seed: int) -> List[Dict]:
-    """Sample n records proportionally from each question_type bucket."""
+def _stratified_sample(records, n, seed):
+    # sample n records proportionally from each question_type bucket
     rng = random.Random(seed)
-    by_type: Dict[str, List[Dict]] = defaultdict(list)
-    for r in records:
-        by_type[r["question_type"]].append(r)
+    by_type = defaultdict(list)
+    for record in records:
+        by_type[record["question_type"]].append(record)
 
     total = len(records)
-    sampled: List[Dict] = []
-    remainder: List[Dict] = []
+    sampled = []
+    remainder = []
 
     for qtype, items in by_type.items():
         quota = max(1, round(n * len(items) / total))
@@ -133,11 +88,8 @@ def _stratified_sample(records: List[Dict], n: int, seed: int) -> List[Dict]:
     return sampled
 
 
-# ---------------------------------------------------------------------------
 # Stats display
-# ---------------------------------------------------------------------------
-
-def print_stats(records: List[Dict]) -> None:
+def print_stats(records):
     type_counts = Counter(r["question_type"] for r in records)
     print(f"\n  Total questions selected: {len(records):,}")
     print("  Question type distribution:")
@@ -146,11 +98,8 @@ def print_stats(records: List[Dict]) -> None:
         print(f"    {qtype:<20} {count:>6,}  ({pct:.1f}%)")
 
 
-# ---------------------------------------------------------------------------
 # Entry point
-# ---------------------------------------------------------------------------
-
-def main() -> None:
+def main():
     parser = argparse.ArgumentParser(
         description="Convert GQA questions JSON to the pipeline's internal format."
     )
@@ -192,7 +141,7 @@ def main() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w", encoding="utf-8") as f:
         json.dump(records, f, indent=2, ensure_ascii=False)
-    print(f"\n  Saved → {out}")
+    print(f"\n  Saved -> {out}")
 
 
 if __name__ == "__main__":

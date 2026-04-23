@@ -1,16 +1,4 @@
-"""
-run_benchmark.py — end-to-end VLM benchmarking on counterfactual families.
-
-Runs model inference on every question in every family, scores consistency,
-and breaks results down by question_type and intervention_type.
-
-Usage:
-    python src/evaluation/run_benchmark.py \
-        --families data/counterfactual/gqa_sample_counterfactuals.json \
-        --images   data/raw/gqa_sample/images \
-        --model    llava \
-        --output   results/
-"""
+# run_benchmark.py - end-to-end VLM benchmarking on counterfactual families
 import argparse
 import copy
 import json
@@ -18,7 +6,6 @@ import logging
 import sys
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, List, Optional
 
 # Allow running from the repo root without installing as a package
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -29,27 +16,21 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 log = logging.getLogger(__name__)
 
 
-# ---------------------------------------------------------------------------
 # Model loading
-# ---------------------------------------------------------------------------
-
-def load_model_runner(model_name: str, lora_checkpoint: Optional[str] = None):
+def load_model_runner(model_name, lora_checkpoint=None):
     if model_name == "llava":
         from src.models.run_llava import LlavaRunner
-        log.info("Loading LLaVA-1.5%s ...", f" + LoRA from {lora_checkpoint}" if lora_checkpoint else "")
+        log.info("Loading LLaVA-1.5%s ", f" + LoRA from {lora_checkpoint}" if lora_checkpoint else "")
         return LlavaRunner(lora_checkpoint=lora_checkpoint)
     if model_name == "instructblip":
         from src.models.run_instructblip import InstructBlipRunner
-        log.info("Loading InstructBLIP ...")
+        log.info("Loading InstructBLIP : ")
         return InstructBlipRunner()
     raise ValueError(f"Unknown model {model_name!r}. Choose 'llava' or 'instructblip'.")
 
 
-# ---------------------------------------------------------------------------
 # Inference
-# ---------------------------------------------------------------------------
-
-def resolve_image_path(images_dir: str, image_id: str) -> Optional[str]:
+def resolve_image_path(images_dir, image_id):
     base = Path(images_dir)
     for ext in (".jpg", ".jpeg", ".png"):
         p = base / f"{image_id}{ext}"
@@ -58,11 +39,8 @@ def resolve_image_path(images_dir: str, image_id: str) -> Optional[str]:
     return None
 
 
-def run_inference(families: List[Dict], runner, images_dir: str) -> List[Dict]:
-    """
-    Deep-copy families and annotate every question with a model_prediction field.
-    Missing images are logged as warnings; their predictions are set to "N/A".
-    """
+def run_inference(families, runner, images_dir):
+    # deep-copy families and run model inference on each question
     families = copy.deepcopy(families)
     total = len(families)
 
@@ -71,7 +49,7 @@ def run_inference(families: List[Dict], runner, images_dir: str) -> List[Dict]:
         if img is None:
             log.warning("Image not found for image_id=%s — predictions set to N/A", family["image_id"])
 
-        def predict(question: str) -> str:
+        def predict(question):
             return runner.answer_question(img, question) if img else "N/A"
 
         family["original"]["model_prediction"] = predict(family["original"]["question"])
@@ -84,32 +62,23 @@ def run_inference(families: List[Dict], runner, images_dir: str) -> List[Dict]:
     return families
 
 
-# ---------------------------------------------------------------------------
 # Analysis
-# ---------------------------------------------------------------------------
-
-def attach_question_types(scored: Dict, families: List[Dict]) -> Dict:
-    """
-    score_dataset() doesn't propagate question_type. Patch it in from the
-    original families so compute_breakdown() can group by it.
-    """
+def attach_question_types(scored, families):
+    # patch question_type into scored results so compute_breakdown can group by it
     qtype_map = {
-        f["question_id"]: f["original"].get("question_type", "unknown")
-        for f in families
+        family["question_id"]: family["original"].get("question_type", "unknown")
+        for family in families
     }
     for result in scored["family_results"]:
         result["question_type"] = qtype_map.get(result["question_id"], "unknown")
     return scored
 
 
-def compute_breakdown(scored: Dict) -> Dict:
-    """
-    Returns per-question-type and per-intervention-type statistics,
-    including both Consistency Score and standard VQA accuracy per type.
-    """
-    by_qtype_consistency: Dict[str, List[float]] = defaultdict(list)
-    by_qtype_correct: Dict[str, List[int]] = defaultdict(list)
-    by_intervention: Dict[str, List[int]] = defaultdict(list)
+def compute_breakdown(scored):
+    # compute per-question-type and per-intervention-type pass rates
+    by_qtype_consistency = defaultdict(list)
+    by_qtype_correct = defaultdict(list)
+    by_intervention = defaultdict(list)
 
     for result in scored["family_results"]:
         qtype = result.get("question_type", "unknown")
@@ -128,33 +97,27 @@ def compute_breakdown(scored: Dict) -> Dict:
             for k in sorted(by_qtype_consistency)
         },
         "by_intervention_type": {
-            k: {
-                "pass_rate": round(sum(v) / len(v), 4),
-                "passed": sum(v),
-                "num_counterfactuals": len(v),
+            itype: {
+                "pass_rate": round(sum(pass_results) / len(pass_results), 4),
+                "passed": sum(pass_results),
+                "num_counterfactuals": len(pass_results),
             }
-            for k, v in sorted(by_intervention.items())
+            for itype, pass_results in sorted(by_intervention.items())
         },
     }
 
 
-# ---------------------------------------------------------------------------
 # Output
-# ---------------------------------------------------------------------------
-
-def save_json(obj, path: str) -> None:
-    p = Path(path)
-    p.parent.mkdir(parents=True, exist_ok=True)
-    with p.open("w", encoding="utf-8") as f:
+def save_json(obj, path):
+    output_path = Path(path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", encoding="utf-8") as f:
         json.dump(obj, f, indent=2, ensure_ascii=False)
-    log.info("Saved -> %s", p)
+    log.info("Saved -> %s", output_path)
 
 
-def print_report(model_name: str, scored: Dict, breakdown: Dict) -> None:
-    sep = "=" * 64
-    print(f"\n{sep}")
-    print(f"  Benchmark Report  |  model: {model_name}")
-    print(sep)
+def print_report(model_name, scored, breakdown):
+    print(f"\nBenchmark results — {model_name}")
     print(f"  Families evaluated       : {scored['num_families']}")
     print(f"  Dataset Consistency Score: {scored['dataset_consistency_score']:.4f}")
     print(f"  Standard VQA Accuracy    : {scored.get('vqa_accuracy', 'N/A')}")
@@ -173,14 +136,11 @@ def print_report(model_name: str, scored: Dict, breakdown: Dict) -> None:
             f"    {itype:<26} pass_rate={stats['pass_rate']:.4f}"
             f"  passed={stats['passed']}/{stats['num_counterfactuals']}"
         )
-    print(sep + "\n")
+    print()
 
 
-# ---------------------------------------------------------------------------
 # Entry point
-# ---------------------------------------------------------------------------
-
-def main() -> None:
+def main():
     parser = argparse.ArgumentParser(
         description="Benchmark a VLM on counterfactual families and report consistency."
     )

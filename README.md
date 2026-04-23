@@ -8,11 +8,11 @@ Khoury College of Computer Sciences, Northeastern University
 
 ## Overview
 
-Modern vision-language models (VLMs) like LLaVA-1.5 and InstructBLIP achieve impressive accuracy on VQA benchmarks — but do they truly *reason* about visual content, or do they exploit superficial question–answer correlations?
+LLaVA-1.5 and InstructBLIP score well on standard VQA benchmarks, but high accuracy alone doesn't tell you whether a model is actually reasoning about the image or just pattern-matching on question wording. A model that answers "red" to *"What color is the car?"* should also answer "no" to *"Is the car blue?"* — but many don't.
 
-This project studies this question through **counterfactual interventions**: given an image and a correctly-answered question, we generate a suite of logically-related counterfactual questions and measure whether the model's answers remain mutually consistent. A model that genuinely reasons should, for example, answer "no" to *"Is the car blue?"* if it just answered "red" to *"What color is the car?"*
+We test this by generating **counterfactual questions** from each original question-answer pair, then checking whether the model's answers across the whole group are logically consistent. We call this the **Consistency Score**.
 
-We introduce a **Consistency Score** metric, benchmark two VLMs on a GQA-based counterfactual test suite, and propose a consistency-aware LoRA fine-tuning strategy with a **Pairwise Consistency Loss** to improve model robustness.
+We benchmark LLaVA-1.5 and InstructBLIP on 1,000 GQA questions across four intervention types (negation, attribute swap, entailment, spatial perturbation), then try to close the consistency gap using LoRA fine-tuning with a **Pairwise Consistency Loss** that directly penalizes contradictory answer pairs.
 
 ---
 
@@ -33,7 +33,7 @@ We introduce a **Consistency Score** metric, benchmark two VLMs on a GQA-based c
 │   └── checkpoints/lora_llava/     # LoRA adapter checkpoints + training log
 ├── src/
 │   ├── counterfactual/
-│   │   ├── gqa_loader.py           # GQA JSON → internal format converter
+│   │   ├── gqa_loader.py           # GQA JSON -> internal format converter
 │   │   └── generate_counterfactuals.py  # Counterfactual family generator
 │   ├── models/
 │   │   ├── run_llava.py            # LLaVA-1.5 inference runner
@@ -197,7 +197,7 @@ Saves `llava_failure_report.txt` (human-readable, paste into report) and `llava_
 
 ### Step 7 — VQA v2 generalization evaluation (optional)
 
-Tests whether LoRA fine-tuning on GQA counterfactuals generalizes to VQA v2 without degrading standard accuracy. Images are streamed directly from HuggingFace — no COCO download needed.
+Checks whether LoRA fine-tuning on GQA counterfactuals carries over to VQA v2 without hurting standard accuracy. Images are streamed from HuggingFace — no COCO download needed.
 
 ```bash
 # Evaluate base model
@@ -223,7 +223,7 @@ python src/evaluation/vqa_v2_eval.py \
 
 ### Dataset
 **GQA val_balanced** — 132,062 questions on 10,234 images with 100% image coverage.
-We sample 1,000 questions using stratified sampling to maintain the natural type distribution:
+We take 1,000 questions with stratified sampling so the question type proportions match the full dataset:
 
 | Question type | Count | % |
 |---|---|---|
@@ -240,10 +240,10 @@ Each question generates 1–3 counterfactuals depending on its type:
 
 | Intervention | Logical relation | Example |
 |---|---|---|
-| **Negation** | contradiction | "Is the car red?" → "Isn't the car red?" → expect opposite yes/no |
-| **Attribute swap** | attribute_change | "What color is the car?" → expect swapped color |
-| **Entailment** | entails | "Is there something with attribute 'wood'?" → expect "yes" |
-| **Spatial perturbation** | spatial_change | "left of" → "right of" |
+| **Negation** | contradiction | "Is the car red?" -> "Isn't the car red?" -> expect opposite yes/no |
+| **Attribute swap** | attribute_change | "What color is the car?" -> expect swapped color |
+| **Entailment** | entails | "Is there something with attribute 'wood'?" -> expect "yes" |
+| **Spatial perturbation** | spatial_change | "left of" -> "right of" |
 
 Generated families for the 1,000-question GQA sample:
 
@@ -284,9 +284,9 @@ L = (CE_original + CE_counterfactual) + λ · L_pairwise
 
 | Relation | Formula | Behaviour |
 |---|---|---|
-| contradiction | `P(yes\|O)·P(yes\|CF) + P(no\|O)·P(no\|CF)` | Penalises agreement between original and CF |
-| entails | `−log(P(yes\|CF))` | Penalises CF not answering "yes" |
-| attribute/object/spatial | `1 − \|P(yes\|O) − P(yes\|CF)\|` | Penalises similar answer distributions |
+| contradiction | `P(yes\|O)·P(yes\|CF) + P(no\|O)·P(no\|CF)` | Penalizes agreement between original and CF |
+| entails | `−log(P(yes\|CF))` | Penalizes CF not answering "yes" |
+| attribute/object/spatial | `1 − \|P(yes\|O) − P(yes\|CF)\|` | Penalizes similar answer distributions |
 
 CE loss on the counterfactual is only applied when the expected answer is known (not "unknown").
 
@@ -316,11 +316,11 @@ Benchmarked on 1,000 GQA val_balanced families (1,961 counterfactuals total) usi
 ### Key Findings
 
 - **LLaVA has higher consistency** (0.69 vs 0.63) but lower VQA accuracy
-- **Both models fail attribute swap** (<7%): models do not update attribute predictions when the expected answer changes
-- **Negation is hard**: both models fail to flip yes/no answers for "Isn't X?" questions (LLaVA 15%, InstructBLIP 27%)
-- **Entailment is easy**: LLaVA answers "yes" 99% of the time to entailed questions; InstructBLIP 91%
-- **Spatial divergence**: LLaVA handles spatial perturbations better (53% vs 28%), suggesting stronger spatial grounding
-- **LoRA fine-tuning tradeoff**: Pairwise consistency loss training improves VQA accuracy (+5.4%) and attribute swap consistency (+1.8%), but reduces spatial perturbation pass rate (-7.9%). The loss encourages the model to differentiate answer distributions between O and CF, which sharpens discriminative accuracy but can conflict with existing spatial representations
+- **Both models fail attribute swap** (<7%): even when we change the question to ask about a different attribute, the model still predicts the original one
+- **Negation is hard**: neither model reliably flips its answer for "Isn't X?" questions (LLaVA 15%, InstructBLIP 27%)
+- **Entailment is easy**: LLaVA says "yes" to entailed questions 99% of the time; InstructBLIP 91%
+- **Spatial divergence**: LLaVA handles spatial perturbations much better (53% vs 28%), which lines up with its stronger visual encoder
+- **LoRA fine-tuning tradeoff**: fine-tuning improves overall VQA accuracy (+5.4%) and attribute swap pass rate (+1.8%), but hurts spatial perturbation (-7.9%). Pushing the model to give different answers for counterfactual pairs helps on attribute questions but seems to interfere with what it already learned about spatial relations
 
 ---
 
@@ -358,7 +358,7 @@ results/
 ## Troubleshooting
 
 ### `CUDA out of memory`
-- Reduce `--max-samples` when loading GQA (fewer families → shorter benchmark run)
+- Reduce `--max-samples` when loading GQA (fewer families -> shorter benchmark run)
 - LLaVA-1.5 7B needs ~14 GB in float16. The runner **automatically falls back to 4-bit quantization** (`bitsandbytes`) when less than 12 GB VRAM is detected, so most 8 GB cards work out of the box.
 - If you still run out of memory, try InstructBLIP (smaller footprint) or set `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`.
 

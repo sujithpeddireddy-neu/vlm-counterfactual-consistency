@@ -1,7 +1,6 @@
 import json
 import re
 from pathlib import Path
-from typing import Dict, List, Optional
 
 
 COLOR_SWAP = {
@@ -71,32 +70,31 @@ YES_NO_STARTERS = (
 )
 
 
-def load_questions(json_path: str) -> List[Dict]:
+def load_questions(json_path):
     with Path(json_path).open("r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def save_counterfactuals(families: List[Dict], output_path: str) -> None:
+def save_counterfactuals(families, output_path):
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as f:
         json.dump(families, f, indent=2, ensure_ascii=False)
 
 
-def normalize_question(text: str) -> str:
+def normalize_question(text):
     return re.sub(r"\s+", " ", text.strip())
 
 
-def is_yes_no_question(question: str) -> bool:
-    q = question.strip().lower()
-    return q.startswith(YES_NO_STARTERS)
+def is_yes_no_question(question):
+    return question.strip().lower().startswith(YES_NO_STARTERS)
 
 
-def strip_qmark(question: str) -> str:
+def strip_qmark(question):
     return question[:-1] if question.endswith("?") else question
 
 
-def swap_from_map(answer: str, mapping: Dict[str, str]) -> Optional[str]:
+def swap_from_map(answer, mapping):
     return mapping.get(answer.lower())
 
 
@@ -116,105 +114,101 @@ _CONTRACTION_MAP = {
 }
 
 
-def _negate_yesno(q: str) -> Optional[str]:
-    """
-    Turn 'Is the car red?' → 'Isn't the car red?' using contraction substitution.
-    Returns None if no leading auxiliary verb is recognised.
-    """
+def _negate_yesno(question):
+    # turn "Is the car red?" into "Isn't the car red?" using contraction substitution
     for verb, contracted in _CONTRACTION_MAP.items():
         pattern = rf"^{verb}\b"
-        if re.match(pattern, q.strip(), re.IGNORECASE):
-            negated = re.sub(pattern, contracted, q.strip(), count=1, flags=re.IGNORECASE)
+        if re.match(pattern, question.strip(), re.IGNORECASE):
+            negated = re.sub(pattern, contracted, question.strip(), count=1, flags=re.IGNORECASE)
             if not negated.endswith("?"):
                 negated += "?"
             return negated
     return None
 
 
-def build_negation(example: Dict) -> Dict:
-    q = normalize_question(example["question"])
-    a = str(example["answer"]).strip().lower()
+def build_negation(example):
+    question = normalize_question(example["question"])
+    answer = str(example["answer"]).strip().lower()
 
-    if is_yes_no_question(q) and a in {"yes", "no"}:
-        negated_q = _negate_yesno(q)
-        if negated_q is not None:
+    if is_yes_no_question(question) and answer in {"yes", "no"}:
+        negated = _negate_yesno(question)
+        if negated is not None:
             return {
                 "intervention_type": "negation",
-                "counterfactual_question": negated_q,
-                "expected_answer": "no" if a == "yes" else "yes",
+                "counterfactual_question": negated,
+                "expected_answer": "no" if answer == "yes" else "yes",
                 "logical_relation": "contradiction",
-                "generation_note": f"contraction negation: '{q}' → '{negated_q}'",
+                "generation_note": f"contraction negation: '{question}' -> '{negated}'",
             }
 
-    # Fallback for non-yes/no questions or unrecognised auxiliary verbs
-    lowered = strip_qmark(q).lower()
+    # Fallback for non-yes/no questions or unrecognized auxiliary verbs
+    base_text = strip_qmark(question).lower()
     return {
         "intervention_type": "negation",
-        "counterfactual_question": f"Is it false that {lowered}?",
+        "counterfactual_question": f"Is it false that {base_text}?",
         "expected_answer": "yes",
         "logical_relation": "negation",
         "generation_note": "fallback negation template",
     }
 
 
-def _swap_in_question(q: str, old: str, new: str) -> Optional[str]:
-    """Replace first word-boundary occurrence of `old` in `q` (case-insensitive).
-    Returns the modified question, or None if `old` is not found."""
-    pattern = rf"\b{re.escape(old.lower())}\b"
-    if not re.search(pattern, q.lower()):
+def _swap_in_question(question, old_word, new_word):
+    # replace first word-boundary match of old_word in question (case-insensitive)
+    pattern = rf"\b{re.escape(old_word.lower())}\b"
+    if not re.search(pattern, question.lower()):
         return None
-    replaced = re.sub(pattern, new, q.lower(), count=1)
+    replaced = re.sub(pattern, new_word, question.lower(), count=1)
     replaced = replaced[0].upper() + replaced[1:]
     if not replaced.endswith("?"):
         replaced += "?"
     return replaced
 
 
-def build_attribute_swap(example: Dict) -> Dict:
-    q = normalize_question(example["question"])
-    a = str(example["answer"]).strip()
-    a_lower = a.lower()
+def build_attribute_swap(example):
+    question = normalize_question(example["question"])
+    answer = str(example["answer"]).strip()
+    answer_lower = answer.lower()
 
-    cf_question: Optional[str] = None
-    expected: Optional[str] = None
-    note: str = ""
+    cf_question = None
+    expected = None
+    note = ""
 
-    # ── Case 1: yes/no question — scan question text for a swappable attribute ──
-    # e.g. "Is the car red?" → "Is the car blue?", expected flips yes↔no
-    if is_yes_no_question(q) and a_lower in {"yes", "no"}:
+    # Case 1: yes/no question — scan question text for a swappable attribute.
+    # e.g. "Is the car red?" -> "Is the car blue?", expected flips yes↔no
+    if is_yes_no_question(question) and answer_lower in {"yes", "no"}:
         for mapping in (COLOR_SWAP, SIZE_SWAP, MATERIAL_SWAP):
-            for attr_val, swapped_val in mapping.items():
-                swapped_q = _swap_in_question(q, attr_val, swapped_val)
+            for attr, swapped in mapping.items():
+                swapped_q = _swap_in_question(question, attr, swapped)
                 if swapped_q is not None:
                     cf_question = swapped_q
-                    expected = "no" if a_lower == "yes" else "yes"
-                    note = f"swapped '{attr_val}' → '{swapped_val}' in question; answer flipped"
+                    expected = "no" if answer_lower == "yes" else "yes"
+                    note = f"swapped '{attr}' -> '{swapped}' in question; answer flipped"
                     break
             if cf_question:
                 break
 
-    # ── Case 2: open-ended — try replacing the answer value in the question ──
-    # e.g. "What is the color of the red car?" + answer "red" → swap "red" in question
+    # Case 2: open-ended — try replacing the answer value in the question.
+    # e.g. "What color is the car?" + answer "red" -> swap "red" in question
     if cf_question is None:
-        swapped_ans = (
-            swap_from_map(a, COLOR_SWAP)
-            or swap_from_map(a, SIZE_SWAP)
-            or swap_from_map(a, MATERIAL_SWAP)
+        swapped_answer = (
+            swap_from_map(answer, COLOR_SWAP)
+            or swap_from_map(answer, SIZE_SWAP)
+            or swap_from_map(answer, MATERIAL_SWAP)
         )
-        if swapped_ans:
-            swapped_q = _swap_in_question(q, a, swapped_ans)
+        if swapped_answer:
+            swapped_q = _swap_in_question(question, answer, swapped_answer)
             if swapped_q is not None:
                 cf_question = swapped_q
-                expected = swapped_ans
-                note = f"swapped answer value '{a_lower}' → '{swapped_ans}' in question"
+                expected = swapped_answer
+                note = f"swapped answer value '{answer_lower}' -> '{swapped_answer}' in question"
             else:
                 # Answer not in question text (typical open-ended): keep question, swap expected
-                cf_question = q
-                expected = swapped_ans
-                note = f"attribute answer swapped to '{swapped_ans}' (value absent from question)"
+                cf_question = question
+                expected = swapped_answer
+                note = f"attribute answer swapped to '{swapped_answer}' (value absent from question)"
         else:
-            cf_question = q
-            expected = f"not_{a_lower}"
+            cf_question = question
+            expected = f"not_{answer_lower}"
             note = "no swap mapping found; negated expected answer"
 
     return {
@@ -226,20 +220,20 @@ def build_attribute_swap(example: Dict) -> Dict:
     }
 
 
-def build_object_swap(example: Dict) -> Dict:
-    q = normalize_question(example["question"])
-    a = str(example["answer"]).strip()
+def build_object_swap(example):
+    question = normalize_question(example["question"])
+    answer = str(example["answer"]).strip()
 
-    swapped = swap_from_map(a, OBJECT_SWAP) or f"different_{a.lower()}"
+    swapped = swap_from_map(answer, OBJECT_SWAP) or f"different_{answer.lower()}"
 
-    # Try to replace the object name in the question text
-    # e.g. "Is the person holding an umbrella?" → "Is the person holding a bag?"
-    swapped_q = _swap_in_question(q, a, swapped)
+    # Try to replace the object name in the question text.
+    # e.g. "Is the person holding an umbrella?" -> "Is the person holding a bag?"
+    swapped_q = _swap_in_question(question, answer, swapped)
     if swapped_q is not None:
         cf_question = swapped_q
-        note = f"object '{a.lower()}' → '{swapped}' swapped in question text"
+        note = f"object '{answer.lower()}' -> '{swapped}' swapped in question text"
     else:
-        cf_question = q
+        cf_question = question
         note = f"object answer swapped to '{swapped}' (object absent from question)"
 
     return {
@@ -251,19 +245,19 @@ def build_object_swap(example: Dict) -> Dict:
     }
 
 
-def build_entailment(example: Dict) -> Dict:
-    qtype = str(example.get("question_type", "")).lower()
-    a = str(example["answer"]).strip().lower()
+def build_entailment(example):
+    question_type = str(example.get("question_type", "")).lower()
+    answer = str(example["answer"]).strip().lower()
 
-    if qtype == "attribute":
+    if question_type == "attribute":
         # Only use answer as attribute label when it's a real attribute value (not yes/no).
-        if a not in {"yes", "no", ""}:
-            cf_question = f"Is there something that has the attribute '{a}'?"
+        if answer not in {"yes", "no", ""}:
+            cf_question = f"Is there something that has the attribute '{answer}'?"
         else:
             cf_question = "Are the attributes of the objects in the image visible?"
-    elif qtype == "object":
+    elif question_type == "object":
         cf_question = "Is the referenced object present in the image?"
-    elif qtype == "spatial":
+    elif question_type == "spatial":
         cf_question = "Are the referenced objects visible in the image?"
     else:
         cf_question = "Is the entity or relation mentioned in the question present in the image?"
@@ -277,14 +271,13 @@ def build_entailment(example: Dict) -> Dict:
     }
 
 
-def replace_spatial_phrase(question: str) -> Optional[str]:
-    q = question
-    lowered = q.lower()
+def replace_spatial_phrase(question):
+    q_lower = question.lower()
 
-    for old, new in sorted(SPATIAL_SWAP.items(), key=lambda x: len(x[0]), reverse=True):
-        pattern = rf"\b{re.escape(old)}\b"
-        if re.search(pattern, lowered):
-            replaced = re.sub(pattern, new, lowered, count=1)
+    for phrase, replacement in sorted(SPATIAL_SWAP.items(), key=lambda x: len(x[0]), reverse=True):
+        pattern = rf"\b{re.escape(phrase)}\b"
+        if re.search(pattern, q_lower):
+            replaced = re.sub(pattern, replacement, q_lower, count=1)
             replaced = replaced[0].upper() + replaced[1:]
             if not replaced.endswith("?"):
                 replaced += "?"
@@ -292,14 +285,14 @@ def replace_spatial_phrase(question: str) -> Optional[str]:
     return None
 
 
-def build_spatial_perturbation(example: Dict) -> Dict:
-    q = normalize_question(example["question"])
-    replaced = replace_spatial_phrase(q)
+def build_spatial_perturbation(example):
+    question = normalize_question(example["question"])
+    swapped_question = replace_spatial_phrase(question)
 
-    if replaced is not None:
+    if swapped_question is not None:
         return {
             "intervention_type": "spatial_perturbation",
-            "counterfactual_question": replaced,
+            "counterfactual_question": swapped_question,
             "expected_answer": "unknown",
             "logical_relation": "spatial_change",
             "generation_note": "spatial phrase swapped",
@@ -307,54 +300,52 @@ def build_spatial_perturbation(example: Dict) -> Dict:
 
     return {
         "intervention_type": "spatial_perturbation",
-        "counterfactual_question": q,
+        "counterfactual_question": question,
         "expected_answer": "unknown",
         "logical_relation": "spatial_change",
         "generation_note": "no spatial phrase found; left unchanged",
     }
 
 
-def select_counterfactuals(example: Dict) -> List[Dict]:
-    q = normalize_question(example["question"])
-    qtype = str(example.get("question_type", "")).lower()
+def select_counterfactuals(example):
+    question = normalize_question(example["question"])
+    question_type = str(example.get("question_type", "")).lower()
 
-    outputs = []
+    counterfactuals = []
 
-    # Yes/no questions: negation is valid; spatial perturbation only if spatial phrase exists
-    if is_yes_no_question(q):
-        outputs.append(build_negation(example))
-        outputs.append(build_entailment(example))
+    # Yes/no questions: negation is always valid; add spatial only if a spatial phrase exists
+    if is_yes_no_question(question):
+        counterfactuals.append(build_negation(example))
+        counterfactuals.append(build_entailment(example))
 
-        if replace_spatial_phrase(q) is not None or qtype == "spatial":
-            outputs.append(build_spatial_perturbation(example))
+        if replace_spatial_phrase(question) is not None or question_type == "spatial":
+            counterfactuals.append(build_spatial_perturbation(example))
 
-        return outputs
+        return counterfactuals
 
-    # Attribute questions: attribute swap + entailment
-    if qtype == "attribute":
-        outputs.append(build_attribute_swap(example))
-        outputs.append(build_entailment(example))
-        return outputs
+    if question_type == "attribute":
+        counterfactuals.append(build_attribute_swap(example))
+        counterfactuals.append(build_entailment(example))
+        return counterfactuals
 
-    # Object questions: object swap + entailment
-    if qtype == "object":
-        outputs.append(build_object_swap(example))
-        outputs.append(build_entailment(example))
-        return outputs
+    if question_type == "object":
+        counterfactuals.append(build_object_swap(example))
+        counterfactuals.append(build_entailment(example))
+        return counterfactuals
 
-    # Spatial non-yes/no questions: only include spatial perturbation if it actually changes something
-    if qtype == "spatial":
-        outputs.append(build_entailment(example))
-        if replace_spatial_phrase(q) is not None:
-            outputs.append(build_spatial_perturbation(example))
-        return outputs
+    # Spatial open-ended: only include spatial perturbation if it actually changes something
+    if question_type == "spatial":
+        counterfactuals.append(build_entailment(example))
+        if replace_spatial_phrase(question) is not None:
+            counterfactuals.append(build_spatial_perturbation(example))
+        return counterfactuals
 
-    # Fallback: keep only broadly valid transformations
-    outputs.append(build_entailment(example))
-    return outputs
+    # Fallback: entailment is broadly valid for any question type
+    counterfactuals.append(build_entailment(example))
+    return counterfactuals
 
 
-def generate_counterfactual_family(example: Dict) -> Dict:
+def generate_counterfactual_family(example):
     return {
         "question_id": example["question_id"],
         "image_id": example["image_id"],
@@ -367,7 +358,7 @@ def generate_counterfactual_family(example: Dict) -> Dict:
     }
 
 
-def main() -> None:
+def main():
     import argparse
     parser = argparse.ArgumentParser(
         description="Generate counterfactual families from internal-format questions JSON."

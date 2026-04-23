@@ -1,23 +1,7 @@
-"""
-visualize_results.py — Publication-quality figures for the Week 8 report.
 
-Produces four figures from benchmark + training outputs:
-  Fig 1  consistency_by_model.png        — overall Consistency Score per model (bar)
-  Fig 2  consistency_by_question_type.png — score broken down by question type (grouped bar)
-  Fig 3  passrate_by_intervention.png     — CF pass rate by intervention type (grouped bar)
-  Fig 4  training_curves.png              — CE loss + pairwise consistency loss over epochs (line)
-
-Usage:
-    python src/analysis/visualize_results.py \
-        --results results/metrics/llava_consistency_scores.json \
-                  results/metrics/instructblip_consistency_scores.json \
-        --training results/checkpoints/lora_llava/training_log.json \
-        --output   results/figures/
-"""
 import argparse
 import json
 from pathlib import Path
-from typing import Dict, List, Optional
 
 import matplotlib
 matplotlib.use("Agg")   # non-interactive; must come before pyplot import
@@ -26,47 +10,31 @@ import matplotlib.ticker as mticker
 import numpy as np
 
 
-# Paul Tol's colour-blind-safe palette
+# Paul Tol's colorblind-safe palette
 PALETTE = ["#4477AA", "#EE6677", "#228833", "#CCBB44", "#66CCEE", "#AA3377", "#BBBBBB"]
 
 
-# ---------------------------------------------------------------------------
 # I/O helpers
-# ---------------------------------------------------------------------------
-
-def load_results(paths: List[str]) -> Dict[str, Dict]:
-    """
-    Load one or more scored-consistency JSON files.
-    Model name is inferred from the filename stem:
-      llava_consistency_scores.json  →  "llava"
-    """
-    results: Dict[str, Dict] = {}
+def load_results(paths):
+    # load one or more scored-consistency JSON files, model name inferred from filename
+    results = {}
     for path in paths:
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
         stem = Path(path).stem                       # e.g. "llava_consistency_scores"
-        model_name = stem.split("_consistency")[0]   # → "llava"
+        model_name = stem.split("_consistency")[0]   # "llava"
         results[model_name] = data
     return results
 
 
-def save_fig(fig: plt.Figure, path: Path) -> None:
+def save_fig(fig, path):
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
-    print(f"  Saved → {path}")
+    print(f"  Saved : {path}")
 
 
-# ---------------------------------------------------------------------------
 # Shared axis styling
-# ---------------------------------------------------------------------------
-
-def _style_ax(
-    ax: plt.Axes,
-    title: str,
-    ylabel: str,
-    ylim: tuple = (0.0, 1.05),
-    pct: bool = True,
-) -> None:
+def _style_ax(ax, title, ylabel, ylim=(0.0, 1.05), pct=True):
     ax.set_title(title, fontsize=13, fontweight="bold", pad=10)
     ax.set_ylabel(ylabel, fontsize=11)
     ax.set_ylim(*ylim)
@@ -77,7 +45,7 @@ def _style_ax(
         ax.yaxis.set_major_formatter(mticker.PercentFormatter(xmax=1.0, decimals=0))
 
 
-def _bar_label(ax: plt.Axes, bar, value: float, fontsize: int = 10) -> None:
+def _bar_label(ax, bar, value, fontsize=10):
     ax.text(
         bar.get_x() + bar.get_width() / 2,
         bar.get_height() + 0.015,
@@ -87,11 +55,8 @@ def _bar_label(ax: plt.Axes, bar, value: float, fontsize: int = 10) -> None:
     )
 
 
-# ---------------------------------------------------------------------------
 # Figure 1 — Overall Consistency Score per model
-# ---------------------------------------------------------------------------
-
-def fig_overall(results: Dict[str, Dict], output_dir: Path) -> None:
+def fig_overall(results, output_dir):
     models = list(results.keys())
     scores = [results[m]["dataset_consistency_score"] for m in models]
 
@@ -112,12 +77,9 @@ def fig_overall(results: Dict[str, Dict], output_dir: Path) -> None:
     save_fig(fig, output_dir / "fig1_consistency_by_model.png")
 
 
-# ---------------------------------------------------------------------------
 # Figure 2 — Consistency Score by question type
-# ---------------------------------------------------------------------------
-
-def fig_by_question_type(results: Dict[str, Dict], output_dir: Path) -> None:
-    all_qtypes: set = set()
+def fig_by_question_type(results, output_dir):
+    all_qtypes = set()
     for data in results.values():
         all_qtypes.update(data.get("breakdown", {}).get("by_question_type", {}).keys())
     qtypes = sorted(all_qtypes)
@@ -126,28 +88,28 @@ def fig_by_question_type(results: Dict[str, Dict], output_dir: Path) -> None:
         return
 
     models = list(results.keys())
-    n_m = len(models)
+    num_models = len(models)
     x = np.arange(len(qtypes))
-    width = 0.7 / n_m
+    width = 0.7 / num_models
 
     fig, ax = plt.subplots(figsize=(max(7, len(qtypes) * 2.0), 5))
     for i, model in enumerate(models):
-        bd = results[model].get("breakdown", {}).get("by_question_type", {})
-        scores = [bd.get(qt, {}).get("mean_consistency_score", 0.0) for qt in qtypes]
-        ns     = [bd.get(qt, {}).get("num_families", 0) for qt in qtypes]
-        offset = (i - n_m / 2 + 0.5) * width
+        breakdown = results[model].get("breakdown", {}).get("by_question_type", {})
+        scores = [breakdown.get(qt, {}).get("mean_consistency_score", 0.0) for qt in qtypes]
+        sample_counts = [breakdown.get(qt, {}).get("num_families", 0) for qt in qtypes]
+        offset = (i - num_models / 2 + 0.5) * width
         bars = ax.bar(
             x + offset, scores, width,
             label=model.upper(),
             color=PALETTE[i % len(PALETTE)],
             edgecolor="white", linewidth=0.8,
         )
-        for bar, score, n in zip(bars, scores, ns):
-            if n:
+        for bar, score, count in zip(bars, scores, sample_counts):
+            if count:
                 ax.text(
                     bar.get_x() + bar.get_width() / 2,
                     bar.get_height() + 0.01,
-                    f"n={n}", ha="center", va="bottom",
+                    f"n={count}", ha="center", va="bottom",
                     fontsize=7, color="#555555",
                 )
 
@@ -160,12 +122,9 @@ def fig_by_question_type(results: Dict[str, Dict], output_dir: Path) -> None:
     save_fig(fig, output_dir / "fig2_consistency_by_question_type.png")
 
 
-# ---------------------------------------------------------------------------
 # Figure 3 — CF pass rate by intervention type
-# ---------------------------------------------------------------------------
-
-def fig_by_intervention(results: Dict[str, Dict], output_dir: Path) -> None:
-    all_itypes: set = set()
+def fig_by_intervention(results, output_dir):
+    all_itypes = set()
     for data in results.values():
         all_itypes.update(data.get("breakdown", {}).get("by_intervention_type", {}).keys())
     itypes = sorted(all_itypes)
@@ -174,28 +133,28 @@ def fig_by_intervention(results: Dict[str, Dict], output_dir: Path) -> None:
         return
 
     models = list(results.keys())
-    n_m = len(models)
+    num_models = len(models)
     x = np.arange(len(itypes))
-    width = 0.7 / n_m
+    width = 0.7 / num_models
 
     fig, ax = plt.subplots(figsize=(max(8, len(itypes) * 2.2), 5))
     for i, model in enumerate(models):
-        bd = results[model].get("breakdown", {}).get("by_intervention_type", {})
-        rates = [bd.get(it, {}).get("pass_rate", 0.0) for it in itypes]
-        ns    = [bd.get(it, {}).get("num_counterfactuals", 0) for it in itypes]
-        offset = (i - n_m / 2 + 0.5) * width
+        breakdown = results[model].get("breakdown", {}).get("by_intervention_type", {})
+        rates = [breakdown.get(it, {}).get("pass_rate", 0.0) for it in itypes]
+        sample_counts = [breakdown.get(it, {}).get("num_counterfactuals", 0) for it in itypes]
+        offset = (i - num_models / 2 + 0.5) * width
         bars = ax.bar(
             x + offset, rates, width,
             label=model.upper(),
             color=PALETTE[i % len(PALETTE)],
             edgecolor="white", linewidth=0.8,
         )
-        for bar, rate, n in zip(bars, rates, ns):
-            if n:
+        for bar, rate, count in zip(bars, rates, sample_counts):
+            if count:
                 ax.text(
                     bar.get_x() + bar.get_width() / 2,
                     bar.get_height() + 0.01,
-                    f"n={n}", ha="center", va="bottom",
+                    f"n={count}", ha="center", va="bottom",
                     fontsize=7, color="#555555",
                 )
 
@@ -208,22 +167,22 @@ def fig_by_intervention(results: Dict[str, Dict], output_dir: Path) -> None:
     save_fig(fig, output_dir / "fig3_passrate_by_intervention.png")
 
 
-# ---------------------------------------------------------------------------
 # Figure 4 — Training loss curves
-# ---------------------------------------------------------------------------
-
-def fig_training_curves(training_log_path: str, output_dir: Path) -> None:
+def fig_training_curves(training_log_path, output_dir):
     with open(training_log_path, encoding="utf-8") as f:
         log = json.load(f)
 
     import math
-    epochs  = [e["epoch"] for e in log]
-    ce_vals = [e["avg_ce_loss"] for e in log]
-    pc_vals = [e["avg_pairwise_consistency_loss"] for e in log]
+    epochs  = [entry["epoch"] for entry in log]
+    ce_vals = [entry["avg_ce_loss"] for entry in log]
+    pc_vals = [entry["avg_pairwise_consistency_loss"] for entry in log]
 
     # Filter out NaN CE values (happens when all answer tokens were masked)
-    ce_epochs = [ep for ep, v in zip(epochs, ce_vals) if v is not None and not (isinstance(v, float) and math.isnan(v))]
-    ce_clean  = [v for v in ce_vals if v is not None and not (isinstance(v, float) and math.isnan(v))]
+    def is_valid(val):
+        return val is not None and not (isinstance(val, float) and math.isnan(val))
+
+    ce_epochs = [ep for ep, val in zip(epochs, ce_vals) if is_valid(val)]
+    ce_clean  = [val for val in ce_vals if is_valid(val)]
 
     fig, ax = plt.subplots(figsize=(7, 4))
     if ce_clean:
@@ -246,11 +205,8 @@ def fig_training_curves(training_log_path: str, output_dir: Path) -> None:
     save_fig(fig, output_dir / "fig4_training_curves.png")
 
 
-# ---------------------------------------------------------------------------
 # Entry point
-# ---------------------------------------------------------------------------
-
-def main() -> None:
+def main():
     parser = argparse.ArgumentParser(
         description="Generate report figures from benchmark and training results."
     )

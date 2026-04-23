@@ -1,29 +1,10 @@
-"""
-vqa_v2_eval.py — Generalization evaluation on VQA v2 (validation split).
-
-Loads VQA v2 via HuggingFace datasets streaming — no COCO download required.
-Evaluates LLaVA-1.5 base model and optionally a LoRA fine-tuned checkpoint,
-then saves accuracy results for comparison.
-
-Usage:
-    # Base model only
-    python src/evaluation/vqa_v2_eval.py \
-        --output results/metrics/vqa_v2_base.json \
-        --num-samples 500
-
-    # Base + fine-tuned comparison
-    python src/evaluation/vqa_v2_eval.py \
-        --lora-checkpoint results/checkpoints/lora_llava/epoch_3 \
-        --output results/metrics/vqa_v2_finetuned.json \
-        --num-samples 500
-"""
+# vqa_v2_eval.py - evaluate LLaVA-1.5 on VQA v2 validation split
 import argparse
 import json
 import logging
 import os
 import sys
 from pathlib import Path
-from typing import Optional
 
 import torch
 from PIL import Image
@@ -42,15 +23,15 @@ MODEL_ID = "llava-hf/llava-1.5-7b-hf"
 _VRAM_THRESHOLD_GB = 12.0
 
 
-def _use_4bit() -> bool:
+def _use_4bit():
     if not torch.cuda.is_available():
         return False
     return torch.cuda.get_device_properties(0).total_memory / 1e9 < _VRAM_THRESHOLD_GB
 
 
-def load_model(lora_checkpoint: Optional[str] = None):
-    """Load LLaVA-1.5, optionally with a LoRA adapter on top."""
-    log.info("Loading base model %s ...", MODEL_ID)
+def load_model(lora_checkpoint=None):
+    # load LLaVA-1.5, optionally with a LoRA adapter merged in
+    log.info("Loading base model %s : ", MODEL_ID)
     if _use_4bit():
         bnb_cfg = BitsAndBytesConfig(
             load_in_4bit=True,
@@ -70,7 +51,7 @@ def load_model(lora_checkpoint: Optional[str] = None):
 
     if lora_checkpoint:
         from peft import PeftModel
-        log.info("Loading LoRA adapter from %s ...", lora_checkpoint)
+        log.info("Loading LoRA adapter from %s : ", lora_checkpoint)
         model = PeftModel.from_pretrained(model, lora_checkpoint)
         model = model.merge_and_unload()
         log.info("LoRA adapter merged into base model.")
@@ -80,7 +61,7 @@ def load_model(lora_checkpoint: Optional[str] = None):
 
 
 @torch.no_grad()
-def answer_question(model, processor, image: Image.Image, question: str) -> str:
+def answer_question(model, processor, image, question):
     prompt = f"USER: <image>\n{question}\nASSISTANT:"
     inputs = processor(text=prompt, images=image, return_tensors="pt")
     target_device = next(model.parameters()).device
@@ -92,12 +73,8 @@ def answer_question(model, processor, image: Image.Image, question: str) -> str:
     return full_text.strip()
 
 
-def vqa_accuracy(prediction: str, ground_truths: list) -> float:
-    """
-    Official VQA v2 soft accuracy:
-        min(count_of_matching_annotators / 3, 1.0)
-    where 'matching' means the predicted answer appears among the 10 annotators.
-    """
+def vqa_accuracy(prediction, ground_truths):
+    # official VQA v2 soft accuracy: min(matching_annotators / 3, 1.0)
     pred = normalize_text(prediction)
     # For yes/no predictions, extract bare yes/no from verbose outputs
     if pred.startswith("yes") or pred.startswith("no"):
@@ -106,14 +83,8 @@ def vqa_accuracy(prediction: str, ground_truths: list) -> float:
     return min(count / 3.0, 1.0)
 
 
-def load_vqa_v2_streaming(split: str = "validation", num_samples: int = 500):
-    """
-    Stream VQA v2 from HuggingFace without downloading the entire COCO dataset.
-
-    Tries multiple dataset IDs in order of preference; each must provide:
-      image (PIL.Image), question (str), answers (list of dicts with 'answer'),
-      multiple_choice_answer (str), question_id (int).
-    """
+def load_vqa_v2_streaming(split="validation", num_samples=500):
+    # stream VQA v2 from HuggingFace, tries multiple dataset IDs in order
     try:
         from datasets import load_dataset
     except ImportError:
@@ -130,7 +101,7 @@ def load_vqa_v2_streaming(split: str = "validation", num_samples: int = 500):
     dataset = None
     for ds_id, kwargs in candidates:
         try:
-            log.info("Trying VQA v2 dataset: %s ...", ds_id)
+            log.info("Trying VQA v2 dataset: %s : ", ds_id)
             dataset = load_dataset(ds_id, streaming=True, **kwargs)
             log.info("Loaded: %s", ds_id)
             break
@@ -166,11 +137,7 @@ def load_vqa_v2_streaming(split: str = "validation", num_samples: int = 500):
     return samples
 
 
-def run_evaluation(
-    num_samples: int,
-    output_path: str,
-    lora_checkpoint: Optional[str] = None,
-) -> dict:
+def run_evaluation(num_samples, output_path, lora_checkpoint=None):
     model = load_model(lora_checkpoint)
     processor = AutoProcessor.from_pretrained(MODEL_ID)
 
@@ -182,17 +149,17 @@ def run_evaluation(
     other_count = other_acc = 0
 
     for idx, sample in enumerate(samples):
-        image: Image.Image = sample["image"].convert("RGB")
-        question: str = sample["question"]
-        gt_answers: list = sample["ground_truth_answers"]
+        image = sample["image"].convert("RGB")
+        question = sample["question"]
+        gt_answers = sample["ground_truth_answers"]
 
         prediction = answer_question(model, processor, image, question)
         acc = vqa_accuracy(prediction, gt_answers)
         total_acc += acc
 
         # Track yes/no vs open-ended separately
-        mc = normalize_text(sample["multiple_choice_answer"])
-        is_yes_no = mc in {"yes", "no"}
+        mc_answer = normalize_text(sample["multiple_choice_answer"])
+        is_yes_no = mc_answer in {"yes", "no"}
         if is_yes_no:
             yes_no_count += 1
             yes_no_acc += acc
@@ -212,12 +179,12 @@ def run_evaluation(
             running_acc = total_acc / (idx + 1)
             log.info("  Step %d/%d  running_acc=%.4f", idx + 1, len(samples), running_acc)
 
-    n = len(results)
-    overall_acc = total_acc / n if n else 0.0
+    total_samples = len(results)
+    overall_acc = total_acc / total_samples if total_samples else 0.0
     summary = {
         "model": MODEL_ID,
         "lora_checkpoint": lora_checkpoint,
-        "num_samples": n,
+        "num_samples": total_samples,
         "overall_vqa_accuracy": round(overall_acc, 4),
         "yes_no_accuracy": round(yes_no_acc / yes_no_count, 4) if yes_no_count else None,
         "open_ended_accuracy": round(other_acc / other_count, 4) if other_count else None,
@@ -232,8 +199,8 @@ def run_evaluation(
         json.dump(summary, f, indent=2, ensure_ascii=False)
     log.info("Results saved -> %s", output_path)
 
-    log.info("=== VQA v2 Results ===")
-    log.info("  Overall accuracy : %.4f  (%d samples)", overall_acc, n)
+    log.info("VQA v2 results:")
+    log.info("  Overall accuracy : %.4f  (%d samples)", overall_acc, total_samples)
     if yes_no_count:
         log.info("  Yes/No accuracy  : %.4f  (%d questions)", yes_no_acc / yes_no_count, yes_no_count)
     if other_count:
@@ -242,7 +209,7 @@ def run_evaluation(
     return summary
 
 
-def main() -> None:
+def main():
     parser = argparse.ArgumentParser(
         description="Evaluate LLaVA-1.5 on VQA v2 (generalization test)."
     )

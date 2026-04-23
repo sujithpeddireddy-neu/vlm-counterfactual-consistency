@@ -9,16 +9,16 @@ MODEL_ID = "Salesforce/instructblip-flan-t5-xl"
 _VRAM_THRESHOLD_GB = 10.0
 
 
-def _use_4bit() -> bool:
+def _use_4bit():
     if not torch.cuda.is_available():
         return False
     return torch.cuda.get_device_properties(0).total_memory / 1e9 < _VRAM_THRESHOLD_GB
 
 
 class InstructBlipRunner:
-    """Loads InstructBLIP once and answers VQA questions efficiently."""
+    # loads InstructBLIP once and reuses it for multiple questions
 
-    def __init__(self, model_id: str = MODEL_ID):
+    def __init__(self, model_id=MODEL_ID):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.processor = InstructBlipProcessor.from_pretrained(model_id)
 
@@ -40,7 +40,7 @@ class InstructBlipRunner:
         self.model.eval()
 
     @torch.no_grad()
-    def answer_question(self, image_path: str, question: str) -> str:
+    def answer_question(self, image_path, question):
         image = Image.open(image_path).convert("RGB")
         inputs = self.processor(images=image, text=question, return_tensors="pt")
         target_device = next(self.model.parameters()).device
@@ -49,8 +49,8 @@ class InstructBlipRunner:
         return self.processor.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
 
 
-def answer_question(image_path: str, question: str) -> str:
-    """Convenience wrapper — loads a fresh model each call. Use InstructBlipRunner for batches."""
+def answer_question(image_path, question):
+    # convenience wrapper; for batches use InstructBlipRunner directly
     return InstructBlipRunner().answer_question(image_path, question)
 
 
