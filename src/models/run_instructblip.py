@@ -22,21 +22,28 @@ class InstructBlipRunner:
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.processor = InstructBlipProcessor.from_pretrained(model_id)
 
+        loaded = False
         if _use_4bit():
-            bnb_cfg = BitsAndBytesConfig(load_in_4bit=True)
-            self.model = InstructBlipForConditionalGeneration.from_pretrained(
-                model_id,
-                quantization_config=bnb_cfg,
-                low_cpu_mem_usage=True,
-                device_map="auto",
-            )
-        else:
+            try:
+                bnb_cfg = BitsAndBytesConfig(load_in_4bit=True)
+                self.model = InstructBlipForConditionalGeneration.from_pretrained(
+                    model_id,
+                    quantization_config=bnb_cfg,
+                    low_cpu_mem_usage=True,
+                    device_map="auto",
+                )
+                loaded = True
+            except TypeError:
+                print("4-bit loading failed (bitsandbytes/transformers version mismatch), falling back to float16")
+
+        if not loaded:
             dtype = torch.float16 if self.device == "cuda" else torch.float32
             self.model = InstructBlipForConditionalGeneration.from_pretrained(
                 model_id,
                 torch_dtype=dtype,
                 low_cpu_mem_usage=True,
-            ).to(self.device)
+                device_map="auto" if torch.cuda.is_available() else None,
+            )
         self.model.eval()
 
     @torch.no_grad()

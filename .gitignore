@@ -13,6 +13,8 @@ Data/
 data/raw/
 data/processed/
 data/counterfactual/
+results/analysis/instructblip_failure_report.txt
+resutls/analysis/llava_failure_report.txt
 results/checkpoints/lora_llava/training_log.json
 cmd.txt
 *.pt

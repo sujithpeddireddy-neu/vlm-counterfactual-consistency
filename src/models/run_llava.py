@@ -24,27 +24,33 @@ class LlavaRunner:
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.processor = AutoProcessor.from_pretrained(model_id)
 
+        loaded = False
         if _use_4bit():
-            bnb_cfg = BitsAndBytesConfig(
-                load_in_4bit=True,
-                bnb_4bit_compute_dtype=torch.float16,
-                bnb_4bit_use_double_quant=True,
-                bnb_4bit_quant_type="nf4",
-                llm_int8_enable_fp32_cpu_offload=True,
-            )
-            self.model = LlavaForConditionalGeneration.from_pretrained(
-                model_id,
-                quantization_config=bnb_cfg,
-                low_cpu_mem_usage=True,
-                device_map="auto",
-            )
-        else:
+            try:
+                bnb_cfg = BitsAndBytesConfig(
+                    load_in_4bit=True,
+                    bnb_4bit_compute_dtype=torch.float16,
+                    bnb_4bit_use_double_quant=True,
+                    bnb_4bit_quant_type="nf4",
+                )
+                self.model = LlavaForConditionalGeneration.from_pretrained(
+                    model_id,
+                    quantization_config=bnb_cfg,
+                    low_cpu_mem_usage=True,
+                    device_map="auto",
+                )
+                loaded = True
+            except TypeError:
+                print("4-bit loading failed (bitsandbytes/transformers version mismatch), falling back to float16")
+
+        if not loaded:
             dtype = torch.float16 if self.device == "cuda" else torch.float32
             self.model = LlavaForConditionalGeneration.from_pretrained(
                 model_id,
                 torch_dtype=dtype,
                 low_cpu_mem_usage=True,
-            ).to(self.device)
+                device_map="auto" if torch.cuda.is_available() else None,
+            )
 
         if lora_checkpoint:
             from peft import PeftModel
