@@ -1,4 +1,5 @@
 # Do Vision-Language Models Truly Reason?
+
 ### Measuring and Improving Causal Consistency in VQA via Counterfactual Interventions
 
 **Hemanth Sai Madadapu · Sujith Peddireddy**  
@@ -6,13 +7,13 @@ Khoury College of Computer Sciences, Northeastern University
 
 ---
 
-## Overview
+<!-- ## Overview
 
-LLaVA-1.5 and InstructBLIP score well on standard VQA benchmarks, but high accuracy alone doesn't tell you whether a model is actually reasoning about the image or just pattern-matching on question wording. A model that answers "red" to *"What color is the car?"* should also answer "no" to *"Is the car blue?"* — but many don't.
+LLaVA-1.5 and InstructBLIP score well on standard VQA benchmarks, but high accuracy alone doesn't tell you whether a model is actually reasoning about the image or just pattern-matching on question wording. A model that answers "red" to _"What color is the car?"_ should also answer "no" to _"Is the car blue?"_ — but many don't.
 
 We test this by generating **counterfactual questions** from each original question-answer pair, then checking whether the model's answers across the whole group are logically consistent. We call this the **Consistency Score**.
 
-We benchmark LLaVA-1.5 and InstructBLIP on 1,000 GQA questions across four intervention types (negation, attribute swap, entailment, spatial perturbation), then try to close the consistency gap using LoRA fine-tuning with a **Pairwise Consistency Loss** that directly penalizes contradictory answer pairs.
+We benchmark LLaVA-1.5 and InstructBLIP on 1,000 GQA questions across four intervention types (negation, attribute swap, entailment, spatial perturbation), then try to close the consistency gap using LoRA fine-tuning with a **Pairwise Consistency Loss** that directly penalizes contradictory answer pairs. -->
 
 ---
 
@@ -55,6 +56,7 @@ We benchmark LLaVA-1.5 and InstructBLIP on 1,000 GQA questions across four inter
 ## Environment Setup
 
 ### Prerequisites
+
 - Linux or Windows (WSL2)
 - NVIDIA GPU with ≥ 8 GB VRAM (tested on RTX 5060 Laptop GPU)
 - [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or Anaconda
@@ -67,7 +69,6 @@ conda create -n vlm-cf python=3.11 -y
 conda activate vlm-cf
 
 # 2. Install PyTorch with CUDA 12.8 support
-#    (supports Blackwell / RTX 50-series and older GPUs)
 pip install torch torchvision torchaudio \
     --index-url https://download.pytorch.org/whl/cu128
 
@@ -75,7 +76,7 @@ pip install torch torchvision torchaudio \
 pip install -r requirements.txt
 ```
 
-> **CUDA version note:** The command above installs PyTorch compiled for CUDA 12.8, which runs on any driver ≥ 525. If your driver is older, replace `cu128` with `cu118` or `cu121` as appropriate.
+<!-- > **CUDA version note:** The command above installs PyTorch compiled for CUDA 12.8, which runs on any driver ≥ 525. If your driver is older, replace `cu128` with `cu118` or `cu121` as appropriate. -->
 
 ### Data Setup
 
@@ -87,11 +88,13 @@ Data/
 └── questions/       # questions1.2.zip extracted here
 ```
 
+<!--
 Verify with:
+
 ```bash
 ls Data/images/ | wc -l       # expect ~148,854
 ls Data/questions/             # expect val_balanced_questions.json etc.
-```
+``` -->
 
 ---
 
@@ -109,11 +112,11 @@ python src/counterfactual/gqa_loader.py \
     --max-samples 1000
 ```
 
-| Flag | Default | Description |
-|---|---|---|
-| `--max-samples N` | all | Stratified sample (preserves type proportions) |
-| `--question-types` | all | Filter by type: `yes/no attribute spatial object` |
-| `--seed` | 42 | Random seed for reproducibility |
+<!-- | Flag               | Default | Description                                       |
+| ------------------ | ------- | ------------------------------------------------- |
+| `--max-samples N`  | all     | Stratified sample (preserves type proportions)    |
+| `--question-types` | all     | Filter by type: `yes/no attribute spatial object` |
+| `--seed`           | 42      | Random seed for reproducibility                   | -->
 
 ### Step 2 — Generate counterfactual families
 
@@ -145,7 +148,7 @@ python src/evaluation/run_benchmark.py \
 
 Saves per-model predictions and a scored JSON with per-question-type and per-intervention-type breakdowns. Prints a summary table to the terminal.
 
-### Step 4 — LoRA Fine-tuning (optional)
+<!-- ### Step 4 — LoRA Fine-tuning (optional)
 
 ```bash
 python src/training/train_lora.py \
@@ -156,16 +159,16 @@ python src/training/train_lora.py \
     --lr                 2e-4 \
     --lora-r             8 \
     --consistency-weight 0.5
-```
+``` -->
 
-| Flag | Default | Description |
-|---|---|---|
-| `--lora-r` | 8 | LoRA rank (8 for 8 GB VRAM; 16 on larger GPUs) |
-| `--augmentation-weight` | 1.0 | Weight for CF data-augmentation CE loss (0 = disable) |
-| `--consistency-weight` | 0.5 | λ for pairwise consistency loss (0 = CE only) |
-| `--log-every` | 50 | Log interval in steps |
+<!-- | Flag                    | Default | Description                                           | -->
+<!-- | ----------------------- | ------- | ----------------------------------------------------- |
+| `--lora-r`              | 8       | LoRA rank (8 for 8 GB VRAM; 16 on larger GPUs)        |
+| `--augmentation-weight` | 1.0     | Weight for CF data-augmentation CE loss (0 = disable) |
+| `--consistency-weight`  | 0.5     | λ for pairwise consistency loss (0 = CE only)         |
+| `--log-every`           | 50      | Log interval in steps                                 | -->
 
-### Step 5 — Visualize results
+<!-- ### Step 5 — Visualize results
 
 ```bash
 python src/analysis/visualize_results.py \
@@ -177,14 +180,14 @@ python src/analysis/visualize_results.py \
 
 Produces four figures in `results/figures/`:
 
-| File | Content |
-|---|---|
-| `fig1_consistency_by_model.png` | Overall Consistency Score per model |
-| `fig2_consistency_by_question_type.png` | Score broken down by question type |
-| `fig3_passrate_by_intervention.png` | Pass rate per intervention type |
-| `fig4_training_curves.png` | CE + pairwise consistency loss over training |
+| File                                    | Content                                      |
+| --------------------------------------- | -------------------------------------------- |
+| `fig1_consistency_by_model.png`         | Overall Consistency Score per model          |
+| `fig2_consistency_by_question_type.png` | Score broken down by question type           |
+| `fig3_passrate_by_intervention.png`     | Pass rate per intervention type              |
+| `fig4_training_curves.png`              | CE + pairwise consistency loss over training | -->
 
-### Step 6 — Failure case analysis
+<!-- ### Step 6 — Failure case analysis
 
 ```bash
 python src/analysis/failure_analysis.py \
@@ -193,9 +196,9 @@ python src/analysis/failure_analysis.py \
     --output  results/analysis/
 ```
 
-Saves `llava_failure_report.txt` (human-readable, paste into report) and `llava_failure_cases.json` (structured JSON).
+Saves `llava_failure_report.txt` (human-readable, paste into report) and `llava_failure_cases.json` (structured JSON). -->
 
-### Step 7 — VQA v2 generalization evaluation (optional)
+### Step 7 — VQA v2 generalization evaluation
 
 Checks whether LoRA fine-tuning on GQA counterfactuals carries over to VQA v2 without hurting standard accuracy. Images are streamed from HuggingFace — no COCO download needed.
 
@@ -212,81 +215,84 @@ python src/evaluation/vqa_v2_eval.py \
     --num-samples 500
 ```
 
-| Flag | Default | Description |
-|---|---|---|
-| `--num-samples` | 500 | Number of VQA v2 validation samples |
-| `--lora-checkpoint` | None | Path to LoRA adapter dir (omit for base model eval) |
+<!-- | Flag                | Default | Description                                         |
+| ------------------- | ------- | --------------------------------------------------- |
+| `--num-samples`     | 500     | Number of VQA v2 validation samples                 |
+| `--lora-checkpoint` | None    | Path to LoRA adapter dir (omit for base model eval) | -->
 
 ---
 
-## Experiment Design
+<!-- ## Experiment Design
 
 ### Dataset
+
 **GQA val_balanced** — 132,062 questions on 10,234 images with 100% image coverage.
 We take 1,000 questions with stratified sampling so the question type proportions match the full dataset:
 
-| Question type | Count | % |
-|---|---|---|
-| spatial | 349 | 34.9% |
-| attribute | 259 | 25.9% |
-| yes/no | 208 | 20.8% |
-| object | 95 | 9.5% |
-| query | 74 | 7.4% |
-| choose | 15 | 1.5% |
+| Question type | Count | %     |
+| ------------- | ----- | ----- |
+| spatial       | 349   | 34.9% |
+| attribute     | 259   | 25.9% |
+| yes/no        | 208   | 20.8% |
+| object        | 95    | 9.5%  |
+| query         | 74    | 7.4%  |
+| choose        | 15    | 1.5%  |
 
 ### Counterfactual Interventions
 
 Each question generates 1–3 counterfactuals depending on its type:
 
-| Intervention | Logical relation | Example |
-|---|---|---|
-| **Negation** | contradiction | "Is the car red?" -> "Isn't the car red?" -> expect opposite yes/no |
-| **Attribute swap** | attribute_change | "What color is the car?" -> expect swapped color |
-| **Entailment** | entails | "Is there something with attribute 'wood'?" -> expect "yes" |
-| **Spatial perturbation** | spatial_change | "left of" -> "right of" |
+| Intervention             | Logical relation | Example                                                             |
+| ------------------------ | ---------------- | ------------------------------------------------------------------- |
+| **Negation**             | contradiction    | "Is the car red?" -> "Isn't the car red?" -> expect opposite yes/no |
+| **Attribute swap**       | attribute_change | "What color is the car?" -> expect swapped color                    |
+| **Entailment**           | entails          | "Is there something with attribute 'wood'?" -> expect "yes"         |
+| **Spatial perturbation** | spatial_change   | "left of" -> "right of"                                             |
 
 Generated families for the 1,000-question GQA sample:
 
-| Intervention | Count |
-|---|---|
-| entailment | 1,000 |
-| negation | 444 |
-| spatial_perturbation | 355 |
-| attribute_swap | 162 |
-| **Total CFs** | **1,961** |
+| Intervention         | Count     |
+| -------------------- | --------- |
+| entailment           | 1,000     |
+| negation             | 444       |
+| spatial_perturbation | 355       |
+| attribute_swap       | 162       |
+| **Total CFs**        | **1,961** |
 
 ### Consistency Score
 
 $$\text{ConsistencyScore} = \frac{1}{|F|} \sum_{f \in F} \frac{\text{passed CFs in } f}{|\text{CFs in } f|}$$
 
 A family passes a counterfactual when the model's prediction satisfies the logical relation:
+
 - **contradiction**: original and CF predictions must be opposite yes/no answers
 - **entails**: CF prediction must be "yes"
 - **attribute/object/spatial change**: CF prediction must differ from original (or match the known swapped value)
 
 ### Models
 
-| Model | HuggingFace ID | Architecture |
-|---|---|---|
-| LLaVA-1.5 | `llava-hf/llava-1.5-7b-hf` | CLIP + Vicuna-7B, projection layer |
-| InstructBLIP | `Salesforce/instructblip-flan-t5-xl` | BLIP-2 + FlanT5-XL |
+| Model        | HuggingFace ID                       | Architecture                       |
+| ------------ | ------------------------------------ | ---------------------------------- |
+| LLaVA-1.5    | `llava-hf/llava-1.5-7b-hf`           | CLIP + Vicuna-7B, projection layer |
+| InstructBLIP | `Salesforce/instructblip-flan-t5-xl` | BLIP-2 + FlanT5-XL                 |
 
 ### Training Strategy
 
 LoRA fine-tuning of LLaVA-1.5 targets the attention `q_proj` and `v_proj` layers (rank 8 for 8 GB VRAM; use rank 16 on larger GPUs).
 
 **Total loss:**
+
 ```
 L = (CE_original + CE_counterfactual) + λ · L_pairwise
 ```
 
 **Pairwise Consistency Loss** per logical relation:
 
-| Relation | Formula | Behaviour |
-|---|---|---|
-| contradiction | `P(yes\|O)·P(yes\|CF) + P(no\|O)·P(no\|CF)` | Penalizes agreement between original and CF |
-| entails | `−log(P(yes\|CF))` | Penalizes CF not answering "yes" |
-| attribute/object/spatial | `1 − \|P(yes\|O) − P(yes\|CF)\|` | Penalizes similar answer distributions |
+| Relation                 | Formula                                     | Behaviour                                   |
+| ------------------------ | ------------------------------------------- | ------------------------------------------- |
+| contradiction            | `P(yes\|O)·P(yes\|CF) + P(no\|O)·P(no\|CF)` | Penalizes agreement between original and CF |
+| entails                  | `−log(P(yes\|CF))`                          | Penalizes CF not answering "yes"            |
+| attribute/object/spatial | `1 − \|P(yes\|O) − P(yes\|CF)\|`            | Penalizes similar answer distributions      |
 
 CE loss on the counterfactual is only applied when the expected answer is known (not "unknown").
 
@@ -298,20 +304,20 @@ Benchmarked on 1,000 GQA val_balanced families (1,961 counterfactuals total) usi
 
 ### Overall
 
-| Model | Consistency Score | VQA Accuracy |
-|---|---|---|
-| LLaVA-1.5-7B (base) | **0.6925** | 0.439 |
-| InstructBLIP-FlanT5-XL | 0.6263 | 0.502 |
-| LLaVA-1.5-7B + LoRA | 0.6598 | **0.493** |
+| Model                  | Consistency Score | VQA Accuracy |
+| ---------------------- | ----------------- | ------------ |
+| LLaVA-1.5-7B (base)    | **0.6925**        | 0.439        |
+| InstructBLIP-FlanT5-XL | 0.6263            | 0.502        |
+| LLaVA-1.5-7B + LoRA    | 0.6598            | **0.493**    |
 
 ### By Intervention Type (pass rate)
 
-| Intervention | LLaVA-1.5 | InstructBLIP | LLaVA + LoRA |
-|---|---|---|---|
-| Entailment | **99.1%** | 90.6% | 94.8% |
-| Negation | 14.9% | **27.0%** | 16.0% |
-| Spatial perturbation | **53.0%** | 27.6% | 45.1% |
-| Attribute swap | 6.8% | 6.2% | **8.6%** |
+| Intervention         | LLaVA-1.5 | InstructBLIP | LLaVA + LoRA |
+| -------------------- | --------- | ------------ | ------------ |
+| Entailment           | **99.1%** | 90.6%        | 94.8%        |
+| Negation             | 14.9%     | **27.0%**    | 16.0%        |
+| Spatial perturbation | **53.0%** | 27.6%        | 45.1%        |
+| Attribute swap       | 6.8%      | 6.2%         | **8.6%**     |
 
 ### Key Findings
 
@@ -322,7 +328,7 @@ Benchmarked on 1,000 GQA val_balanced families (1,961 counterfactuals total) usi
 - **Spatial divergence**: LLaVA handles spatial perturbations much better (53% vs 28%), which lines up with its stronger visual encoder
 - **LoRA fine-tuning tradeoff**: fine-tuning improves overall VQA accuracy (+5.4%) and attribute swap pass rate (+1.8%), but hurts spatial perturbation (-7.9%). Pushing the model to give different answers for counterfactual pairs helps on attribute questions but seems to interfere with what it already learned about spatial relations
 
----
+--- -->
 
 ## Output Files Reference
 
@@ -353,17 +359,20 @@ results/
     └── training_log.json              # CE + pairwise loss per epoch
 ```
 
----
+<!-- ---
 
 ## Troubleshooting
 
 ### `CUDA out of memory`
+
 - Reduce `--max-samples` when loading GQA (fewer families -> shorter benchmark run)
 - LLaVA-1.5 7B needs ~14 GB in float16. The runner **automatically falls back to 4-bit quantization** (`bitsandbytes`) when less than 12 GB VRAM is detected, so most 8 GB cards work out of the box.
 - If you still run out of memory, try InstructBLIP (smaller footprint) or set `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`.
 
 ### `ModuleNotFoundError` when running scripts
+
 Ensure the conda environment is active and you are running from the repo root:
+
 ```bash
 conda activate vlm-cf
 cd /path/to/vlm-counterfactual-consistency
@@ -371,60 +380,46 @@ python src/evaluation/run_benchmark.py ...
 ```
 
 ### `FileNotFoundError` for images
+
 The benchmark resolves `{image_id}.jpg` inside `--images`. Confirm:
+
 ```bash
 ls Data/images/2405722.jpg   # should exist
 ```
+
 If your images use a different naming scheme, update `resolve_image_path()` in `run_benchmark.py`.
 
 ### Hugging Face model download is slow / fails
+
 Models are downloaded automatically on first use. Set a custom cache directory:
+
 ```bash
 export HF_HOME=/path/to/large/disk/.cache/huggingface
 ```
+
 Or pre-download manually:
+
 ```bash
 huggingface-cli download llava-hf/llava-1.5-7b-hf
 huggingface-cli download Salesforce/instructblip-flan-t5-xl
 ```
 
 ### GQA val_balanced has 132K questions — loader is slow
+
 The loader streams the entire file at once. For faster iteration, use `--max-samples`:
+
 ```bash
 --max-samples 200   # quick smoke test
 --max-samples 1000  # project experiments
 ```
 
 ### `broken pipe` / `KeyboardInterrupt` during benchmark
+
 Predictions up to the point of interruption are lost (not checkpointed). Re-run from the beginning. For long runs, consider splitting `--max-samples` into smaller chunks and concatenating the prediction JSONs.
 
 ### Training loss is NaN
+
 - Usually caused by a corrupted or extremely small image. The training loop skips `None` images — check that all image paths resolve correctly.
 - Try lowering `--lr` to `1e-4`.
 
----
-
-## Dependencies
-
-| Package | Version | Purpose |
-|---|---|---|
-| torch | 2.11.0+cu128 | Deep learning framework |
-| transformers | 5.5.0 | LLaVA and InstructBLIP model classes |
-| peft | 0.18.1 | LoRA fine-tuning |
-| accelerate | 1.13.0 | Mixed precision / device management |
-| datasets | 4.8.4 | HuggingFace dataset utilities |
-| matplotlib | 3.10.8 | Visualization |
-| pillow | 12.1.1 | Image loading |
-| scikit-learn | 1.8.0 | Metrics utilities |
-| sentencepiece | 0.2.1 | Tokenizer support |
-| tqdm | 4.67.3 | Progress bars |
-
----
-
-## Citation / References
-
-- **LLaVA**: Liu et al., *Visual Instruction Tuning*, NeurIPS 2024
-- **InstructBLIP**: Dai et al., *InstructBLIP: Towards General-purpose VLMs with Instruction Tuning*, NeurIPS 2023
-- **GQA**: Hudson & Manning, *GQA: A New Dataset for Real-World Visual Reasoning*, CVPR 2019
-- **C-VQA**: Zhang et al., *What If the TV Was Off? Examining Counterfactual Reasoning in MLLMs*, CVPR 2024
-- **Struct2D**: Zhu et al., *Struct2D: A Perception-Guided Framework for Spatial Reasoning in MLLMs*, NeurIPS 2025
+--- -->
