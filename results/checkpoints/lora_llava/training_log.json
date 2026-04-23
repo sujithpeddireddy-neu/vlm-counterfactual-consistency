@@ -1,0 +1,20 @@
+[
+  {
+    "epoch": 1,
+    "avg_ce_loss": NaN,
+    "avg_pairwise_consistency_loss": 0.15574,
+    "steps": 1961
+  },
+  {
+    "epoch": 2,
+    "avg_ce_loss": NaN,
+    "avg_pairwise_consistency_loss": 0.110666,
+    "steps": 1961
+  },
+  {
+    "epoch": 3,
+    "avg_ce_loss": NaN,
+    "avg_pairwise_consistency_loss": 0.138054,
+    "steps": 1961
+  }
+]
