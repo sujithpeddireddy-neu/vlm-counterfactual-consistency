@@ -13,7 +13,7 @@ Data/
 data/raw/
 data/processed/
 data/counterfactual/
-results/checkpoints/
+results/checkpoints/lora_llava/training_log.json
 cmd.txt
 *.pt
 *.bin
